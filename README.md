@@ -1,7 +1,7 @@
 ## Title
-> Your project title
+> PetPal
 
 ## Team Members
 > Team Member #1 name
 
-> Team Member #2 name
+> Team Member Daniel Valcour
