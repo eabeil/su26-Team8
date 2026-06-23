@@ -2,6 +2,6 @@
 > PetPal
 
 ## Team Members
-> Team Member Emmanuel Abeil
+> Daniel
 
-> Team Member Daniel Valcour
+> Emmanuel
