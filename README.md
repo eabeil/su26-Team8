@@ -1,5 +1,5 @@
 ## Title
-> Your project title
+> PetPals
 
 ## Team Members
 
