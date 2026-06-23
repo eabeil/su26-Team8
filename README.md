@@ -2,6 +2,6 @@
 > Your project title
 
 ## Team Members
-> Team Member #1 name
+> Emmanuel Abeil
 
-> Team Member #2 name
+> Daniel Valcour
