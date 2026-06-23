@@ -1,5 +1,5 @@
 ## Title
-> Your project title
+> PetPal
 
 ## Team Members
 > Team Member #1 name
