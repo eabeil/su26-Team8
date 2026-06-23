@@ -1,5 +1,5 @@
 ## Title
-> PetPals
+> PetPal
 
 ## Team Members
 
