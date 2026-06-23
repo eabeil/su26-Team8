@@ -1,5 +1,5 @@
 ## Title
-> PetPal
+> Your project title
 
 ## Team Members
 > Daniel 
