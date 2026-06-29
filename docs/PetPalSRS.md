@@ -121,7 +121,7 @@
     Then  The provider's post is deleted from her profile.
   ```
 
-  - **US-26 — Provider Modify Posts**  
+- **US-26 — Provider Modify Posts**  
   _Story:_ As a provider, I want to modify a post from my profile because I made a mistake when writing it.
   _Acceptance:_ The provider can modify posts from her update feed.
   ```gherkin
