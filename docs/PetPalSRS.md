@@ -82,7 +82,7 @@
     Then  the system saves the review and updates the provider's public profile with the new rating
   ```
 
-- **US‑5 — <Acess provider details>**  
+- **US‑5 — Acess provider details**  
   _Story:_ As a customer, I want access a provider's contact details, so that I can reach out to them directly to schedule an appointment off-platform. 
   _Acceptance:_
   ```gherkin
