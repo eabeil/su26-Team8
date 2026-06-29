@@ -10,34 +10,38 @@
 ---
 
 ## 1. Overview
+<!-- Emmanuel task -->
 **Vision.** One or two sentences: who this is for, the core problem, and the outcome.
 
-**Glossary** Terms used in the project
+**Glossary** Terms used in the project <!-- Not sure what to do here. Maybe we should ask teacher. -->
 - **Term 1:** description.
 - **Term 2:** description
 
 **Primary Users / Roles.**
-- **Customer (e.g., Student/Patient/Pet Owner/etc. )** — 1 line goal statement.
+<!-- Emmanuel task -->
+- **Customer (e.g., Student/Patient/Pet Owner/etc. )** — 1 line goal statement. 
+<!-- Daniel task -->
 - **Provider (e.g., Teacher/Doctor/Pet Sitter/etc. )** — 1 line goal statement.
-- **SysAdmin (optional)** — 1 line goal statement.
 
+<!-- Daniel task (fill out based on what we agreed upon already) -->
 **Scope (this semester).**
-- <capability 1>
+- <capability 1> 
 - <capability 2>
 - <capability 3>
 
+<!-- Emmanuel task -->
 **Out of scope (deferred).**
 - <deferred 1>
 - <deferred 2>
 
-> This document is **requirements‑level** and solution‑neutral; design decisions (UI layouts, API endpoints, schemas) are documented separately.
+<!-- NOTE: This document is **requirements‑level** and solution‑neutral; design decisions (UI layouts, API endpoints, schemas) are documented separately. -->
 
 ---
 
 ## 2. Functional Requirements (User Stories)
-Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`.** Each story includes at least one **Given/When/Then** scenario.
+<!-- NOTE: Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`.** Each story includes at least one **Given/When/Then** scenario. -->
 
-### 2.1 Customer Stories
+### 2.1 Customer Stories <!-- Emmanuel task -->
 - **US‑1 — <short title>**  
   _Story:_ As a customer, I want … so that …  
   _Acceptance:_
@@ -58,7 +62,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then  <observable outcome>
   ```
 
-### 2.2 Provider Stories
+### 2.2 Provider Stories <!-- Daniel task -->
 - **US-20 — <short title>**  
   _Story:_ As a provider, I want … so that …  
   _Acceptance:_
@@ -78,44 +82,23 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     When  <action>
     Then  <observable outcome>
   ```
-
-### 2.3 SysAdmin Stories
-- **US‑30 — <short title>**  
-  _Story:_ As a sysadmin, I want … so that …  
-  _Acceptance:_
-  ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
-  ```
-
-- **US‑31 — <short title>**  
-  _Story:_ As a sysadmin, I want … so that …  
-  _Acceptance:_
-  ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
-  ```
-
 ---
 
-## 3. Non‑Functional Requirements (make them measurable)
-- **Performance:** description 
-- **Availability/Reliability:** description
-- **Security/Privacy:** description
-- **Usability:** description
+## 3. Non‑Functional Requirements (make them measurable) 
+- **Performance:** description  <!-- Emmanuel task -->
+- **Availability/Reliability:** description <!-- Daniel task -->
+- **Security/Privacy:** description <!-- Emmanuel task -->
+- **Usability:** description <!-- Daniel task -->
 
 ---
 
 ## 4. Assumptions, Constraints, and Policies
+<!-- Daniel/Emmanuel add as you see fit after discussing  -->
 - list any rules, policies, assumptions, etc.
 
 ---
 
-## 5. Milestones (course‑aligned)
+## 5. Milestones (course‑aligned) <!-- we dont change these -->
 - **M1 Requirements** — this file + stories opened as issues. 
 - **M2 High‑fidelity prototype** — core customer/provider flows fully interactive. 
 - **M3 Design** — architecture, schema, API outline. 
@@ -125,6 +108,6 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
 
 ---
 
-## 6. Change Management
+## 6. Change Management <!-- we dont change these -->
 - Stories are living artifacts; changes are tracked via repository issues and linked pull requests.  
 - Major changes should update this SRS.
