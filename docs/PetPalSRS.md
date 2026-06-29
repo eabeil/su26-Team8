@@ -119,9 +119,9 @@
 ---
 
 ## 3. Non‑Functional Requirements (make them measurable) 
-- **Performance:** description  <!-- Emmanuel task -->
+- **Performance:** Customers should expect <400ms when filtering through providers, and <300 ms when searching for providers,   <!-- Emmanuel task -->
 - **Availability/Reliability:** description <!-- Daniel task -->
-- **Security/Privacy:** description <!-- Emmanuel task -->
+- **Security/Privacy:** Customers can use Gmail to log in to ensure secuirty <!-- Emmanuel task -->
 - **Usability:** description <!-- Daniel task -->
 
 ---
