@@ -15,3 +15,31 @@
             <h1 class="text-3xl font-extrabold tracking-tight">PetPal</h1>
             <p class="text-sm text-gray-500 mt-2">Find trusted pet care in your neighborhood.</p>
         </div>
+    
+    <form class="space-y-5" onsubmit="event.preventDefault();">
+            <!--email input-->
+            <div>
+                <label class="block text-sm font-semibold mb-1">Email</label>
+                <input type="email" placeholder="name@example.com" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+            </div> 
+            <!--password input-->
+            <div>
+                <label class="block text-sm font-semibold mb-1">Password</label>
+                <input type="password" placeholder="••••••••" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+            </div>
+
+            <div class="pt-4 space-y-3">
+                <p class="text-xs text-center text-gray-400 uppercase tracking-widest font-semibold mb-3">Select your dashboard</p>
+                
+                <!-- customer login option-->
+                <a href="customer/dashboard.html" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm">
+                    Log in as Pet Owner
+                </a>
+                
+                <!--provider login option-->
+                <a href="provider/dashboard.html" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
+                    Log in as Provider
+                </a>
+            </div>
+        </form>
+    
