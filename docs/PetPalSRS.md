@@ -42,25 +42,57 @@
 <!-- NOTE: Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`.** Each story includes at least one **Given/When/Then** scenario. -->
 
 ### 2.1 Customer Stories <!-- Emmanuel task -->
-- **US‑1 — <short title>**  
-  _Story:_ As a customer, I want … so that …  
+- **US‑1 — <Creating an account>**  
+  _Story:_ As a customer, I want to create a personal account, so that I can set up my pet profiles, and leave reviews 
   _Acceptance:_
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
+  Scenario: <Successfully registering a new account>
+    Given <unregistered user is on the platform's sign-up page>
+    When  <they enter a valid email address, create a password, and click "Create Account">
+    Then  <the system registers their account, logs them in, and redirects them to the customer dashboard to add their first pet profile>
   ```
 
-- **US‑2 — <short title>**  
-  _Story:_ As a customer, I want … so that …  
+
+- **US‑2 — <Creating Pet profile>**  
+  _Story:_ As a customer, I want to create a profile for my pet with all of their information, so providers could have an understanding of their needs. 
   _Acceptance:_
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
+  Scenario: <Successfully creating a new pet profile>
+    Given <the customer is logged into their account and navigates to the "Add Pet" page>
+    When  <they fill out the pet information form with valid details (name, breed, care needs) and click "Save">
+    Then  <the system saves the pet profile and displays the new profile on the customer's dashboard>
   ```
+
+- **US‑3 — <Search and filer through provider>**  
+  _Story:_ As a customer, I want to be able to navigate and search for pet care professionals based on previous reviews, prices, and services, so that I can find one that match my needs. 
+  _Acceptance:_
+  ```gherkin
+  Scenario: <Filtering providers by specific service and price>
+    Given <the customer is on the provider search directory>
+    When  <they select a specific service (e.g., "Dog Walking"), set a maximum price filter, and click "Search">
+    Then  <the system displays a list of providers who offer that service within the price range, sorted by review ratings>
+  ```
+
+- **US‑4 — <Write a review>**  
+  _Story:_ As a customer, I want to write a review after an appt., so that I can help others in case if they want to book them in the future.
+  _Acceptance:_
+  ```gherkin
+  Scenario: <Submitting a review on a provider's page>
+    Given <the customer is logged in and viewing a specific provider's profile>
+    When  <they click "Write a Review", select a star rating, enter their written feedback, and click "Submit">
+    Then  <the system saves the review and updates the provider's public profile with the new rating>
+  ```
+
+- **US‑5 — <Acess provider details>**  
+  _Story:_ As a customer, I want access a provider's contact details, so that I can reach out to them directly to schedule an appointment off-platform. 
+  _Acceptance:_
+  ```gherkin
+  Scenario: <Accessing contact details to book service>
+    Given <the customer is viewing a specific provider's profile>
+    When  <they click the "Contact Provider" button>
+    Then  <the system displays the provider's business phone number, email, and external website link>
+  ```
+
 
 ### 2.2 Provider Stories <!-- Daniel task -->
 - **US-20 — <short title>**  
