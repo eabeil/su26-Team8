@@ -21,7 +21,7 @@
 <!-- Emmanuel task -->
 - **Customer (e.g., Student/Patient/Pet Owner/etc. )** — 1 line goal statement. 
 <!-- Daniel task -->
-- **Provider (e.g., Teacher/Doctor/Pet Sitter/etc. )** — 1 line goal statement.
+- **Provider (Pet Service Provider )** — Advertise pet services to pet owners in Greensboro, North Carolina.
 
 <!-- Daniel task (fill out based on what we agreed upon already) -->
 **Scope (this semester).**
