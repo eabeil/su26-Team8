@@ -1,11 +1,11 @@
 
-# Requirements – Starter Template
+# Requirements
 
-**Project Name:** Your App Name \
-**Team:** Names and roles \
+**Project Name:** PetPal
+**Team:** Emmanuel (customer) and Daniel (provider)
 **Course:** CSC 340\
 **Version:** 1.0\
-**Date:** 2026-06-25
+**Date:** 2026-07-23
 
 ---
 
