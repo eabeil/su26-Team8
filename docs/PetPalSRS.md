@@ -11,7 +11,7 @@
 
 ## 1. Overview
 <!-- Emmanuel task -->
-**Vision.** One or two sentences: who this is for, the core problem, and the outcome.
+**Vision.** A directory built for pet owners who struggle to find trustworthy, well reviewed pet care. By providing transparent reviews, service listings, and direct contact information for local pet care professionals, it allows owners discover and reach out to the right provider for their pet's unique needs.
 
 **Glossary** Terms used in the project <!-- Not sure what to do here. Maybe we should ask teacher. -->
 - **Term 1:** description.
@@ -19,7 +19,7 @@
 
 **Primary Users / Roles.**
 <!-- Emmanuel task -->
-- **Customer (e.g., Student/Patient/Pet Owner/etc. )** — 1 line goal statement. 
+- **Customer (Pet Owners)** — Creates detailed pet profiles and uses the directory to find, evaluate, and contact local pet care professionals based on reviews and services. 
 <!-- Daniel task -->
 - **Provider (e.g., Teacher/Doctor/Pet Sitter/etc. )** — 1 line goal statement.
 
