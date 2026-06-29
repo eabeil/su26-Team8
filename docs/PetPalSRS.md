@@ -31,8 +31,11 @@
 
 <!-- Emmanuel task -->
 **Out of scope (deferred).**
-- <deferred 1> 
-- <deferred 2>
+- <deferred 1> Social network for pet owners
+- <deferred 2> Pet adoption service
+- <deferred 3> Appointment booking and scheduler system
+- <deferred 4> GPS/tracking pet system.
+
 
 <!-- NOTE: This document is **requirements‑level** and solution‑neutral; design decisions (UI layouts, API endpoints, schemas) are documented separately. -->
 
