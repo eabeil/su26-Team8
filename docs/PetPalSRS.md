@@ -31,7 +31,7 @@
 
 <!-- Emmanuel task -->
 **Out of scope (deferred).**
-- <deferred 1>
+- <deferred 1> 
 - <deferred 2>
 
 <!-- NOTE: This document is **requirements‑level** and solution‑neutral; design decisions (UI layouts, API endpoints, schemas) are documented separately. -->
@@ -42,18 +42,18 @@
 <!-- NOTE: Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`.** Each story includes at least one **Given/When/Then** scenario. -->
 
 ### 2.1 Customer Stories <!-- Emmanuel task -->
-- **US‑1 — <Creating an account>**  
+- **US‑1 — Creating an account**  
   _Story:_ As a customer, I want to create a personal account, so that I can set up my pet profiles, and leave reviews 
   _Acceptance:_
   ```gherkin
-  Scenario: <Successfully registering a new account>
-    Given <unregistered user is on the platform's sign-up page>
-    When  <they enter a valid email address, create a password, and click "Create Account">
-    Then  <the system registers their account, logs them in, and redirects them to the customer dashboard to add their first pet profile>
+  Scenario: Successfully registering a new account
+    Given unregistered user is on the platform's sign-up page
+    When  They enter a valid email address, create a password, and click "Create Account"
+    Then  the system registers their account, logs them in, and redirects them to the customer dashboard to add their first pet profile
   ```
 
 
-- **US‑2 — <Creating Pet profile>**  
+- **US‑2 — Creating Pet profile**  
   _Story:_ As a customer, I want to create a profile for my pet with all of their information, so providers could have an understanding of their needs. 
   _Acceptance:_
   ```gherkin
@@ -73,7 +73,7 @@
     Then  <the system displays a list of providers who offer that service within the price range, sorted by review ratings>
   ```
 
-- **US‑4 — <Write a review>**  
+- **US‑4 — Write a review**  
   _Story:_ As a customer, I want to write a review after an appt., so that I can help others in case if they want to book them in the future.
   _Acceptance:_
   ```gherkin
