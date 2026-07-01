@@ -137,7 +137,7 @@
 
 - **US-24 — Provider Update Feed**  
   _Story:_ As a provider, I want to post an update so customers can see what I am doing.
-  _Acceptance:_ The provider can post updates which appear in a feed on her profile. The updates can include text, embedded images, and embedded videos.
+  _Acceptance:_ The provider can post updates which appear in a feed on her profile. The updates include text and an image.
   ```gherkin
   Scenario: The provider posts an update to her profile.
     Given The provider is logged in to her account.
@@ -155,17 +155,7 @@
     Then  The provider's post is deleted from her profile.
   ```
 
-- **US-26 — Provider Modify Posts**  
-  _Story:_ As a provider, I want to modify a post from my profile because I made a mistake when writing it.
-  _Acceptance:_ The provider can modify posts from her update feed.
-  ```gherkin
-  Scenario: The provider modifies a post from her profile.
-    Given The provider is logged in to her account.
-    When  The provider clicks a button to edit a post from her profile, makes changes, and then clicks another button to confirm the changes.
-    Then  The provider's post is modified.
-  ```
-
-- **US-27 — Provider Review Response**  
+- **US-26 — Provider Review Response**  
   _Story:_ As a provider, I want to reply to reviews so I can respond to customers.
   _Acceptance:_
   ```gherkin
@@ -174,7 +164,7 @@
     When  The provider writes a response to a customer review and clicks a button to post the response.
     Then  The provider's response is posted to her profile under the review.
 
-- **US-28 — Provider Profile Deletion**  
+- **US-27 — Provider Profile Deletion**  
   _Story:_ As a provider, I want delete my profile so that customers stop contacting me for my services.
   _Acceptance:_ The provider can delete account from the edit profile page.
   ```gherkin
@@ -182,6 +172,15 @@
     Given The provider is logged in to her account.
     When  The provider can delete her account by clicking a button on the edit profile page and then clicking confirm.
     Then  The provider should be logged out and her account information and profile should be deleted from the database.
+
+- **US-28 — View Customers**  
+  _Story:_ As a provider, view customer profiles so that I can learn about their needs.
+  _Acceptance:_ The provider can view customer profiles.
+  ```gherkin
+  Scenario: The provider browses customer profiles.
+    Given The provider is logged in to her account.
+    When  The provider searches for customers.
+    Then  The provider can view information from each customer profile.
 ---
 
 ## 3. Non‑Functional Requirements (make them measurable) 
