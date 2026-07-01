@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Dashboard - PetPal</title>
+    <!--tailwind setup-->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 font-sans text-black min-h-screen">
@@ -14,11 +15,12 @@
             <a href="dashboard.html" class="text-black border-b-2 border-black pb-1">Dashboard</a>
             <a href="#" class="text-gray-500 hover:text-black transition-colors">Directory</a>
             <a href="#" class="text-gray-500 hover:text-black transition-colors">My Profile</a>
-            <a href="../index.html" class="text-red-600 hover:text-red-800 transition-colors ml-4">Log Out</a>
+            <a href="../common/index.html" class="text-red-600 hover:text-red-800 transition-colors ml-4">Log Out</a>
         </div>
     </nav>
 
     <main class="max-w-4xl mx-auto px-8 md:px-12 py-12">
+
     <!--greeting and update-->
         <div class="mb-10">
             <h1 class="text-4xl font-bold mb-3">Welcome back, Emmanuel!</h1>
@@ -63,7 +65,7 @@
                     <button class="mt-auto w-full text-sm font-semibold border border-gray-300 py-2 rounded hover:border-black transition-colors">Edit Profile</button>
                 </div>
 
-
+                <!--adding pet card-->
                 <a href="add-pet.html" class="border-2 border-dashed border-gray-300 rounded-2xl p-5 flex flex-col items-center justify-center text-gray-500 hover:border-black hover:bg-gray-50 transition-colors cursor-pointer min-h-[200px]">
                     <span class="text-3xl mb-2"></span>
                     <span class="text-sm font-bold">Add a New Pet</span>
@@ -73,10 +75,11 @@
         
         <section>
             <div class="flex justify-between items-end mb-6">
-                <h2 class="text-xl font-bold">Saved Providers</h2>
-                <a href="/high-fidelity-prototype/common/" class="text-sm font-bold hover:underline">Find more providers &rarr;</a>
+                <h2 class="text-xl font-bold">Saved PetPals</h2>
+                <a href="#" class="text-sm font-bold hover:underline">Find more PetPals &rarr;</a>
             </div>
-            
+
+            <!--provider card one-->>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex justify-between items-center">
                     <div class="flex items-center gap-4">
@@ -90,6 +93,7 @@
                     <a href="#" class="text-sm font-semibold border-2 border-black px-4 py-2 rounded hover:bg-black hover:text-white transition-colors">View</a>
                 </div>
 
+                <!--provider card two-->
                 <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex justify-between items-center">
                     <div class="flex items-center gap-4">
                         <img src="content/male.jpg" alt="Marcus Thorne" class="w-14 h-14 rounded-full object-cover border border-gray-200">
