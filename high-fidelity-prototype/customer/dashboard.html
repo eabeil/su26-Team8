@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Dashboar - PetPal</title>
+    <title>Customer Dashboard - PetPal</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 font-sans text-black min-h-screen">
@@ -12,7 +12,7 @@
         <div class="text-xl font-extrabold tracking-tight">PetPal</div>
         <div class="space-x-6 text-sm font-medium">
             <a href="dashboard.html" class="text-black border-b-2 border-black pb-1">Dashboard</a>
-            <a href="#" class="text-gray-500 hover:text-black transition-colors">Direcotary</a>
+            <a href="#" class="text-gray-500 hover:text-black transition-colors">Directory</a>
             <a href="#" class="text-gray-500 hover:text-black transition-colors">My Profile</a>
             <a href="../index.html" class="text-red-600 hover:text-red-800 transition-colors ml-4">Log Out</a>
         </div>
@@ -29,28 +29,43 @@
             <h2 class="text-2xl font-bold mb-6">My Pets</h2>    
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
+                <!--card one-->
                 <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col">
-                    <img src="../images/dog.jpg" alt="Max" class="w-14 h-14 rounded-full object-cover border border-gray-200">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-lg font-bold">Max</h3>
+                    
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex items-center gap-4">
+                            <img src="content/dog.jpeg" alt="Max" class="w-14 h-14 rounded-full object-cover border border-gray-200">
+                            <div>
+                                <h3 class="text-lg font-bold">Max</h3>
+                                <p class="text-sm text-gray-500 mb-6">Golden Retriever • 4 yrs old</p>
+                            </div>
+                        </div>
+                    
                         <span class="bg-gray-100 text-xs font-bold px-2 py-1 rounded">High Energy</span>
                     </div>
-                    <p class="text-sm text-gray-500 mb-6">Golden Retriever • 4 yrs old</p>
                     <button class="mt-auto w-full text-sm font-semibold border border-gray-300 py-2 rounded hover:border-black transition-colors">Edit Profile</button>
                 </div>
 
+                <!--card two-->
                 <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col">
-                    <img src="../images/cat.jpg" alt="Luna" class="w-14 h-14 rounded-full object-cover border border-gray-200">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-lg font-bold">Luna</h3>
+                    
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex items-center gap-4">
+                            <img src="content/cat.jpg" alt="Luna" class="w-14 h-14 rounded-full object-cover border border-gray-200">
+                            <div>
+                                <h3 class="text-lg font-bold">Luna</h3>
+                                <p class="text-sm text-gray-500 mb-6">Siamese Cat • 2 yrs old</p>
+                            </div>
+                        </div>
+                    
                         <span class="bg-gray-100 text-xs font-bold px-2 py-1 rounded">Medication</span>
                     </div>
-                    <p class="text-sm text-gray-500 mb-6">Siamese Cat • 2 yrs old</p>
                     <button class="mt-auto w-full text-sm font-semibold border border-gray-300 py-2 rounded hover:border-black transition-colors">Edit Profile</button>
                 </div>
 
-                <a href="add-pet.html" class="border-2 border-dashed border-gray-300 rounded-xl p-6 flex flex-col items-center justify-center text-gray-500 hover:border-black hover:text-black transition-colors cursor-pointer min-h-[160px]">
-                    <span class="text-3xl mb-2">+</span>
+
+                <a href="add-pet.html" class="border-2 border-dashed border-gray-300 rounded-2xl p-5 flex flex-col items-center justify-center text-gray-500 hover:border-black hover:bg-gray-50 transition-colors cursor-pointer min-h-[200px]">
+                    <span class="text-3xl mb-2"></span>
                     <span class="text-sm font-bold">Add a New Pet</span>
                 </a>
             </div>
@@ -59,28 +74,35 @@
         <section>
             <div class="flex justify-between items-end mb-6">
                 <h2 class="text-xl font-bold">Saved Providers</h2>
-                <a href="directory.html" class="text-sm font-bold hover:underline">Find more providers &rarr;</a>
+                <a href="/high-fidelity-prototype/common/" class="text-sm font-bold hover:underline">Find more providers &rarr;</a>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex justify-between items-center">
-                    <img src="../images/sarah.jpg" alt="Sarah Jenkins" class="w-14 h-14 rounded-full object-cover border border-gray-200">
-                    <div>    
-                        <h3 class="text-lg font-bold">Sarah Jenkins</h3>
-                        <p class="text-sm text-gray-500">Dog Walking & Sitting</p>
-                        <p class="text-xs font-bold mt-2">★ 4.9 (12 reviews)</p>
-                    </div>
+                    <div class="flex items-center gap-4">
+                        <img src="content/female.jpg" alt="Sarah Jenkins" class="w-14 h-14 rounded-full object-cover border border-gray-200">
+                        <div>    
+                            <h3 class="text-lg font-bold">Sarah Jenkins</h3>
+                            <p class="text-sm text-gray-500">Dog Walking & Sitting</p>
+                            <p class="text-xs font-bold mt-2">★ 4.9 (12 reviews)</p>
+                        </div>
+                    </div>    
                     <a href="#" class="text-sm font-semibold border-2 border-black px-4 py-2 rounded hover:bg-black hover:text-white transition-colors">View</a>
                 </div>
 
                 <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex justify-between items-center">
-                    <img src="../images/marcus.jpg" alt="Marcus Thorne" class="w-14 h-14 rounded-full object-cover border border-gray-200">
-                    <div>
-                        <h3 class="text-lg font-bold">Marcus Thorne</h3>
-                        <p class="text-sm text-gray-500">Cat Care & Grooming</p>
-                        <p class="text-xs font-bold mt-2">★ 4.7 (8 reviews)</p>
+                    <div class="flex items-center gap-4">
+                        <img src="content/male.jpg" alt="Marcus Thorne" class="w-14 h-14 rounded-full object-cover border border-gray-200">
+                        <div>
+                            <h3 class="text-lg font-bold">Marcus Thorne</h3>
+                            <p class="text-sm text-gray-500">Cat Care & Grooming</p>
+                            <p class="text-xs font-bold mt-2">★ 4.7 (8 reviews)</p>
+                        </div>
                     </div>
                     <a href="#" class="text-sm font-semibold border-2 border-black px-4 py-2 rounded hover:bg-black hover:text-white transition-colors">View</a>
                 </div>
             </div>
         </section>
+    </main>
+</body>
+</html>
