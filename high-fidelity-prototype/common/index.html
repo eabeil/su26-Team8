@@ -7,10 +7,10 @@
     <!--tailwind setup-->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 flex items-center justify-center min-h-screen font-sans text-black">
+<body class="bg-gray-50 flex items-center justify-center min-h-screen font-sans text-black flex flex-col">
 
     <!--login container-->
-    <div class="w-full max-w-md p-8 bg-white border border-gray-200 rounded-xl shadow-sm">
+    <main class="w-full max-w-md p-8 bg-white border border-gray-200 rounded-xl shadow-sm">
         <div class="text-center mb-8">
             <h1 class="text-3xl font-extrabold tracking-tight">PetPal</h1>
             <p class="text-sm text-gray-500 mt-2">Find trusted pet care in your neighborhood.</p>
@@ -31,7 +31,7 @@
             <div class="pt-4 space-y-3">
                 <p class="text-xs text-center text-gray-400 uppercase tracking-widest font-semibold mb-3">Select your dashboard</p>    
                 <!-- customer login option-->
-                <a href="customer/dashboard.html" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm">
+                <a href="../customer/dashboard.html" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm">
                     Log in as Pet Owner
                 </a>       
                 <!--provider login option// make sure that your .html file matches here so that it can link-->
@@ -45,6 +45,7 @@
         <div class="mt-8 text-center text-sm text-gray-500">
             Don't have an account? <a href="#" class="text-black font-bold hover:underline">Sign up</a>
         </div>
-    </div>
+    </main>
+
 </body>
 </html>    

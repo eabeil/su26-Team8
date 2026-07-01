@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a New Pet - PetPal</title>
+    <!--tailwind setup-->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans text-black min-h-screen flex flex-col">
+    <!--navigation-->
+    <nav class="bg-white border-b border-gray-200 px-8 md:px-12 py-4 flex justify-between items-center sticky top-0 z-10">
+        <div class="text-xl font-extrabold tracking-tight">PetPal</div>
+        <div class="space-x-6 text-sm font-medium">
+            <a href="dashboard.html" class="text-black border-b-2 border-black pb-1">Dashboard</a>
+            <a href="directory.html" class="text-gray-500 hover:text-black transition-colors">Directory</a>
+            <a href="profile.html" class="text-gray-500 hover:text-black transition-colors">My Profile</a>
+            <a href="../common/index.html" class="text-red-600 hover:text-red-800 transition-colors ml-4">Log Out</a>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-8 md:px-12 py-12 flex-grow w-full">
+        <!--header-->
+        <div class="mb-8">
+            <a href="dashboard.html" class="text-sm text-gray-500 hover:text-black font-semibold mb-4 inline-block">&larr; Back to Dashboard</a>
+            <h1 class="text-3xl font-extrabold mb-2">Add a New Pet</h1>
+            <p class="text-gray-500">Create a profile to help us understand your Pet's needs.</p>
+        </div>
+
+        <!--form-->
+        <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+            <form onsubmit="event.preventDefault(); window.location.href='dashboard.html';" class="space-y-6">
+
+                <!--photo-->
+                <div class="flex items-center gap-6 pb-6 border-b border-gray-100">
+                    <div class="w-24 h-24 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50 text-gray-400">
+                        <span class="text-2xl font-light">+</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold mb-1">Profile Photo</h3>
+                        <p class="text-xs text-gray-500 mb-3">Upload a clear photo of your pet.</p>
+                        <button type="button" class="text-sm font-semibold border border-gray-300 px-4 py-1.5 rounded-lg hover:border-black hover:bg-gray-50 transition-colors">Choose File</button>
+                    </div>
+                </div>
+
+                <!--info grid-->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Pet's Name <span class="text-red-500">*</span></label>
+                        <input type="text" required placeholder="e.g. Max" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Species <span class="text-red-500">*</span></label>
+                        <select required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-black">
+                            <option value="">Select Pet Type</option>
+                            <option>Dog</option>
+                            <option>Cat</option>
+                            <option>Bird</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Breed</label>
+                        <input type="text" placeholder="e.g. Golden Retriever" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Age</label>
+                            <input type="text" placeholder="e.g. 4 yrs" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Weight (lbs)</label>
+                            <input type="number" placeholder="e.g. 65" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                        </div>
+                    </div>
+                </div>
+
+                <!--tags-->
+                <div class="pt-4 pb-2">
+                    <label class="block text-sm font-bold mb-3">Check all that apply</label>
+                    <div class="flex flex-wrap gap-3">
+                        <label class="inline-flex items-center border border-gray-200 px-3 py-1.5 rounded-full cursor-pointer hover:border-black transition-colors">
+                            <input type="checkbox" class="accent-black mr-2"> <span class="text-sm font-medium">High Energy</span>
+                        </label>
+                        <label class="inline-flex items-center border border-gray-200 px-3 py-1.5 rounded-full cursor-pointer hover:border-black transition-colors">
+                            <input type="checkbox" class="accent-black mr-2"> <span class="text-sm font-medium">Anxious</span>
+                        </label>
+                        <label class="inline-flex items-center border border-gray-200 px-3 py-1.5 rounded-full cursor-pointer hover:border-black transition-colors">
+                            <input type="checkbox" class="accent-black mr-2"> <span class="text-sm font-medium">Requires Medication</span>
+                        </label>
+                        <label class="inline-flex items-center border border-gray-200 px-3 py-1.5 rounded-full cursor-pointer hover:border-black transition-colors">
+                            <input type="checkbox" class="accent-black mr-2"> <span class="text-sm font-medium">Great with other pets</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!--more instructions-->
+                <div>
+                    <label class="block text-sm font-bold mb-2">Special Care Instructions</label>
+                    <textarea rows="4" placeholder="Any allergies, behavioral quirks, or specific feeding instructions?" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black resize-none"></textarea>
+                </div>
+
+                <!--actions-->
+                <div class="pt-6 border-t border-gray-100 flex justify-end gap-4">
+                    <a href="dashboard.html" class="px-6 py-2.5 rounded-lg font-semibold text-gray-600 hover:bg-gray-100 transition-colors">Cancel</a>
+                    <button type="submit" class="bg-black text-white px-8 py-2.5 rounded-lg font-semibold hover:bg-gray-800 transition-colors shadow-sm">
+                        Save Pet Profile
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>

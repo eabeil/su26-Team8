@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - PetPal</title>
+    <!--tailwind setup-->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans text-black min-h-screen flex flex-col">
+    <!--navigation-->
+    <nav class="bg-white border-b border-gray-200 px-8 md:px-12 py-4 flex justify-between items-center sticky top-0 z-10">
+        <div class="text-xl font-extrabold tracking-tight">PetPal</div>
+        <div class="space-x-6 text-sm font-medium">
+            <a href="dashboard.html" class="text-black border-b-2 border-black pb-1">Dashboard</a>
+            <a href="directory.html" class="text-gray-500 hover:text-black transition-colors">Directory</a>
+            <a href="profile.html" class="text-gray-500 hover:text-black transition-colors">My Profile</a>
+            <a href="../common/index.html" class="text-red-600 hover:text-red-800 transition-colors ml-4">Log Out</a>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-8 md:px-12 py-12 flex-grow w-full">
+
+    <!--greeting and update-->
+        <div class="mb-10">
+            <h1 class="text-4xl font-bold mb-3">Welcome back, Emmanuel!</h1>
+            <p class="text-gray-500 text-lg">You have 2 pets and 2 saved providers.</p>
+        </div>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6">My Pets</h2>    
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!--card one-->
+                <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col">
+                    
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex items-center gap-4">
+                            <img src="../common/content/dog.jpeg" alt="Max" class="w-14 h-14 rounded-full object-cover border border-gray-200">
+                            <div>
+                                <h3 class="text-lg font-bold">Max</h3>
+                                <p class="text-sm text-gray-500 mb-6">Golden Retriever • 4 yrs old</p>
+                            </div>
+                        </div>
+                    
+                        <span class="bg-gray-100 text-xs font-bold px-2 py-1 rounded">High Energy</span>
+                    </div>
+                    <button class="mt-auto w-full text-sm font-semibold border border-gray-300 py-2 rounded hover:border-black transition-colors">Edit Profile</button>
+                </div>
+
+                <!--card two-->
+                <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col">
+                    
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex items-center gap-4">
+                            <img src="../common/content/cat.jpg" alt="Luna" class="w-14 h-14 rounded-full object-cover border border-gray-200">
+                            <div>
+                                <h3 class="text-lg font-bold">Luna</h3>
+                                <p class="text-sm text-gray-500 mb-6">Siamese Cat • 2 yrs old</p>
+                            </div>
+                        </div>
+                    
+                        <span class="bg-gray-100 text-xs font-bold px-2 py-1 rounded">Medication</span>
+                    </div>
+                    <button class="mt-auto w-full text-sm font-semibold border border-gray-300 py-2 rounded hover:border-black transition-colors">Edit Profile</button>
+                </div>
+
+                <!--adding pet card-->
+                <a href="add-pet.html" class="border-2 border-dashed border-gray-300 rounded-2xl p-5 flex flex-col items-center justify-center text-gray-500 hover:border-black hover:bg-gray-50 transition-colors cursor-pointer min-h-[200px]">
+                    <span class="text-3xl mb-2">+</span>
+                    <span class="text-sm font-bold">Add a New Pet</span>
+                </a>
+            </div>
+        </section> 
+        
+        <section>
+            <div class="flex justify-between items-end mb-6">
+                <h2 class="text-xl font-bold">Saved PetPals</h2>
+                <a href="directory.html" class="text-sm font-bold hover:underline">Find more PetPals &rarr;</a>
+            </div>
+
+            <!--provider card one-->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex justify-between items-center">
+                    <div class="flex items-center gap-4">
+                        <img src="../common/content/female.jpg" alt="Sarah Jenkins" class="w-14 h-14 rounded-full object-cover border border-gray-200">
+                        <div>    
+                            <h3 class="text-lg font-bold">Sarah Jenkins</h3>
+                            <p class="text-sm text-gray-500">Dog Walking & Sitting</p>
+                            <span class="font-['Noto_Color_Emoji'] text-sm">👍</span> 16<span class="text-gray-500 font-normal"> (19 reviews)</span>
+                        </div>
+                    </div>    
+                    <a href="provider-profile.html" class="text-sm font-semibold border-2 border-black px-4 py-2 rounded hover:bg-black hover:text-white transition-colors">View</a>
+                </div>
+
+                <!--provider card two-->
+                <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex justify-between items-center">
+                    <div class="flex items-center gap-4">
+                        <img src="../common/content/male.jpg" alt="Marcus Thorne" class="w-14 h-14 rounded-full object-cover border border-gray-200">
+                        <div>
+                            <h3 class="text-lg font-bold">Marcus Thorne</h3>
+                            <p class="text-sm text-gray-500">Cat Care & Grooming</p>
+                            <span class="font-['Noto_Color_Emoji'] text-sm">👍</span> 16<span class="text-gray-500 font-normal"> (19 reviews)</span>
+                        </div>
+                    </div>
+                    <a href="#" class="text-sm font-semibold border-2 border-black px-4 py-2 rounded hover:bg-black hover:text-white transition-colors">View</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
