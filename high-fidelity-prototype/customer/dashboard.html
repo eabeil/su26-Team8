@@ -7,7 +7,7 @@
     <!--tailwind setup-->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 font-sans text-black min-h-screen">
+<body class="bg-gray-50 font-sans text-black min-h-screen flex flex-col">
     <!--navigation-->
     <nav class="bg-white border-b border-gray-200 px-8 md:px-12 py-4 flex justify-between items-center sticky top-0 z-10">
         <div class="text-xl font-extrabold tracking-tight">PetPal</div>
@@ -19,7 +19,7 @@
         </div>
     </nav>
 
-    <main class="max-w-4xl mx-auto px-8 md:px-12 py-12">
+    <main class="max-w-4xl mx-auto px-8 md:px-12 py-12 flex-grow w-full">
 
     <!--greeting and update-->
         <div class="mb-10">
@@ -108,5 +108,6 @@
             </div>
         </section>
     </main>
+
 </body>
 </html>
