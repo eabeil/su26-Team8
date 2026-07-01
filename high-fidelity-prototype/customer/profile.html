@@ -12,11 +12,88 @@
     <nav class="bg-white border-b border-gray-200 px-8 md:px-12 py-4 flex justify-between items-center sticky top-0 z-10">
         <div class="text-xl font-extrabold tracking-tight">PetPal</div>
         <div class="space-x-6 text-sm font-medium">
-            <a href="dashboard.html" class="text-black border-b-2 border-black pb-1">Dashboard</a>
+            <a href="dashboard.html" class="text-gray-500 hover:text-black transition-colors">Dashboard</a>
             <a href="#" class="text-gray-500 hover:text-black transition-colors">Directory</a>
-            <a href="profile.html" class="text-gray-500 hover:text-black transition-colors">My Profile</a>
+            <a href="profile.html" class="text-black border-b-2 border-black pb-1">My Profile</a>
             <a href="../common/index.html" class="text-red-600 hover:text-red-800 transition-colors ml-4">Log Out</a>
         </div>
     </nav>
 
     <main class="max-w-4xl mx-auto px-8 md:px-12 py-12">
+        <div class="mb-10 flex items-center gap-6">
+            <img src="content/profile.jpeg" alt="Profile Picture" class="w-20 h-20 rounded-full object-cover border-2 border-gray-200">
+            <div>
+                <h1 class="text-3xl font-extrabold mb-1">Emmanuel Abeil</h1>
+                <p class="text-sm text-gray-500 font-medium">Pet Owner Account • Member since 2026</p>
+                <button class="text-xs font-bold mt-3 border border-gray-300 px-3 py-1 rounded hover:border-black transition-colors">Change Photo</button>
+            </div>
+        </div>
+
+        <form onsubmit="event.preventDefault(); window.location.href='profile.html';" class="space-y-8">
+            
+            <!--personal info-->
+            <section class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                <h2 class="text-xl font-bold mb-6 pb-2 border-b border-gray-100">Personal Details</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Full Name</label>
+                        <input type="text" value="Emmanuel Abeil" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Phone Number</label>
+                        <input type="tel" placeholder="(999) 123-4567" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-bold mb-2">Email Address</label>
+                    <input type="email" value="emmanuel@gmail.com" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg bg-gray-50 text-gray-500 cursor-not-allowed focus:outline-none" readonly>
+                    <p class="text-xs text-gray-400 mt-1.5">Email address is tied to your Google account and cannot be changed here.</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold mb-2">Home Address</label>
+                    <input type="text" placeholder="110 West 44th Street" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black mb-4">
+                    
+                    <div class="grid grid-cols-3 gap-4">
+                        <input type="text" value="Greensboro" class="col-span-1 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                        <input type="text" value="NC" class="col-span-1 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                        <input type="text" placeholder="98293" class="col-span-1 w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                    </div>
+                </div>
+            </section>
+
+            <!--secuirty-->
+            <section class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                <h2 class="text-xl font-bold mb-6 pb-2 border-b border-gray-100">Security</h2>
+                
+                <div class="grid grid-cols-1 gap-4 mb-6">
+                    <div>
+                        <label class="block text-sm font-bold mb-2">Current Password</label>
+                        <input type="password" placeholder="••••••••" class="w-full md:w-1/2 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2">New Password</label>
+                        <input type="password" class="w-full md:w-1/2 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                    </div>
+                </div>
+            </section>
+
+            <!--action-->
+            <div class="flex items-center justify-between pt-4">
+                <!--delete account zone -->
+                <button type="button" class="text-sm font-bold text-red-600 border border-red-200 bg-red-50 px-5 py-2.5 rounded-lg hover:bg-red-100 transition-colors">
+                    Delete Account
+                </button>
+                
+                <!--save-->
+                <div class="space-x-3">
+                    <a href="dashboard.html" class="text-sm font-bold text-gray-600 hover:text-black transition-colors px-4">Cancel</a>
+                    <button type="submit" class="bg-black text-white px-8 py-2.5 rounded-lg font-bold hover:bg-gray-800 transition-colors shadow-sm">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </form>
+    </main>
