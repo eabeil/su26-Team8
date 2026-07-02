@@ -15,8 +15,8 @@ PetPal is a social network designed to connect pet owners with pet service provi
 1. Customer (Pet owners):
     1. Create, modify, or remove a customer profile that includes contact and pet information.
     2. Browse and view public PetPal profiles, including their services, locations, prices, and availability.
-    3. Contact PetPals and schedule, modify, or cancel appointments.
-    4. Write, modify, or remove reviews.
+    3. Contact PetPals and inquire about their service.
+    4. Write reviews and rate.
 
 2. Provider:
     1. Create/modify/remove publically viewable profile which includes contact info.
