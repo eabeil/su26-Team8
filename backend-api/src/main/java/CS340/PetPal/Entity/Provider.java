@@ -51,7 +51,6 @@ public class Provider {
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Update> updates;
 
-    // Links back to the Review entity you just built
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
     @JsonIgnoreProperties({ "provider" })
     private List<Review> reviews;

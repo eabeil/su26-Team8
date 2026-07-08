@@ -3,11 +3,14 @@ package CS340.PetPal.Entity;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 public class Service {
     @Id
@@ -25,6 +28,11 @@ public class Service {
 
     @Column
     private double price;
+
+    @ManyToOne
+    @JoinColumn(name = "id", nullable = false)
+    @JsonIgnoreProperties({"services", "updates", "reviews"})
+    private Provider provider; 
 
     public Service(String name, LocalDateTime time, String duration, double price) {
         this.name = name;
