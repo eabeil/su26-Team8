@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,16 +27,45 @@ public class Provider {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Placeholder
-    private String name; 
+        @Column(nullable = false)
+    private String name;
+
+    @Column
+    private String description;
+
+    @Column
+    private String imageUrl;
+
+    @Column
+    private String address;
+
+    @Column
+    private String phone;
+
+    @Column
+    private String email;
+
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Service> services;
+
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Update> updates;
 
     // Links back to the Review entity you just built
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties({"provider"})
+    @JsonIgnoreProperties({ "provider" })
     private List<Review> reviews;
 
-    /*
-     * TODO FOR TEAMMATE: 
-     * 
-     */
+    public Provider(String name, String description, String imageUrl, String address, String phone, String email,
+            List<Service> services, List<Update> updates, List<Review> reviews) {
+        this.name = name;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.services = services;
+        this.updates = updates;
+        this.reviews = reviews;
+    }
 }
