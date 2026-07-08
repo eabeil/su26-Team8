@@ -40,11 +40,9 @@ public class Pet {
     @Column(length = 500)
     private String specialCareInstructions;
 
-    // NEW: Traits list (e.g., ["High Energy", "Anxious", "House-trained"])
-    @ElementCollection
-    @CollectionTable(name = "pet_traits", joinColumns = @JoinColumn(name = "pet_id"))
-    @Column(name = "trait")
-    private List<String> traits;
+    // Comma seperated string for traits instead.
+    @Column(name = "traits")
+    private String traits;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
