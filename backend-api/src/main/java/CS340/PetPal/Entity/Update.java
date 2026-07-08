@@ -15,7 +15,7 @@ import jakarta.persistence.ManyToOne;
 public class Update {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long update_id;
 
     @Column(nullable = false)
     private String name;
@@ -30,7 +30,7 @@ public class Update {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "update_id", nullable = false)
     @JsonIgnoreProperties({"services", "updates", "reviews"})
     private Provider provider; 
 
