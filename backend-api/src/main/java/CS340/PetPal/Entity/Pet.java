@@ -1,9 +1,6 @@
 package CS340.PetPal.Entity;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,7 +46,7 @@ public class Pet {
     private Customer customer;
 
     // Updated Constructor
-    public Pet(String name, String speciesOrBreed, Integer age, String specialCareInstructions, List<String> traits, Customer customer) {
+    public Pet(String name, String speciesOrBreed, Integer age, String specialCareInstructions, String traits, Customer customer) {
         this.name = name;
         this.speciesOrBreed = speciesOrBreed;
         this.age = age;
