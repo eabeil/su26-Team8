@@ -33,10 +33,10 @@ public class Service {
     @JsonFormat(pattern = "yyy-MM-dd HH:mm")
     private LocalDateTime time;
 
-    @Column
+    @Column(nullable = false)
     private String duration;
 
-    @Column
+    @Column(nullable = false)
     private double price;
 
     @ManyToOne
