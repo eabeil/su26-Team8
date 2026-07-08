@@ -40,7 +40,10 @@ public class Customer {
     @JsonIgnoreProperties({"customer"})
     private List<Pet> pets;
 
-    
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({"customer"})
+    private List<Review> reviews;
+ 
     public Customer(String fullName, String email, String password) {
         this.fullName = fullName;
         this.email = email;
