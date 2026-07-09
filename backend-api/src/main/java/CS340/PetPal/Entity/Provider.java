@@ -25,7 +25,7 @@ public class Provider {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long provider_id;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
