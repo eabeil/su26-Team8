@@ -41,15 +41,17 @@ public class CustomerController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
+    
     @PutMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer updatedCustomer) {
         try {
-            return ResponseEntity.ok(customerService.updateCustomer(id, updatedCustomer));
+            Customer customer = this.customerService.updateCustomer(id, updatedCustomer);
+            return ResponseEntity.ok(customer);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
+    
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
