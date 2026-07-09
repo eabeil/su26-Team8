@@ -6,29 +6,30 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import CS340.PetPal.Repository.ServiceRepository;
+import CS340.PetPal.Entity.PetService;
 
 @Service
-public class ServiceService {
+public class PetServiceService {
     private final ServiceRepository serviceRepository;
 
-    public ServiceService(ServiceRepository serviceRepository) {
+    public PetServiceService(ServiceRepository serviceRepository) {
         this.serviceRepository = serviceRepository;
     }
 
-    public List<CS340.PetPal.Entity.Service> getAllServices() {
+    public List<PetService> getAllServices() {
         return this.serviceRepository.findAll();
     }
 
-    public Optional<CS340.PetPal.Entity.Service> getServiceById(Long serviceId) {
+    public Optional<PetService> getServiceById(Long serviceId) {
         return this.serviceRepository.findById(serviceId);
     }
 
-    public CS340.PetPal.Entity.Service createService(CS340.PetPal.Entity.Service provider) {
+    public PetService createService(PetService provider) {
         return this.serviceRepository.save(provider);
     }
 
-    public CS340.PetPal.Entity.Service updateService(Long serviceId, CS340.PetPal.Entity.Service service) {
-        CS340.PetPal.Entity.Service existingService = this.serviceRepository.findById(serviceId).orElse(null);
+    public PetService updateService(Long serviceId, PetService service) {
+        PetService existingService = this.serviceRepository.findById(serviceId).orElse(null);
         if (existingService == null) {
             throw new RuntimeException("SErvice not found with id: " + serviceId);
         }

@@ -22,7 +22,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Service {
+public class PetService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -44,7 +44,7 @@ public class Service {
     @JsonIgnoreProperties({"services", "updates", "reviews"})
     private Provider provider; 
 
-    public Service(String name, LocalDateTime time, String duration, double price) {
+    public PetService(String name, LocalDateTime time, String duration, double price) {
         this.name = name;
         this.time = time;
         this.duration = duration;
