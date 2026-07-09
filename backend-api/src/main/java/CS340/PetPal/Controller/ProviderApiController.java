@@ -42,7 +42,7 @@ public class ProviderApiController {
     }
 
     // create provider
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Provider> createProvider(@RequestBody Provider provider) {
         Provider createdProvider = this.providerService.createProvider(provider);
         return ResponseEntity.created(null).body(createdProvider);
