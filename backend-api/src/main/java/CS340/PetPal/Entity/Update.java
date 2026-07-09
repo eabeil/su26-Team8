@@ -41,7 +41,7 @@ public class Update {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "update_id", nullable = false)
+    @JoinColumn(name = "provider_id", nullable = false)
     @JsonIgnoreProperties({"services", "updates", "reviews"})
     private Provider provider; 
 
