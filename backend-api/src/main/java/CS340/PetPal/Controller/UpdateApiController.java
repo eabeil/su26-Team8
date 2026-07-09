@@ -37,7 +37,7 @@ public class UpdateApiController {
 
     // get update
     @GetMapping("/{id}")
-    public ResponseEntity<Update> getUpdateById(@PathVariable Long updateId) {
+    public ResponseEntity<Update> getUpdateById(@PathVariable("id") Long updateId) {
         return this.updateService.getUpdateById(updateId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
@@ -50,7 +50,7 @@ public class UpdateApiController {
 
     // update update
     @PutMapping("/{id}")
-    public ResponseEntity<Update> updateUpdate(@PathVariable Long providerId, @RequestBody Update update) {
+    public ResponseEntity<Update> updateUpdate(@PathVariable("id") Long providerId, @RequestBody Update update) {
         try {
             Update updatedUpdate = this.updateService.updateUpdate(providerId, update);
             return ResponseEntity.ok(updatedUpdate);

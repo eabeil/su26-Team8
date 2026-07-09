@@ -37,7 +37,7 @@ public class JobApiController {
 
     // get service
     @GetMapping("/{id}")
-    public ResponseEntity<Job> getServiceById(@PathVariable Long serviceId) {
+    public ResponseEntity<Job> getServiceById(@PathVariable("id") Long serviceId) {
         return this.serviceService.getServiceById(serviceId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
@@ -50,7 +50,7 @@ public class JobApiController {
 
     // update service
     @PutMapping("/{id}")
-    public ResponseEntity<Job> updateService(@PathVariable Long serviceId, @RequestBody Job service) {
+    public ResponseEntity<Job> updateService(@PathVariable("id") Long serviceId, @RequestBody Job service) {
         try {
            Job updatedService = this.serviceService.updateService(serviceId, service);
             return ResponseEntity.ok(updatedService);
