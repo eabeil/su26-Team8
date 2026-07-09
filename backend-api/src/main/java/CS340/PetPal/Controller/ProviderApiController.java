@@ -37,7 +37,7 @@ public class ProviderApiController {
 
     // get provider
     @GetMapping("/{id}")
-    public ResponseEntity<Provider> getProviderById(@PathVariable Long providerId) {
+    public ResponseEntity<Provider> getProviderById(@PathVariable("id") Long providerId) {
         return this.providerService.getProviderById(providerId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
