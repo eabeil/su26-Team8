@@ -46,7 +46,7 @@ public class Provider {
     private String email;
 
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PetService> services;
+    private List<Job> services;
 
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Update> updates;
@@ -56,7 +56,7 @@ public class Provider {
     private List<Review> reviews;
 
     public Provider(String name, String description, String imageUrl, String address, String phone, String email,
-            List<PetService> services, List<Update> updates, List<Review> reviews) {
+            List<Job> services, List<Update> updates, List<Review> reviews) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
