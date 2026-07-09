@@ -28,7 +28,7 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long review_id;
 
     // TRUE = Thumbs Up // FALSE = Thumbs Down
     @Column(nullable = false)
