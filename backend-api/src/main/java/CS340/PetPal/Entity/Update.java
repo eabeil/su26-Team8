@@ -26,7 +26,7 @@ import lombok.Setter;
 public class Update {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long update_id;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
