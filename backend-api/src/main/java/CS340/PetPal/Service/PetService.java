@@ -1,4 +1,4 @@
-package CS340.PetPal.Services;
+package CS340.PetPal.Service;
 
 
 import java.util.List;

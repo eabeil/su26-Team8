@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import CS340.PetPal.Entity.Pet;
-import CS340.PetPal.Services.PetService;
+import CS340.PetPal.Service.PetService;
 
 @RestController
 @RequestMapping("/api/customers/{customerId}/pets")

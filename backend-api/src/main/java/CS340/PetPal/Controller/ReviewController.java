@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import CS340.PetPal.Entity.Review;
-import CS340.PetPal.Services.ReviewService;
+import CS340.PetPal.Service.ReviewService;
 
 @RestController
 @RequestMapping("/api/reviews")
