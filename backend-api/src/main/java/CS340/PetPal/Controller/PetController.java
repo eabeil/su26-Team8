@@ -1,5 +1,6 @@
 package CS340.PetPal.Controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import CS340.PetPal.DTO.PetDto;
 import CS340.PetPal.Entity.Pet;
 import CS340.PetPal.Service.PetService;
 
@@ -24,16 +26,18 @@ public class PetController {
     }
 
     @PostMapping
-    public ResponseEntity<Pet> addPet(@PathVariable Long customerId, @RequestBody Pet pet) {
+    public ResponseEntity<PetDto> addPet(@PathVariable Long customerId, @RequestBody Pet pet) {
         try {
-            return ResponseEntity.ok(petService.addPetToCustomer(customerId, pet));
+            PetDto createdPet = petService.addPetToCustomer(customerId, pet);
+            URI location = URI.create("/api/customers/" + customerId + "/pets/" + createdPet.getId());
+            return ResponseEntity.created(location).body(createdPet);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @GetMapping
-    public ResponseEntity<List<Pet>> getCustomerPets(@PathVariable Long customerId) {
+    public ResponseEntity<List<PetDto>> getCustomerPets(@PathVariable Long customerId) {
         return ResponseEntity.ok(petService.getPetsByCustomerId(customerId));
     }
 }
