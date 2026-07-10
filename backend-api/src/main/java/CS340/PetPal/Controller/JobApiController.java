@@ -30,9 +30,6 @@ public class JobApiController {
     @GetMapping("/")
     public ResponseEntity<List<Job>> getAllServices() {
         List<Job> services = this.serviceService.getAllServices();
-        if (services.isEmpty()) {
-            return ResponseEntity.ok(Collections.emptyList());
-        }
         return ResponseEntity.ok(services);
     }
 

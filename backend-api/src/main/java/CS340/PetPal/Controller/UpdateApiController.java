@@ -30,9 +30,6 @@ public class UpdateApiController {
     @GetMapping("/")
     public ResponseEntity<List<Update>> getAllUpdates() {
         List<Update> providers = this.updateService.getAllUpdates();
-        if (providers.isEmpty()) {
-            return ResponseEntity.ok(Collections.emptyList());
-        }
         return ResponseEntity.ok(providers);
     }
 

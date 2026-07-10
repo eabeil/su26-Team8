@@ -30,9 +30,6 @@ public class ProviderApiController {
     @GetMapping("/")
     public ResponseEntity<List<Provider>> getAllProviders() {
         List<Provider> providers = this.providerService.getAllProviders();
-        if (providers.isEmpty()) {
-            return ResponseEntity.ok(Collections.emptyList());
-        }
         return ResponseEntity.ok(providers);
     }
 
