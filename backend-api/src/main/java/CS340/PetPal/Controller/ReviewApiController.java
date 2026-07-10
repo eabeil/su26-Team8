@@ -32,7 +32,7 @@ public class ReviewApiController {
     }
 
     // get reviews
-    @GetMapping("/")
+    @GetMapping({"/", ""})
     public ResponseEntity<List<Review>> getAllReviews() {
         try {
             List<Review> reviews = this.reviewService.getAllReviews();
@@ -43,7 +43,7 @@ public class ReviewApiController {
     }
 
     // get review
-    @GetMapping("/{id}/")
+    @GetMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Review> getReviewById(@PathVariable("id") Long reviewId) {
         try {
             Review review = this.reviewService.getReviewById(reviewId);
@@ -54,7 +54,7 @@ public class ReviewApiController {
     }
 
     // create review
-    @PostMapping("/")
+    @PostMapping({"/", ""})
     public ResponseEntity<Review> createReview(@RequestBody CreateReviewDto dto) {
         try {
             Review review = this.reviewService.createReview(dto);
@@ -66,7 +66,7 @@ public class ReviewApiController {
     }
 
     // edit review comment
-    @PutMapping("/{id}/")
+    @PutMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Review> editReviewComment(@PathVariable("id") Long reviewId,
             @RequestBody EditCommentReviewDto dto) {
         try {
@@ -78,7 +78,7 @@ public class ReviewApiController {
     }
 
     // post review response
-    @PostMapping("/{id}/response/")
+    @PostMapping({"/{id}/response/", "/{id}/response"})
     public ResponseEntity<Review> respondReview(@PathVariable("id") Long reviewId,
             @RequestBody RespondReviewDto dto) {
         try {
@@ -90,7 +90,7 @@ public class ReviewApiController {
     }
 
     // edit review response
-    @PutMapping("/{id}/response/")
+    @PutMapping({"/{id}/response/", "/{id}/response"})
     public ResponseEntity<Review> editReviewResponse(@PathVariable("id") Long reviewId,
             @RequestBody EditResponseReviewDto dto) {
         try {
@@ -102,7 +102,7 @@ public class ReviewApiController {
     }
 
     // delete review
-    @DeleteMapping("/{id}/")
+    @DeleteMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Void> deleteReview(@PathVariable("id") Long reviewId) {
         try {
             this.reviewService.deleteReview(reviewId);

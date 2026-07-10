@@ -33,7 +33,7 @@ public class ProviderApiController {
     }
 
     // get providers
-    @GetMapping("/")
+    @GetMapping({"/", ""})
     public ResponseEntity<List<Provider>> getAllProviders() {
         try {
         List<Provider> providers = this.providerService.getAllProviders();
@@ -44,7 +44,7 @@ public class ProviderApiController {
     }
 
     // get provider
-    @GetMapping("/{id}/")
+    @GetMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Provider> getProviderById(@PathVariable("id") Long providerId) {
         try {
         Provider provider = this.providerService.getProviderById(providerId);
@@ -55,7 +55,7 @@ public class ProviderApiController {
     }
 
     // get provider jobs
-    @GetMapping("/{id}/jobs/")
+    @GetMapping({"/{id}/jobs/", "/{id}/jobs"})
     public ResponseEntity<List<Job>> getProviderJobs(@PathVariable("id") Long providerId) {
         try {
         List<Job> jobs = this.providerService.getProviderJobs(providerId);
@@ -66,7 +66,7 @@ public class ProviderApiController {
     }
 
     // get provider updates
-    @GetMapping("/{id}/updates/")
+    @GetMapping({"/{id}/updates/", "/{id}/updates"})
     public ResponseEntity<List<Update>> getProviderUpdates(@PathVariable("id") Long providerId) {
         try {
         List<Update> updates = this.providerService.getProviderUpdates(providerId);
@@ -77,7 +77,7 @@ public class ProviderApiController {
     }
 
     // get provider reviews
-    @GetMapping("/{id}/reviews/")
+    @GetMapping({"/{id}/reviews/", "/{id}/reviews"})
     public ResponseEntity<List<Review>> getProviderReviews(@PathVariable("id") Long providerId) {
         try {
         List<Review> reviews = this.providerService.getProviderReviews(providerId);
@@ -88,7 +88,7 @@ public class ProviderApiController {
     }
 
     // create provider
-    @PostMapping("/")
+    @PostMapping({"/", ""})
     public ResponseEntity<Provider> createProvider(@RequestBody CreateProviderDto dto) {
         try {
         Provider provider = this.providerService.createProvider(dto);
@@ -100,7 +100,7 @@ public class ProviderApiController {
     }
 
     // update provider
-    @PutMapping("/{id}/")
+    @PutMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Provider> updateProvider(@PathVariable("id") Long providerId,
             @RequestBody UpdateProviderDto dto) {
         try {
@@ -112,7 +112,7 @@ public class ProviderApiController {
     }
 
     // delete provider
-    @DeleteMapping("/{id}/")
+    @DeleteMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Void> deleteProvider(@PathVariable("id") Long providerId) {
         try {
         this.providerService.deleteProvider(providerId);

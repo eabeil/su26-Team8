@@ -30,7 +30,7 @@ public class JobApiController {
     }
 
     // get jobs
-    @GetMapping("/")
+    @GetMapping({"/", ""})
     public ResponseEntity<List<Job>> getAllJobs() {
         try {
             List<Job> services = this.jobService.getAllJobs();
@@ -41,7 +41,7 @@ public class JobApiController {
     }
 
     // get job
-    @GetMapping("/{id}/")
+    @GetMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Job> getJobById(@PathVariable("id") Long jobId) {
         try {
             Job job = this.jobService.getJobById(jobId);
@@ -52,7 +52,7 @@ public class JobApiController {
     }
 
     // create job
-    @PostMapping("/")
+    @PostMapping({"/", ""})
     public ResponseEntity<Job> createJob(@RequestBody CreateJobDto dto) {
         try {
             Job job = this.jobService.createJob(dto);
@@ -64,7 +64,7 @@ public class JobApiController {
     }
 
     // update job
-    @PutMapping("/{id}/")
+    @PutMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Job> updateJob(@PathVariable("id") Long jobId, @RequestBody UpdateJobDto dto) {
         try {
             Job updatedJob = this.jobService.updateJob(jobId, dto);
@@ -75,7 +75,7 @@ public class JobApiController {
     }
 
     // delete job
-    @DeleteMapping("/{id}")
+    @DeleteMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Void> deleteJob(@PathVariable("id") Long jobId) {
         try {
             this.jobService.deleteJob(jobId);

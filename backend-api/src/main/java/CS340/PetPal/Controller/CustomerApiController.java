@@ -32,7 +32,7 @@ public class CustomerApiController {
     }
 
     // get customers
-    @GetMapping("/")
+    @GetMapping({"/", ""})
     public ResponseEntity<List<Customer>> getAllCustomers() {
         try {
             List<Customer> customers = this.customerService.getAllCustomers();
@@ -43,7 +43,7 @@ public class CustomerApiController {
     }
 
     // get customer
-    @GetMapping("/{id}/")
+    @GetMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Long customerId) {
         try {
             return ResponseEntity.ok(this.customerService.getCustomerById(customerId));
@@ -53,7 +53,7 @@ public class CustomerApiController {
     }
 
     // get customer pets
-    @GetMapping("/{id}/pets/")
+    @GetMapping({"/{id}/pets/", "/{id}/pets"})
     public ResponseEntity<List<Pet>> getCustomerPets(@PathVariable("id") Long customerId) {
         try {
             List<Pet> pets = this.customerService.getCustomerPets(customerId);
@@ -64,7 +64,7 @@ public class CustomerApiController {
     }
 
     // get customer reviews
-    @GetMapping("/{id}/reviews/")
+    @GetMapping({"/{id}/reviews/", "/{id}/reviews"})
     public ResponseEntity<List<Review>> getCustomerReviews(@PathVariable("id") Long customerId) {
         try {
             List<Review> reviews = this.customerService.getCustomerReviews(customerId);
@@ -75,7 +75,7 @@ public class CustomerApiController {
     }
 
     // create customer
-    @PostMapping("/")
+    @PostMapping({"/", ""})
     public ResponseEntity<Customer> createCustomer(@RequestBody CreateCustomerDto dto) {
         try {
             Customer customer = this.customerService.createCustomer(dto);
@@ -87,7 +87,7 @@ public class CustomerApiController {
     }
 
     // update customer
-    @PutMapping("/{id}/")
+    @PutMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Customer> updateCustomer(@PathVariable("id") Long customerId,
             @RequestBody UpdateCustomerDto dto) {
         try {
@@ -99,7 +99,7 @@ public class CustomerApiController {
     }
 
     // delete customer
-    @DeleteMapping("/{id}/")
+    @DeleteMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Void> deleteCustomer(@PathVariable("id") Long customerId) {
         try {
             this.customerService.deleteCustomer(customerId);

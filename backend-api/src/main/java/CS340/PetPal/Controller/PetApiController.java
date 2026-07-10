@@ -29,7 +29,7 @@ public class PetApiController {
     }
 
     // get pets
-    @GetMapping("/")
+    @GetMapping({"/", ""})
     public ResponseEntity<List<Pet>> getAllPets() {
         try {
             List<Pet> pets = this.petService.getAllPets();
@@ -40,7 +40,7 @@ public class PetApiController {
     }
 
     // get pet
-    @GetMapping("/{id}/")
+    @GetMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Pet> getPetById(@PathVariable("id") Long petId) {
         try {
             Pet pet = this.petService.getPetById(petId);
@@ -51,7 +51,7 @@ public class PetApiController {
     }
 
     // create pet
-    @PostMapping("/")
+    @PostMapping({"/", ""})
     public ResponseEntity<Pet> createPet(@RequestBody CreatePetDto dto) {
         try {
             Pet pet = this.petService.createPet(dto);
@@ -63,7 +63,7 @@ public class PetApiController {
     }
 
     // update pet
-    @PutMapping("/{id}/")
+    @PutMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Pet> updateCustomer(@PathVariable("id") Long petId,
             @RequestBody UpdatePetDto dto) {
         try {
@@ -75,7 +75,7 @@ public class PetApiController {
     }
 
     // delete pet
-    @DeleteMapping("/{id}/")
+    @DeleteMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Void> deletePet(@PathVariable("id") Long petId) {
         try {
             this.petService.deletePet(petId);

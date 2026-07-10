@@ -30,7 +30,7 @@ public class UpdateApiController {
     }
 
     // get updates
-    @GetMapping("/")
+    @GetMapping({"/", ""})
     public ResponseEntity<List<Update>> getAllUpdates() {
         try {
             List<Update> providers = this.updateService.getAllUpdates();
@@ -41,7 +41,7 @@ public class UpdateApiController {
     }
 
     // get update
-    @GetMapping("/{id}/")
+    @GetMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Update> getUpdateById(@PathVariable("id") Long updateId) {
         try {
             Update update = this.updateService.getUpdateById(updateId);
@@ -52,7 +52,7 @@ public class UpdateApiController {
     }
 
     // create update
-    @PostMapping("/")
+    @PostMapping({"/", ""})
     public ResponseEntity<Update> createUpdate(@RequestBody CreateUpdateDto dto) {
         try {
             Update update = this.updateService.createUpdate(dto);
@@ -64,7 +64,7 @@ public class UpdateApiController {
     }
 
     // update update
-    @PutMapping("/{id}/")
+    @PutMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Update> updateUpdate(@PathVariable("id") Long providerId, @RequestBody UpdateUpdateDto dto) {
         try {
             Update updatedUpdate = this.updateService.updateUpdate(providerId, dto);
@@ -75,7 +75,7 @@ public class UpdateApiController {
     }
 
     // delete update
-    @DeleteMapping("/{id}/")
+    @DeleteMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Void> deleteUpdate(@PathVariable("id") Long updateId) {
         try {
             this.updateService.deleteUpdate(updateId);
