@@ -35,7 +35,7 @@ public class UpdateService {
         }
         Update existingUpdate = existingUpdateO.get();
         if (!update.getTitle().isEmpty()) {
-            existingUpdate.setName(update.getTitle());
+            existingUpdate.setTitle(update.getTitle());
         }
         if (update.getTime() != null) {
             existingUpdate.setTime(update.getTime());
