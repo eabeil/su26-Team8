@@ -34,18 +34,10 @@ public class UpdateService {
             throw new RuntimeException("Update not found with id: " + updateId);
         }
         Update existingUpdate = existingUpdateO.get();
-        if (!update.getTitle().isEmpty()) {
-            existingUpdate.setTitle(update.getTitle());
-        }
-        if (update.getTime() != null) {
-            existingUpdate.setTime(update.getTime());
-        }
-        if (!update.getDuration().isEmpty()) {
-            existingUpdate.setDuration((update.getDuration()));
-        }
-        if (update.getPrice() != 0) {
-            existingUpdate.setPrice(update.getPrice());
-        }
+        existingUpdate.setTitle(update.getTitle());
+        existingUpdate.setTime(update.getTime());
+        existingUpdate.setDuration((update.getDuration()));
+        existingUpdate.setPrice(update.getPrice());
         return this.updateRepository.save(existingUpdate);
     }
 }

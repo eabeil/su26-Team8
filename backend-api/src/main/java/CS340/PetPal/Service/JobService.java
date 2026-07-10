@@ -45,18 +45,10 @@ public class JobService {
             throw new RuntimeException("Job not found with id: " + jobId);
         }
         Job existingJob = existingJobO.get();
-        if (!job.getName().isEmpty()) {
-            existingJob.setName(job.getName());
-        }
-        if (job.getTime() != null) {
-            existingJob.setTime(job.getTime());
-        }
-        if (!job.getDuration().isEmpty()) {
-            existingJob.setDuration(job.getDuration());
-        }
-        if (job.getPrice() != 0) {
-            existingJob.setPrice(job.getPrice());
-        }
+        existingJob.setName(job.getName());
+        existingJob.setTime(job.getTime());
+        existingJob.setDuration(job.getDuration());
+        existingJob.setPrice(job.getPrice());
         return this.jobRepository.save(existingJob);
     }
 }
