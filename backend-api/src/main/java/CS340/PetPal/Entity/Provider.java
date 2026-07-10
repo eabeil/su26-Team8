@@ -46,9 +46,11 @@ public class Provider {
     private String email;
 
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Job> services;
+    @JsonIgnoreProperties({ "provider" })
+    private List<Job> jobs;
 
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({ "provider" })
     private List<Update> updates;
 
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
@@ -56,14 +58,14 @@ public class Provider {
     private List<Review> reviews;
 
     public Provider(String name, String description, String imageUrl, String address, String phone, String email,
-            List<Job> services, List<Update> updates, List<Review> reviews) {
+            List<Job> jobs, List<Update> updates, List<Review> reviews) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
         this.address = address;
         this.phone = phone;
         this.email = email;
-        this.services = services;
+        this.jobs = jobs;
         this.updates = updates;
         this.reviews = reviews;
     }
