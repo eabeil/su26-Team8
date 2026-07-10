@@ -39,7 +39,7 @@ public class UpdateApiController {
         Optional<Update> updateO = this.updateService.getUpdateById(updateId);
         if (updateO.isPresent()) {
             Update update = updateO.get();
-            return ResponseEntity.ok(update); 
+            return ResponseEntity.ok(update);
         }
         return ResponseEntity.notFound().build();
     }
