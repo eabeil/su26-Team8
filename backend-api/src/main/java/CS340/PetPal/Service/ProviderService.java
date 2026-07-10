@@ -4,7 +4,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import CS340.PetPal.Repository.ProviderRepository;
 import CS340.PetPal.Entity.Provider;
@@ -49,13 +51,12 @@ public class ProviderService {
         return this.providerRepository.save(existingProvider);
     }
 
-    public boolean deleteProvider(Long providerId) {
+    public void deleteProvider(Long providerId) {
         Optional<Provider> providerO = this.providerRepository.findById(providerId);
         if (providerO.isEmpty()) {
-            return false;
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + providerId);
         }
         Provider provider = providerO.get();
         this.providerRepository.delete(provider);
-        return true;
     }
 }

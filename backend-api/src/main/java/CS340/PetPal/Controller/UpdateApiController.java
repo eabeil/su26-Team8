@@ -69,10 +69,7 @@ public class UpdateApiController {
     // delete update
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUpdate(@PathVariable("id") Long updateId) {
-        boolean deletedOk = this.updateService.deleteUpdate(updateId);
-        if (!deletedOk) {
-            return ResponseEntity.notFound().build();
-        }
+        this.updateService.deleteUpdate(updateId);
         return ResponseEntity.noContent().build();
     }
 }

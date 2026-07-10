@@ -69,10 +69,7 @@ public class ProviderApiController {
     // delete provider
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProvider(@PathVariable("id") Long providerId) {
-        boolean deletedOk = this.providerService.deleteProvider(providerId);
-        if (!deletedOk) {
-            return ResponseEntity.notFound().build();
-        }
+        this.providerService.deleteProvider(providerId);
         return ResponseEntity.noContent().build();
     }
 }

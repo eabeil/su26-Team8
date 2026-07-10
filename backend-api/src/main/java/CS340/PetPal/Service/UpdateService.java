@@ -3,7 +3,9 @@ package CS340.PetPal.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import CS340.PetPal.Repository.ProviderRepository;
 import CS340.PetPal.Repository.UpdateRepository;
@@ -53,14 +55,13 @@ public class UpdateService {
         return this.updateRepository.save(existingUpdate);
     }
 
-    public boolean deleteUpdate(Long updateId) {
+    public void deleteUpdate(Long updateId) {
         Optional<Update> updateO = this.updateRepository.findById(updateId);
         if (updateO.isEmpty())
         {
-            return false;
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no update of id " + updateId);
         }
         Update update = updateO.get();
         this.updateRepository.delete(update);
-        return true;
     }
 }

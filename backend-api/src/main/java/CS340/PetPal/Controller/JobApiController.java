@@ -69,10 +69,7 @@ public class JobApiController {
     // delete job
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteJob(@PathVariable("id") Long jobId) {
-        boolean deletedOk = this.jobService.deleteJob(jobId);
-        if (!deletedOk) {
-            return ResponseEntity.notFound().build();
-        }
+        this.jobService.deleteJob(jobId);
         return ResponseEntity.noContent().build();
     }
 }

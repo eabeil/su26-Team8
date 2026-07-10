@@ -3,7 +3,9 @@ package CS340.PetPal.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import CS340.PetPal.Repository.JobRepository;
 import CS340.PetPal.Repository.ProviderRepository;
@@ -53,13 +55,12 @@ public class JobService {
         return this.jobRepository.save(existingJob);
     }
 
-    public boolean deleteJob(Long jobId) {
+    public void deleteJob(Long jobId) {
         Optional<Job> jobO = this.jobRepository.findById(jobId);
         if (jobO.isEmpty()) {
-            return false;
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no job of id " + jobId);
         }
         Job job = jobO.get();
         this.jobRepository.delete(job);
-        return true;
     }
 }
