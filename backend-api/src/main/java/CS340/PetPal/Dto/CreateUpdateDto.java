@@ -10,15 +10,13 @@ import lombok.NoArgsConstructor;
 public class CreateUpdateDto {
     private String title;
     private LocalDateTime time;
-    private String duration;
-    private double price;
+    private String description;
     private long providerId;
 
-    public CreateUpdateDto(String title, LocalDateTime time, String duration, double price, long providerId) {
+    public CreateUpdateDto(String title, LocalDateTime time, String description, long providerId) {
         this.title = title;
         this.time = time;
-        this.duration = duration;
-        this.price = price;
+        this.description = description;
         this.providerId = providerId;
     }    
 }

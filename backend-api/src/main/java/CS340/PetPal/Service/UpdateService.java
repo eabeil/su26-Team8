@@ -38,7 +38,7 @@ public class UpdateService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider of id " + dto.getProviderId());
         }
         Provider provider = providerO.get();
-        Update update = new Update(dto.getTitle(), dto.getTime(), dto.getDuration(), dto.getPrice(), provider);
+        Update update = new Update(dto.getTitle(), dto.getTime(), dto.getDescription(), provider);
         return this.updateRepository.save(update);
     }
 
@@ -50,8 +50,7 @@ public class UpdateService {
         Update existingUpdate = existingUpdateO.get();
         existingUpdate.setTitle(dto.getTitle());
         existingUpdate.setTime(dto.getTime());
-        existingUpdate.setDuration(dto.getDuration());
-        existingUpdate.setPrice(dto.getPrice());
+        existingUpdate.setDescription(dto.getDescription());
         return this.updateRepository.save(existingUpdate);
     }
 

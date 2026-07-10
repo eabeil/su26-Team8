@@ -33,21 +33,17 @@ public class Update {
     private LocalDateTime time;
 
     @Column(nullable = false)
-    private String duration;
-
-    @Column(nullable = false)
-    private double price;
+    private String description;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "provider_id", nullable = false)
     @JsonIgnoreProperties({ "jobs", "updates", "reviews" })
     private Provider provider;
 
-    public Update(String title, LocalDateTime time, String duration, double price, Provider provider) {
+    public Update(String title, LocalDateTime time, String description, Provider provider) {
         this.title = title;
         this.time = time;
-        this.duration = duration;
-        this.price = price;
+        this.description = description;
         this.provider = provider;
     }
 }
