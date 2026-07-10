@@ -1,4 +1,5 @@
-package CS340.PetPal.DTO;
+package CS340.PetPal.Dto;
+
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
