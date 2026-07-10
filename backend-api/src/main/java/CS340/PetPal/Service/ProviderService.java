@@ -48,4 +48,14 @@ public class ProviderService {
         existingProvider.setEmail(dto.getEmail());
         return this.providerRepository.save(existingProvider);
     }
+
+    public boolean deleteProvider(Long providerId) {
+        Optional<Provider> providerO = this.providerRepository.findById(providerId);
+        if (providerO.isEmpty()) {
+            return false;
+        }
+        Provider provider = providerO.get();
+        this.providerRepository.delete(provider);
+        return true;
+    }
 }

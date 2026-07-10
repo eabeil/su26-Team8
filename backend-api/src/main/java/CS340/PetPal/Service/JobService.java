@@ -52,4 +52,14 @@ public class JobService {
         existingJob.setPrice(dto.getPrice());
         return this.jobRepository.save(existingJob);
     }
+
+    public boolean deleteJob(Long jobId) {
+        Optional<Job> jobO = this.jobRepository.findById(jobId);
+        if (jobO.isEmpty()) {
+            return false;
+        }
+        Job job = jobO.get();
+        this.jobRepository.delete(job);
+        return true;
+    }
 }

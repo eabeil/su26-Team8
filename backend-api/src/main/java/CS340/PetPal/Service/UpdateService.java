@@ -52,4 +52,15 @@ public class UpdateService {
         existingUpdate.setPrice(dto.getPrice());
         return this.updateRepository.save(existingUpdate);
     }
+
+    public boolean deleteUpdate(Long updateId) {
+        Optional<Update> updateO = this.updateRepository.findById(updateId);
+        if (updateO.isEmpty())
+        {
+            return false;
+        }
+        Update update = updateO.get();
+        this.updateRepository.delete(update);
+        return true;
+    }
 }
