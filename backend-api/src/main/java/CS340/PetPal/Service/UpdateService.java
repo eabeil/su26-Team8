@@ -42,7 +42,7 @@ public class UpdateService {
         if (!update.getDuration().isEmpty()) {
             existingUpdate.setDuration((update.getDuration()));
         }
-        if (update.getPrice() == 0) {
+        if (update.getPrice() != 0) {
             existingUpdate.setPrice(update.getPrice());
         }
         return this.updateRepository.save(existingUpdate);
