@@ -31,7 +31,7 @@ public class CustomerService {
 
   public Customer createCustomer(CreateCustomerDto dto) {
     Customer customer = new Customer(dto.getName(), dto.getEmail(), dto.getPhone(), dto.getPassword(), Collections.emptyList(), Collections.emptyList());
-    return customer;
+    return this.customerRepository.save(customer);
   }
 
     public List<Customer> getAllCustomers() {
