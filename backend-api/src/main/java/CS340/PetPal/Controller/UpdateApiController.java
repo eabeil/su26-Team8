@@ -1,5 +1,6 @@
 package CS340.PetPal.Controller;
 
+import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,7 +46,8 @@ public class UpdateApiController {
     @PostMapping()
     public ResponseEntity<Update> createProvider(@RequestBody Update update) {
         Update createdUpdate = this.updateService.createUpdate(update);
-        return ResponseEntity.created(null).body(createdUpdate);
+        URI location = URI.create("/api/updates/" + createdUpdate.getId());
+        return ResponseEntity.created(location).body(createdUpdate);
     }
 
     // update update
