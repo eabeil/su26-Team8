@@ -45,7 +45,7 @@ public class UpdateApiController {
     }
 
     // create update
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Update> createProvider(@RequestBody Update update) {
         Update createdUpdate = this.updateService.createUpdate(update);
         URI location = URI.create("/api/updates/" + createdUpdate.getId());
