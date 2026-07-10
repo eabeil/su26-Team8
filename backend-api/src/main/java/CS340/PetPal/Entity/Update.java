@@ -30,7 +30,7 @@ public class Update {
     @Column(nullable = false)
     private String name;
 
-    @JsonFormat(pattern = "yyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime time;
 
     @Column
@@ -39,7 +39,7 @@ public class Update {
     @Column(nullable = false)
     private double price;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "provider_id", nullable = false)
     @JsonIgnoreProperties({ "services", "updates", "reviews" })
     private Provider provider;
