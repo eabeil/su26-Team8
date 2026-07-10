@@ -1,72 +1,119 @@
 package CS340.PetPal.Service;
-
-
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import CS340.PetPal.Dto.ReviewDto;
+import CS340.PetPal.Dto.CreateReviewDto;
+import CS340.PetPal.Dto.RespondReviewDto;
+import CS340.PetPal.Dto.EditCommentReviewDto;
+import CS340.PetPal.Dto.EditResponseReviewDto;
+import CS340.PetPal.Entity.Customer;
+import CS340.PetPal.Entity.Provider;
 import CS340.PetPal.Entity.Review;
+import CS340.PetPal.Repository.CustomerRepository;
+import CS340.PetPal.Repository.ProviderRepository;
 import CS340.PetPal.Repository.ReviewRepository;
 
 @Service
 public class ReviewService {
-
     private final ReviewRepository reviewRepository;
+    private final CustomerRepository customerRepostiroy;
+    private final ProviderRepository providerRepository;
 
-    public ReviewService(ReviewRepository reviewRepository) {
+    public ReviewService(ReviewRepository reviewRepository, CustomerRepository customerRepository,
+            ProviderRepository providerRepository) {
         this.reviewRepository = reviewRepository;
+        this.customerRepostiroy = customerRepository;
+        this.providerRepository = providerRepository;
     }
 
-    // Customer side 
-    public ReviewDto createReview(Review review) {
-        Review savedReview = reviewRepository.save(review);
-        return convertToDTO(savedReview);
-    }
-
-    public List<ReviewDto> getReviewsByCustomerId(Long customerId) {
-        return reviewRepository.findByCustomerId(customerId)
-                .stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
-    
-
-    // Provider side
-    public ReviewDto respondToReview(Long reviewId, String responseText) {
-        Review existingReview = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new RuntimeException("Review not found with id: " + reviewId));
-        
-        existingReview.setProviderResponse(responseText);
-        Review updatedReview = reviewRepository.save(existingReview);
-        
-        return convertToDTO(updatedReview);
-    }
-
-    public List<ReviewDto> getReviewsByProviderId(Long providerId) {
-        return reviewRepository.findByProviderId(providerId)
-                .stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
-    private ReviewDto convertToDTO(Review review) {
-        ReviewDto dto = new ReviewDto();
-        dto.setId(review.getId());
-        dto.setRecommended(review.getRecommended());
-        dto.setCustomerComment(review.getCustomerComment());
-        dto.setProviderResponse(review.getProviderResponse());
-        dto.setCreatedAt(review.getCreatedAt());
-        
-        // Flatten the relationships! Just grab the IDs.
-        if (review.getCustomer() != null) {
-            dto.setCustomerId(review.getCustomer().getId());
+    public Review createReview(CreateReviewDto dto) {
+        Optional<Customer> customerO = this.customerRepostiroy.findById(dto.getCustomerId());
+        if (customerO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + dto.getCustomerId());
         }
-        if (review.getProvider() != null) {
-            dto.setProviderId(review.getProvider().getId());
+        Customer customer = customerO.get();
+        Optional<Provider> providerO = this.providerRepository.findById(dto.getProviderId());
+        if (providerO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + dto.getProviderId());
         }
-        
-        return dto;
+        Provider provider = providerO.get();
+        Review review = new Review(
+                dto.getReccomended(),
+                dto.getCustomerComment(),
+                null,
+                LocalDateTime.now(),
+                null,
+                null,
+                null,
+                customer,
+                provider);
+        return this.reviewRepository.save(review);
     }
-}    
 
+    public List<Review> getAllReviews() {
+        return this.reviewRepository.findAll();
+    }
+
+    public Review getReviewById(Long reviewId) {
+        Optional<Review> reviewO = this.reviewRepository.findById(reviewId);
+        if (reviewO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        Review review = reviewO.get();
+        return review;
+    }
+
+    public Review editReviewComment(Long reviewId, EditCommentReviewDto dto) {
+        Optional<Review> reviewO = this.reviewRepository.findById(reviewId);
+        if (reviewO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        Review review = reviewO.get();
+        review.setCommentEditedAt(LocalDateTime.now());
+        review.setRecommended(dto.getReccomended());
+        review.setCustomerComment(dto.getCustomerComment());
+        return this.reviewRepository.save(review);
+    }
+
+    public Review respondReview(Long reviewId, RespondReviewDto dto) {
+        Optional<Review> reviewO = this.reviewRepository.findById(reviewId);
+        if (reviewO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        Review review = reviewO.get();
+        if (review.getHasResponse()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
+        review.setProviderResponse(dto.getProviderResponse());
+        review.setRespondedAt(LocalDateTime.now());
+        return this.reviewRepository.save(review);
+    }
+
+    public Review editReviewResponse(Long reviewId, EditResponseReviewDto dto) {
+        Optional<Review> reviewO = this.reviewRepository.findById(reviewId);
+        if (reviewO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        Review review = reviewO.get();
+        if (!review.getHasResponse()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
+        review.setProviderResponse(dto.getProviderResponse());
+        review.setResponseEditedAt(LocalDateTime.now());
+        return this.reviewRepository.save(review);
+    }
+
+    public void deleteReview(Long reviewId) {
+        Optional<Review> reviewO = this.reviewRepository.findById(reviewId);
+        if (reviewO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        Review review = reviewO.get();
+        this.reviewRepository.delete(review);
+    }
+}

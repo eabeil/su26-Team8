@@ -1,9 +1,8 @@
 package CS340.PetPal.Entity;
 
-
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -36,34 +35,63 @@ public class Review {
     private Boolean recommended;
 
     // The review left by the customer
-    @Column(length = 1000, nullable = false)
+    @Column(nullable = false)
     private String customerComment;
 
     // The single reply from the provider
-    @Column(length = 1000)
+    @Column(nullable = true)
     private String providerResponse;
 
     // Date/Time
-    @CreationTimestamp
+    @Column(nullable = false)
+    @UpdateTimestamp
     private LocalDateTime createdAt;
+
+    @Column(nullable = true)
+    @UpdateTimestamp
+    private LocalDateTime respondedAt;
+
+    @Column(nullable = true)
+    @UpdateTimestamp
+    private LocalDateTime commentEditedAt;
+
+    @Column(nullable = true)
+    @UpdateTimestamp
+    private LocalDateTime responseEditedAt;
 
     // The Customer who wrote the review
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
-    @JsonIgnoreProperties({"reviews", "pets"}) // Prevents infinite loops
+    @JsonIgnoreProperties({ "reviews", "pets" }) // Prevents infinite loops
     private Customer customer;
 
     // The Provider receiving the review
     @ManyToOne
     @JoinColumn(name = "provider_id", nullable = false)
-    @JsonIgnoreProperties({"reviews"}) // Prevents infinite loops
-    private Provider provider; 
+    @JsonIgnoreProperties({ "reviews", "updates", "jobs" }) // Prevents infinite loops
+    private Provider provider;
 
-    
-    public Review(Boolean recommended, String customerComment, Customer customer, Provider provider) {
+    public Review(Boolean recommended, String customerComment, String providerResponse, LocalDateTime createdAt, LocalDateTime respondedAt, LocalDateTime commentEditedAt, LocalDateTime responseEditedAt, Customer customer, Provider provider) {
         this.recommended = recommended;
         this.customerComment = customerComment;
+        this.providerResponse = providerResponse;
+        this.createdAt = createdAt;
+        this.respondedAt = respondedAt;
+        this.commentEditedAt = commentEditedAt;
+        this.responseEditedAt = responseEditedAt;
         this.customer = customer;
         this.provider = provider;
+    }
+
+    public boolean getWasEdited() {
+        return this.commentEditedAt != null;
+    }
+
+    public boolean getHasResponse() {
+        return this.providerResponse != null;
+    }
+
+    public boolean getWasResponseEdited() {
+        return this.getResponseEditedAt() != null;
     }
 }

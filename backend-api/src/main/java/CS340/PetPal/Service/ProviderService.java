@@ -37,8 +37,13 @@ public class ProviderService {
         return this.providerRepository.findAll();
     }
 
-    public Optional<Provider> getProviderById(Long providerId) {
-        return this.providerRepository.findById(providerId);
+    public Provider getProviderById(Long providerId) {
+        Optional<Provider> providerO = this.providerRepository.findById(providerId);
+        if (providerO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        Provider provider = providerO.get();
+        return provider;
     }
 
     public List<Job> getProviderJobs(Long providerId) {
@@ -61,24 +66,24 @@ public class ProviderService {
     }
 
     public Provider updateProvider(Long providerId, UpdateProviderDto dto) {
-        Optional<Provider> existingProviderO = this.providerRepository.findById(providerId);
-        if (existingProviderO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id: " + providerId);
+        Optional<Provider> providerO = this.providerRepository.findById(providerId);
+        if (providerO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        Provider existingProvider = existingProviderO.get();
-        existingProvider.setName(dto.getName());
-        existingProvider.setDescription(dto.getDescription());
-        existingProvider.setImageUrl(dto.getImageUrl());
-        existingProvider.setAddress(dto.getAddress());
-        existingProvider.setPhone(dto.getPhone());
-        existingProvider.setEmail(dto.getEmail());
-        return this.providerRepository.save(existingProvider);
+        Provider provider = providerO.get();
+        provider.setName(dto.getName());
+        provider.setDescription(dto.getDescription());
+        provider.setImageUrl(dto.getImageUrl());
+        provider.setAddress(dto.getAddress());
+        provider.setPhone(dto.getPhone());
+        provider.setEmail(dto.getEmail());
+        return this.providerRepository.save(provider);
     }
 
     public void deleteProvider(Long providerId) {
         Optional<Provider> providerO = this.providerRepository.findById(providerId);
         if (providerO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + providerId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         Provider provider = providerO.get();
         this.providerRepository.delete(provider);

@@ -1,5 +1,6 @@
 package CS340.PetPal.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,36 +29,41 @@ public class UpdateService {
         return this.updateRepository.findAll();
     }
 
-    public Optional<Update> getUpdateById(Long updateId) {
-        return this.updateRepository.findById(updateId);
+    public Update getUpdateById(Long updateId) {
+        Optional<Update> updateO = this.updateRepository.findById(updateId);
+        if (updateO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        Update update = updateO.get();
+        return update;
     }
 
     public Update createUpdate(CreateUpdateDto dto) {
         Optional<Provider> providerO = this.providerRepository.findById(dto.getProviderId());
         if (providerO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider of id " + dto.getProviderId());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         Provider provider = providerO.get();
-        Update update = new Update(dto.getTitle(), dto.getTime(), dto.getDescription(), provider);
+        Update update = new Update(dto.getTitle(), LocalDateTime.now(), dto.getDescription(), provider);
         return this.updateRepository.save(update);
     }
 
     public Update updateUpdate(Long updateId, UpdateUpdateDto dto) {
-        Optional<Update> existingUpdateO = this.updateRepository.findById(updateId);
-        if (existingUpdateO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no update with id " + updateId);
+        Optional<Update> updateO = this.updateRepository.findById(updateId);
+        if (updateO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        Update existingUpdate = existingUpdateO.get();
-        existingUpdate.setTitle(dto.getTitle());
-        existingUpdate.setTime(dto.getTime());
-        existingUpdate.setDescription(dto.getDescription());
-        return this.updateRepository.save(existingUpdate);
+        Update update = updateO.get();
+        update.setTitle(dto.getTitle());
+        update.setCreatedAt(LocalDateTime.now());
+        update.setDescription(dto.getDescription());
+        return this.updateRepository.save(update);
     }
 
     public void deleteUpdate(Long updateId) {
         Optional<Update> updateO = this.updateRepository.findById(updateId);
         if (updateO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no update with id " + updateId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         Update update = updateO.get();
         this.updateRepository.delete(update);

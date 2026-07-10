@@ -1,12 +1,14 @@
 package CS340.PetPal.Service;
 
-
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import CS340.PetPal.Dto.PetDto;
+import CS340.PetPal.Dto.CreatePetDto;
+import CS340.PetPal.Dto.UpdatePetDto;
 import CS340.PetPal.Entity.Customer;
 import CS340.PetPal.Entity.Pet;
 import CS340.PetPal.Repository.CustomerRepository;
@@ -23,37 +25,49 @@ public class PetService {
         this.customerRepository = customerRepository;
     }
 
-    public PetDto addPetToCustomer(Long customerId, Pet pet) {
-        // First, look up the customer to ensure they exist
-        Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new RuntimeException("Customer not found with ID: " + customerId));
-        
-        // Attach the customer to the pet, then save the pet
-        pet.setCustomer(customer);
-        Pet savedPet = petRepository.save(pet);
-        return convertToDTO(savedPet);
+    public Pet createPet(CreatePetDto dto) {
+        Optional<Customer> customerO = this.customerRepository.findById(dto.getCustomerId());
+        if (customerO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        Customer customer = customerO.get();
+        Pet pet = new Pet(dto.getName(), dto.getSpeciesOrBreed(), dto.getAge(), dto.getSpecialCareInstructions(), dto.getTraits(), customer);
+        return this.petRepository.save(pet);
     }
 
-    public List<PetDto> getPetsByCustomerId(Long customerId) {
-        return petRepository.findByCustomerId(customerId)
-            .stream()
-            .map(this::convertToDTO)
-            .collect(Collectors.toList());
+    public List<Pet> getAllPets() {
+        return this.petRepository.findAll();
     }
-    
+
+    public Pet getPetById(Long petId) {
+        Optional<Pet> petO = this.petRepository.findById(petId);
+        if (petO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        Pet pet = petO.get();
+        return pet;
+    }
+
+    public Pet updatePet(Long petId, UpdatePetDto dto) {
+        Optional<Pet> petO = this.petRepository.findById(petId);
+        if (petO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        Pet pet = petO.get();
+        pet.setName(dto.getName());
+        pet.setSpeciesOrBreed(dto.getSpeciesOrBreed());
+        pet.setAge(dto.getAge());
+        pet.setSpecialCareInstructions(dto.getSpecialCareInstructions());
+        pet.setTraits(dto.getTraits());
+        return this.petRepository.save(pet);
+    }
+
     public void deletePet(Long petId) {
-        petRepository.deleteById(petId);
-    }
-    
-    private PetDto convertToDTO(Pet pet) {
-        PetDto dto = new PetDto();
-        dto.setId(pet.getId());
-        dto.setName(pet.getName());
-        dto.setSpeciesOrBreed(pet.getSpeciesOrBreed());
-        dto.setAge(pet.getAge());
-        dto.setSpecialCareInstructions(pet.getSpecialCareInstructions());
-        dto.setTraits(pet.getTraits());
-        dto.setCustomerId(pet.getCustomer().getId());
-        return dto;
+        Optional<Pet> petO = this.petRepository.findById(petId);
+        if (petO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        Pet pet = petO.get();
+        this.petRepository.delete(pet);
     }
 }

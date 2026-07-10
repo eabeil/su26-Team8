@@ -33,16 +33,16 @@ public class Pet {
 
     private Integer age;
 
-    @Column(length = 500)
+    @Column(nullable = false)
     private String specialCareInstructions;
 
     // Comma seperated string for traits instead.
-    @Column(name = "traits")
+    @Column(nullable = false)
     private String traits;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
-    @JsonIgnoreProperties({"pets"})
+    @JsonIgnoreProperties({"pets", "reviews"})
     private Customer customer;
 
     // Updated Constructor
