@@ -30,6 +30,7 @@ public class Job {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime time;
 

@@ -30,10 +30,11 @@ public class Update {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime time;
 
-    @Column
+    @Column(nullable = false)
     private String duration;
 
     @Column(nullable = false)
