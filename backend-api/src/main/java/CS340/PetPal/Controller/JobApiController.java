@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import CS340.PetPal.Service.JobService;
-import CS340.PetPal.DTO.CreateJobDto;
+import CS340.PetPal.Dto.CreateJobDto;
 import CS340.PetPal.Entity.Job;
 
 @RestController

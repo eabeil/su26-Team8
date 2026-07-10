@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import CS340.PetPal.Repository.JobRepository;
 import CS340.PetPal.Repository.ProviderRepository;
-import CS340.PetPal.DTO.CreateJobDto;
+import CS340.PetPal.Dto.CreateJobDto;
 import CS340.PetPal.Entity.Job;
 import CS340.PetPal.Entity.Provider;
 
