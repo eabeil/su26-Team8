@@ -1,4 +1,5 @@
 package CS340.PetPal.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -34,12 +35,12 @@ public class ReviewService {
     public Review createReview(CreateReviewDto dto) {
         Optional<Customer> customerO = this.customerRepostiroy.findById(dto.getCustomerId());
         if (customerO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + dto.getCustomerId());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         Customer customer = customerO.get();
         Optional<Provider> providerO = this.providerRepository.findById(dto.getProviderId());
         if (providerO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + dto.getProviderId());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         Provider provider = providerO.get();
         Review review = new Review(
