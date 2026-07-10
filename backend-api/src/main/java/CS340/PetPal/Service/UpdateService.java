@@ -34,8 +34,8 @@ public class UpdateService {
             throw new RuntimeException("Update not found with id: " + updateId);
         }
         Update existingUpdate = existingUpdateO.get();
-        if (!update.getName().isEmpty()) {
-            existingUpdate.setName(update.getName());
+        if (!update.getTitle().isEmpty()) {
+            existingUpdate.setName(update.getTitle());
         }
         if (update.getTime() != null) {
             existingUpdate.setTime(update.getTime());

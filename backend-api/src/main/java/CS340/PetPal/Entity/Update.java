@@ -28,7 +28,7 @@ public class Update {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String title;
 
     @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
@@ -45,8 +45,8 @@ public class Update {
     @JsonIgnoreProperties({ "services", "updates", "reviews" })
     private Provider provider;
 
-    public Update(String name, LocalDateTime time, String duration, double price, Provider provider) {
-        this.name = name;
+    public Update(String title, LocalDateTime time, String duration, double price, Provider provider) {
+        this.title = title;
         this.time = time;
         this.duration = duration;
         this.price = price;
