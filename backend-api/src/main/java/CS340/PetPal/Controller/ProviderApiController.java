@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import CS340.PetPal.Service.ProviderService;
-import CS340.PetPal.Entity.Provider;;
+import CS340.PetPal.Entity.Provider;
+import CS340.PetPal.Dto.CreateProviderDto;
+import CS340.PetPal.Dto.UpdateProviderDto;
 
 @RestController
 @RequestMapping("/api/providers")
@@ -45,18 +47,18 @@ public class ProviderApiController {
     }
 
     // create provider
-    public ResponseEntity<Provider> createProvider(@RequestBody Provider provider) {
-        Provider createdProvider = this.providerService.createProvider(provider);
     @PostMapping("/")
+    public ResponseEntity<Provider> createProvider(@RequestBody CreateProviderDto dto) {
+        Provider createdProvider = this.providerService.createProvider(dto);
         URI location = URI.create("/api/providers/" + createdProvider.getId());
         return ResponseEntity.created(location).body(createdProvider);
     }
 
     // update provider
     @PutMapping("/{id}")
-    public ResponseEntity<Provider> updateProvider(@PathVariable("id") Long providerId, @RequestBody Provider provider) {
+    public ResponseEntity<Provider> updateProvider(@PathVariable("id") Long providerId, @RequestBody UpdateProviderDto dto) {
         try {
-            Provider updatedProvider = this.providerService.updateProvider(providerId, provider);
+            Provider updatedProvider = this.providerService.updateProvider(providerId, dto);
             return ResponseEntity.ok(updatedProvider);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

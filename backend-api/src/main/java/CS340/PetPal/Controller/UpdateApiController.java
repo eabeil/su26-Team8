@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import CS340.PetPal.Service.UpdateService;
+import CS340.PetPal.Dto.CreateUpdateDto;
+import CS340.PetPal.Dto.UpdateUpdateDto;
 import CS340.PetPal.Entity.Update;
 
 @RestController
@@ -45,18 +47,18 @@ public class UpdateApiController {
     }
 
     // create update
-    public ResponseEntity<Update> createProvider(@RequestBody Update update) {
-        Update createdUpdate = this.updateService.createUpdate(update);
     @PostMapping("/")
+    public ResponseEntity<Update> createUpdate(@RequestBody CreateUpdateDto dto) {
+        Update createdUpdate = this.updateService.createUpdate(dto);
         URI location = URI.create("/api/updates/" + createdUpdate.getId());
         return ResponseEntity.created(location).body(createdUpdate);
     }
 
     // update update
     @PutMapping("/{id}")
-    public ResponseEntity<Update> updateUpdate(@PathVariable("id") Long providerId, @RequestBody Update update) {
+    public ResponseEntity<Update> updateUpdate(@PathVariable("id") Long providerId, @RequestBody UpdateUpdateDto dto) {
         try {
-            Update updatedUpdate = this.updateService.updateUpdate(providerId, update);
+            Update updatedUpdate = this.updateService.updateUpdate(providerId, dto);
             return ResponseEntity.ok(updatedUpdate);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
