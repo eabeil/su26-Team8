@@ -19,11 +19,11 @@ import CS340.PetPal.Service.CustomerService;
 
 @RestController
 @RequestMapping("/api/customers")
-public class CustomerController {
+public class CustomerApiController {
 
     private final CustomerService customerService;
 
-    public CustomerController(CustomerService customerService) {
+    public CustomerApiController(CustomerService customerService) {
         this.customerService = customerService;
     }
 

@@ -2,7 +2,6 @@ package CS340.PetPal.Entity;
 
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -17,7 +16,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Entity
 @Table(name = "updates")
 @Getter
@@ -29,27 +27,23 @@ public class Update {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
-
-    @JsonFormat(pattern = "yyy-MM-dd HH:mm")
-    private LocalDateTime time;
-
-    @Column
-    private String duration;
+    private String title;
 
     @Column(nullable = false)
-    private double price;
+    private LocalDateTime time;
 
-    @ManyToOne
-    @JoinColumn(name = "update_id", nullable = false)
-    @JsonIgnoreProperties({"services", "updates", "reviews"})
-    private Provider provider; 
+    @Column(nullable = false)
+    private String description;
 
-    public Update(String name, LocalDateTime time, String duration, double price, Provider provider) {
-        this.name = name;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "provider_id", nullable = false)
+    @JsonIgnoreProperties({ "jobs", "updates", "reviews" })
+    private Provider provider;
+
+    public Update(String title, LocalDateTime time, String description, Provider provider) {
+        this.title = title;
         this.time = time;
-        this.duration = duration;
-        this.price = price;
+        this.description = description;
         this.provider = provider;
     }
 }

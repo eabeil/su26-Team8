@@ -1,12 +1,17 @@
 package CS340.PetPal.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import CS340.PetPal.Repository.ProviderRepository;
 import CS340.PetPal.Entity.Provider;
+import CS340.PetPal.Dto.CreateProviderDto;
+import CS340.PetPal.Dto.UpdateProviderDto;
 
 @Service
 public class ProviderService {
@@ -24,33 +29,34 @@ public class ProviderService {
         return this.providerRepository.findById(providerId);
     }
 
-    public Provider createProvider(Provider provider) {
+    public Provider createProvider(CreateProviderDto dto) {
+        Provider provider = new Provider(dto.getName(), dto.getDescription(), dto.getImageUrl(), dto.getAddress(),
+                dto.getPhone(), dto.getEmail(), Collections.emptyList(), Collections.emptyList(),
+                Collections.emptyList());
         return this.providerRepository.save(provider);
     }
 
-    public Provider updateProvider(Long providerId, Provider provider) {
-        Provider existingProvider = this.providerRepository.findById(providerId).orElse(null);
-        if (existingProvider == null) {
-            throw new RuntimeException("Provider not found with id: " + providerId);
+    public Provider updateProvider(Long providerId, UpdateProviderDto dto) {
+        Optional<Provider> existingProviderO = this.providerRepository.findById(providerId);
+        if (existingProviderO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id: " + providerId);
         }
-        if (!provider.getName().isEmpty()) {
-            existingProvider.setName(provider.getName());
-        }
-        if (!provider.getDescription().isEmpty()) {
-            existingProvider.setDescription(provider.getDescription());
-        }
-        if (!provider.getImageUrl().isEmpty()) {
-            existingProvider.setImageUrl(provider.getImageUrl());
-        }
-        if (!provider.getAddress().isEmpty()) {
-            existingProvider.setAddress(provider.getAddress());
-        }
-        if (!provider.getPhone().isEmpty()) {
-            existingProvider.setPhone(provider.getPhone());
-        }
-        if (!provider.getEmail().isEmpty()) {
-            existingProvider.setEmail(provider.getEmail());
-        }
+        Provider existingProvider = existingProviderO.get();
+        existingProvider.setName(dto.getName());
+        existingProvider.setDescription(dto.getDescription());
+        existingProvider.setImageUrl(dto.getImageUrl());
+        existingProvider.setAddress(dto.getAddress());
+        existingProvider.setPhone(dto.getPhone());
+        existingProvider.setEmail(dto.getEmail());
         return this.providerRepository.save(existingProvider);
+    }
+
+    public void deleteProvider(Long providerId) {
+        Optional<Provider> providerO = this.providerRepository.findById(providerId);
+        if (providerO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + providerId);
+        }
+        Provider provider = providerO.get();
+        this.providerRepository.delete(provider);
     }
 }

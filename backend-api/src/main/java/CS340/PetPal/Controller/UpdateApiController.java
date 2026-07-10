@@ -1,9 +1,11 @@
 package CS340.PetPal.Controller;
 
-import java.util.Collections;
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import CS340.PetPal.Service.UpdateService;
+import CS340.PetPal.Dto.CreateUpdateDto;
+import CS340.PetPal.Dto.UpdateUpdateDto;
 import CS340.PetPal.Entity.Update;
 
 @RestController
@@ -29,33 +33,43 @@ public class UpdateApiController {
     @GetMapping("/")
     public ResponseEntity<List<Update>> getAllUpdates() {
         List<Update> providers = this.updateService.getAllUpdates();
-        if (providers.isEmpty()) {
-            return ResponseEntity.ok(Collections.emptyList());
-        }
         return ResponseEntity.ok(providers);
     }
 
     // get update
     @GetMapping("/{id}")
-    public ResponseEntity<Update> getUpdateById(@PathVariable Long updateId) {
-        return this.updateService.getUpdateById(updateId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Update> getUpdateById(@PathVariable("id") Long updateId) {
+        Optional<Update> updateO = this.updateService.getUpdateById(updateId);
+        if (updateO.isPresent()) {
+            Update update = updateO.get();
+            return ResponseEntity.ok(update);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     // create update
-    @PostMapping()
-    public ResponseEntity<Update> createProvider(@RequestBody Update update) {
-        Update createdUpdate = this.updateService.createUpdate(update);
-        return ResponseEntity.created(null).body(createdUpdate);
+    @PostMapping("/")
+    public ResponseEntity<Update> createUpdate(@RequestBody CreateUpdateDto dto) {
+        Update createdUpdate = this.updateService.createUpdate(dto);
+        URI location = URI.create("/api/updates/" + createdUpdate.getId());
+        return ResponseEntity.created(location).body(createdUpdate);
     }
 
     // update update
     @PutMapping("/{id}")
-    public ResponseEntity<Update> updateUpdate(@PathVariable Long providerId, @RequestBody Update update) {
+    public ResponseEntity<Update> updateUpdate(@PathVariable("id") Long providerId, @RequestBody UpdateUpdateDto dto) {
         try {
-            Update updatedUpdate = this.updateService.updateUpdate(providerId, update);
+            Update updatedUpdate = this.updateService.updateUpdate(providerId, dto);
             return ResponseEntity.ok(updatedUpdate);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    // delete update
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUpdate(@PathVariable("id") Long updateId) {
+        this.updateService.deleteUpdate(updateId);
+        return ResponseEntity.noContent().build();
     }
 }

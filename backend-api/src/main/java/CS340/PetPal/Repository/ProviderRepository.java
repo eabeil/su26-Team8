@@ -7,5 +7,5 @@ import CS340.PetPal.Entity.Provider;
 
 @Repository
 public interface ProviderRepository extends JpaRepository<Provider, Long> {
-    
+
 }

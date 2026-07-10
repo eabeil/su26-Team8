@@ -20,11 +20,11 @@ import CS340.PetPal.Service.ReviewService;
 
 @RestController
 @RequestMapping("/api/reviews")
-public class ReviewController {
+public class ReviewApiController {
 
     private final ReviewService reviewService;
 
-    public ReviewController(ReviewService reviewService) {
+    public ReviewApiController(ReviewService reviewService) {
         this.reviewService = reviewService;
     }
 

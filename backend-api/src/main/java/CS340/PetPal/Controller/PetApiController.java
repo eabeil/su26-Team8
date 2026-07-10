@@ -17,11 +17,11 @@ import CS340.PetPal.Service.PetService;
 
 @RestController
 @RequestMapping("/api/customers/{customerId}/pets")
-public class PetController {
+public class PetApiController {
 
     private final PetService petService;
 
-    public PetController(PetService petService) {
+    public PetApiController(PetService petService) {
         this.petService = petService;
     }
 
