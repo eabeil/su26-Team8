@@ -36,9 +36,9 @@ public class UpdateApiController {
     // get update
     @GetMapping("/{id}")
     public ResponseEntity<Update> getUpdateById(@PathVariable("id") Long updateId) {
-        Optional<Update> update_o = this.updateService.getUpdateById(updateId);
-        if (update_o.isPresent()) {
-            Update update = update_o.get();
+        Optional<Update> updateO = this.updateService.getUpdateById(updateId);
+        if (updateO.isPresent()) {
+            Update update = updateO.get();
             return ResponseEntity.ok(update); 
         }
         return ResponseEntity.notFound().build();

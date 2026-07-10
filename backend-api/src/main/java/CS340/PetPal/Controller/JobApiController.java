@@ -36,9 +36,9 @@ public class JobApiController {
     // get service
     @GetMapping("/{id}")
     public ResponseEntity<Job> getJobById(@PathVariable("id") Long serviceId) {
-        Optional<Job> job_o = this.jobService.getJobById(serviceId);
-        if (job_o.isPresent()) {
-            Job job = job_o.get();
+        Optional<Job> jobO = this.jobService.getJobById(serviceId);
+        if (jobO.isPresent()) {
+            Job job = jobO.get();
             return ResponseEntity.ok(job);
         }
         return ResponseEntity.notFound().build();    }
