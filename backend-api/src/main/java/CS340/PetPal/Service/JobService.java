@@ -35,7 +35,7 @@ public class JobService {
     public Job createJob(CreateJobDto dto) {
         Optional<Provider> providerO = this.providerReposotiry.findById(dto.getProviderId());
         if (providerO.isEmpty()) {
-            throw new RuntimeException("no provider with id " + dto.getProviderId());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider of id " + dto.getProviderId());
         }
         Provider provider = providerO.get();
         Job job = new Job(dto.getName(), dto.getTime(), dto.getDuration(), dto.getPrice(), provider);
@@ -45,7 +45,7 @@ public class JobService {
     public Job updateJob(Long jobId, UpdateJobDto dto) {
         Optional<Job> existingJobO = this.jobRepository.findById(jobId);
         if (existingJobO.isEmpty()) {
-            throw new RuntimeException("Job not found with id: " + jobId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no job with id " + jobId);
         }
         Job existingJob = existingJobO.get();
         existingJob.setName(dto.getName());
@@ -58,7 +58,7 @@ public class JobService {
     public void deleteJob(Long jobId) {
         Optional<Job> jobO = this.jobRepository.findById(jobId);
         if (jobO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no job of id " + jobId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no job with id " + jobId);
         }
         Job job = jobO.get();
         this.jobRepository.delete(job);

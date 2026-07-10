@@ -39,7 +39,7 @@ public class ProviderService {
     public Provider updateProvider(Long providerId, UpdateProviderDto dto) {
         Optional<Provider> existingProviderO = this.providerRepository.findById(providerId);
         if (existingProviderO.isEmpty()) {
-            throw new RuntimeException("Provider not found with id: " + providerId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id: " + providerId);
         }
         Provider existingProvider = existingProviderO.get();
         existingProvider.setName(dto.getName());

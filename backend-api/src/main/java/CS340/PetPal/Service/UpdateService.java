@@ -35,7 +35,7 @@ public class UpdateService {
     public Update createUpdate(CreateUpdateDto dto) {
         Optional<Provider> providerO = this.providerRepository.findById(dto.getProviderId());
         if (providerO.isEmpty()) {
-            throw new RuntimeException("no provider of id " + dto.getProviderId());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider of id " + dto.getProviderId());
         }
         Provider provider = providerO.get();
         Update update = new Update(dto.getTitle(), dto.getTime(), dto.getDuration(), dto.getPrice(), provider);
@@ -45,7 +45,7 @@ public class UpdateService {
     public Update updateUpdate(Long updateId, UpdateUpdateDto dto) {
         Optional<Update> existingUpdateO = this.updateRepository.findById(updateId);
         if (existingUpdateO.isEmpty()) {
-            throw new RuntimeException("Update not found with id: " + updateId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no update with id " + updateId);
         }
         Update existingUpdate = existingUpdateO.get();
         existingUpdate.setTitle(dto.getTitle());
@@ -59,7 +59,7 @@ public class UpdateService {
         Optional<Update> updateO = this.updateRepository.findById(updateId);
         if (updateO.isEmpty())
         {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no update of id " + updateId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no update with id " + updateId);
         }
         Update update = updateO.get();
         this.updateRepository.delete(update);
