@@ -12,6 +12,7 @@ public class PetDto {
     private Long id;
     private String name;
     private String speciesOrBreed;
+    private Integer age;
     private String specialCareInstructions;
     private String traits;
     
