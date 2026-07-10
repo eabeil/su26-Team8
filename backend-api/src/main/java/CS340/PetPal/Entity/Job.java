@@ -45,10 +45,11 @@ public class Job {
     @JsonIgnoreProperties({ "jobs", "updates", "reviews" })
     private Provider provider;
 
-    public Job(String name, LocalDateTime time, String duration, double price) {
+    public Job(String name, LocalDateTime time, String duration, double price, Provider provider) {
         this.name = name;
         this.time = time;
         this.duration = duration;
         this.price = price;
+        this.provider = provider;
     }
 }

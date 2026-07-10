@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import CS340.PetPal.Service.JobService;
+import CS340.PetPal.DTO.CreateJobDto;
 import CS340.PetPal.Entity.Job;
 
 @RestController
@@ -46,7 +47,7 @@ public class JobApiController {
 
     // create job
     @PostMapping
-    public ResponseEntity<Job> createJob(@RequestBody Job job) {
+    public ResponseEntity<Job> createJob(@RequestBody CreateJobDto job) {
         Job createdJob = this.jobService.createJob(job);
         URI location = URI.create("/api/services/" + createdJob.getId());
         return ResponseEntity.created(location).body(createdJob);

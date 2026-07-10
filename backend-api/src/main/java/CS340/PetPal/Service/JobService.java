@@ -6,14 +6,19 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import CS340.PetPal.Repository.JobRepository;
+import CS340.PetPal.Repository.ProviderRepository;
+import CS340.PetPal.DTO.CreateJobDto;
 import CS340.PetPal.Entity.Job;
+import CS340.PetPal.Entity.Provider;
 
 @Service
 public class JobService {
     private final JobRepository jobRepository;
+    private final ProviderRepository providerReposotiry;
 
-    public JobService(JobRepository jobRepository) {
+    public JobService(JobRepository jobRepository, ProviderRepository providerRepository) {
         this.jobRepository = jobRepository;
+        this.providerReposotiry = providerRepository;
     }
 
     public List<Job> getAllJobs() {
@@ -24,7 +29,13 @@ public class JobService {
         return this.jobRepository.findById(jobId);
     }
 
-    public Job createJob(Job job) {
+    public Job createJob(CreateJobDto dto) {
+       Optional<Provider> providerO = this.providerReposotiry.findById(dto.getProviderId());
+       if (providerO.isEmpty()) {
+        throw new RuntimeException("no provider with id " + dto.getProviderId());
+       }
+       Provider provider = providerO.get();
+       Job job = new Job(dto.getName(), dto.getTime(), dto.getDuration(), dto.getPrice(), provider);
         return this.jobRepository.save(job);
     }
 
