@@ -3,6 +3,7 @@ package CS340.PetPal.Controller;
 import java.net.URI;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,8 +37,12 @@ public class JobApiController {
     // get service
     @GetMapping("/{id}")
     public ResponseEntity<Job> getServiceById(@PathVariable("id") Long serviceId) {
-        return this.serviceService.getServiceById(serviceId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
-    }
+        Optional<Job> job_o = this.serviceService.getServiceById(serviceId);
+        if (job_o.isPresent()) {
+            Job job = job_o.get();
+            return ResponseEntity.ok(job);
+        }
+        return ResponseEntity.notFound().build();    }
 
     // create service
     @PostMapping()

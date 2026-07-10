@@ -3,6 +3,7 @@ package CS340.PetPal.Controller;
 import java.net.URI;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,12 @@ public class ProviderApiController {
     // get provider
     @GetMapping("/{id}")
     public ResponseEntity<Provider> getProviderById(@PathVariable("id") Long providerId) {
-        return this.providerService.getProviderById(providerId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        Optional<Provider> provider_o = this.providerService.getProviderById(providerId);
+        if (provider_o.isPresent()) {
+            Provider provider = provider_o.get();
+            return ResponseEntity.ok(provider);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     // create provider

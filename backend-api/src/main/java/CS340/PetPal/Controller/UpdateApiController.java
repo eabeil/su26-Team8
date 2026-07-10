@@ -3,6 +3,7 @@ package CS340.PetPal.Controller;
 import java.net.URI;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,12 @@ public class UpdateApiController {
     // get update
     @GetMapping("/{id}")
     public ResponseEntity<Update> getUpdateById(@PathVariable("id") Long updateId) {
-        return this.updateService.getUpdateById(updateId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        Optional<Update> update_o = this.updateService.getUpdateById(updateId);
+        if (update_o.isPresent()) {
+            Update update = update_o.get();
+            return ResponseEntity.ok(update); 
+        }
+        return ResponseEntity.notFound().build();
     }
 
     // create update
