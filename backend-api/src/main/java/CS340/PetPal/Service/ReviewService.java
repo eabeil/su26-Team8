@@ -2,9 +2,11 @@ package CS340.PetPal.Service;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import CS340.PetPal.DTO.ReviewDto;
 import CS340.PetPal.Entity.Review;
 import CS340.PetPal.Repository.ReviewRepository;
 
@@ -18,30 +20,53 @@ public class ReviewService {
     }
 
     // Customer side 
-    public Review createReview(Review review) {
-        review.setProviderResponse(null);
-        return reviewRepository.save(review);
+    public ReviewDto createReview(Review review) {
+        Review savedReview = reviewRepository.save(review);
+        return convertToDTO(savedReview);
     }
 
-    public List<Review> getReviewsByCustomerId(Long customerId) {
-        return reviewRepository.findByCustomerId(customerId);
+    public List<ReviewDto> getReviewsByCustomerId(Long customerId) {
+        return reviewRepository.findByCustomerId(customerId)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
+    
 
     // Provider side
-    public Review respondToReview(Long reviewId, String responseText) {
-        return reviewRepository.findById(reviewId).map(existingReview -> {
-            
-            // Attach the provider's reply to the existing review
-            existingReview.setProviderResponse(responseText);
-            
-            // Save it back to the database. 
-            // Since the ID already exists, JPA knows to UPDATE instead of INSERT.
-            return reviewRepository.save(existingReview);
-            
-        }).orElseThrow(() -> new RuntimeException("Review not found with ID: " + reviewId));
+    public ReviewDto respondToReview(Long reviewId, String responseText) {
+        Review existingReview = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new RuntimeException("Review not found with id: " + reviewId));
+        
+        existingReview.setProviderResponse(responseText);
+        Review updatedReview = reviewRepository.save(existingReview);
+        
+        return convertToDTO(updatedReview);
     }
 
-    public List<Review> getReviewsByProviderId(Long providerId) {
-        return reviewRepository.findByProviderId(providerId);
+    public List<ReviewDto> getReviewsByProviderId(Long providerId) {
+        return reviewRepository.findByProviderId(providerId)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
-}
+    private ReviewDto convertToDTO(Review review) {
+        ReviewDto dto = new ReviewDto();
+        dto.setId(review.getId());
+        dto.setRecommended(review.getRecommended());
+        dto.setCustomerComment(review.getCustomerComment());
+        dto.setProviderResponse(review.getProviderResponse());
+        dto.setCreatedAt(review.getCreatedAt());
+        
+        // Flatten the relationships! Just grab the IDs.
+        if (review.getCustomer() != null) {
+            dto.setCustomerId(review.getCustomer().getId());
+        }
+        if (review.getProvider() != null) {
+            dto.setProviderId(review.getProvider().getId());
+        }
+        
+        return dto;
+    }
+}    
+
