@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import CS340.PetPal.Service.JobService;
 import CS340.PetPal.Dto.CreateJobDto;
+import CS340.PetPal.Dto.UpdateJobDto;
 import CS340.PetPal.Entity.Job;
 
 @RestController
@@ -47,17 +48,17 @@ public class JobApiController {
 
     // create job
     @PostMapping
-    public ResponseEntity<Job> createJob(@RequestBody CreateJobDto job) {
-        Job createdJob = this.jobService.createJob(job);
+    public ResponseEntity<Job> createJob(@RequestBody CreateJobDto dto) {
+        Job createdJob = this.jobService.createJob(dto);
         URI location = URI.create("/api/services/" + createdJob.getId());
         return ResponseEntity.created(location).body(createdJob);
     }
 
-    // update service
+    // update job
     @PutMapping("/{id}")
-    public ResponseEntity<Job> updateJob(@PathVariable("id") Long serviceId, @RequestBody Job service) {
+    public ResponseEntity<Job> updateJob(@PathVariable("id") Long serviceId, @RequestBody UpdateJobDto dto) {
         try {
-            Job updatedJob = this.jobService.updateJob(serviceId, service);
+            Job updatedJob = this.jobService.updateJob(serviceId, dto);
             return ResponseEntity.ok(updatedJob);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

@@ -10,6 +10,7 @@ import CS340.PetPal.Repository.ProviderRepository;
 import CS340.PetPal.Dto.CreateJobDto;
 import CS340.PetPal.Entity.Job;
 import CS340.PetPal.Entity.Provider;
+import CS340.PetPal.Dto.UpdateJobDto;
 
 @Service
 public class JobService {
@@ -30,25 +31,25 @@ public class JobService {
     }
 
     public Job createJob(CreateJobDto dto) {
-       Optional<Provider> providerO = this.providerReposotiry.findById(dto.getProviderId());
-       if (providerO.isEmpty()) {
-        throw new RuntimeException("no provider with id " + dto.getProviderId());
-       }
-       Provider provider = providerO.get();
-       Job job = new Job(dto.getName(), dto.getTime(), dto.getDuration(), dto.getPrice(), provider);
+        Optional<Provider> providerO = this.providerReposotiry.findById(dto.getProviderId());
+        if (providerO.isEmpty()) {
+            throw new RuntimeException("no provider with id " + dto.getProviderId());
+        }
+        Provider provider = providerO.get();
+        Job job = new Job(dto.getName(), dto.getTime(), dto.getDuration(), dto.getPrice(), provider);
         return this.jobRepository.save(job);
     }
 
-    public Job updateJob(Long jobId, Job job) {
+    public Job updateJob(Long jobId, UpdateJobDto dto) {
         Optional<Job> existingJobO = this.jobRepository.findById(jobId);
         if (existingJobO.isEmpty()) {
             throw new RuntimeException("Job not found with id: " + jobId);
         }
         Job existingJob = existingJobO.get();
-        existingJob.setName(job.getName());
-        existingJob.setTime(job.getTime());
-        existingJob.setDuration(job.getDuration());
-        existingJob.setPrice(job.getPrice());
+        existingJob.setName(dto.getName());
+        existingJob.setTime(dto.getTime());
+        existingJob.setDuration(dto.getDuration());
+        existingJob.setPrice(dto.getPrice());
         return this.jobRepository.save(existingJob);
     }
 }
