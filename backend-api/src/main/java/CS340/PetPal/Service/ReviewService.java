@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import CS340.PetPal.DTO.ReviewDto;
+import CS340.PetPal.Dto.ReviewDto;
 import CS340.PetPal.Entity.Review;
 import CS340.PetPal.Repository.ReviewRepository;
 

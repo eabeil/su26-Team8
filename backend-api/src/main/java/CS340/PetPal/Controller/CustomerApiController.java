@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import CS340.PetPal.DTO.CustomerDto;
+import CS340.PetPal.Dto.CustomerDto;
 import CS340.PetPal.Entity.Customer;
 import CS340.PetPal.Service.CustomerService;
 
@@ -49,7 +49,7 @@ public class CustomerApiController {
     @PutMapping("/{id}")
     public ResponseEntity<CustomerDto> updateCustomer(@PathVariable Long id, @RequestBody Customer updatedCustomer) {
         try {
-            CustomerDto customerDto = this.customerService.updateCustomer(id, updatedCustomer);
+            CustomerDto customerDto = (CustomerDto) this.customerService.updateCustomer(id, updatedCustomer);
             return ResponseEntity.ok(customerDto);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

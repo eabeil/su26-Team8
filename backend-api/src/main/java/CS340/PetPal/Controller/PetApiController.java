@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import CS340.PetPal.DTO.PetDto;
+import CS340.PetPal.Dto.PetDto;
 import CS340.PetPal.Entity.Pet;
 import CS340.PetPal.Service.PetService;
 
