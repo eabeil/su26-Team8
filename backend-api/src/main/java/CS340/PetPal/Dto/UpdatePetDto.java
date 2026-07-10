@@ -12,7 +12,7 @@ public class UpdatePetDto {
     private String specialCareInstructions;
     private String traits;
 
-    UpdatePetDto(String name, String speciesOrBreed, Integer age, String specialCareInstructions, String traits) {
+    public UpdatePetDto(String name, String speciesOrBreed, Integer age, String specialCareInstructions, String traits) {
         this.name = name;
         this.speciesOrBreed = speciesOrBreed;
         this.age = age;

@@ -14,7 +14,7 @@ public class CreateJobDto {
     private double price;
     private long providerId;
 
-    CreateJobDto(String name, LocalDateTime time, String duration, double price, long providerId) {
+    public CreateJobDto(String name, LocalDateTime time, String duration, double price, long providerId) {
         this.name = name;
         this.time = time;
         this.duration = duration;

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 public class EditResponseReviewDto {
     private String providerResponse;
 
-    EditResponseReviewDto(String providerResponse) {
+    public EditResponseReviewDto(String providerResponse) {
         this.providerResponse = providerResponse;
     }
 }

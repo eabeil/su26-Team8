@@ -10,7 +10,7 @@ public class EditCommentReviewDto {
     private Boolean reccomended;
     private String customerComment;
     
-    EditCommentReviewDto(Boolean reccomended, String customerComment) {
+    public EditCommentReviewDto(Boolean reccomended, String customerComment) {
         this.reccomended = reccomended;
         this.customerComment = customerComment;
     }

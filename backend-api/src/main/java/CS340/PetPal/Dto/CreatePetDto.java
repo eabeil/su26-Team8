@@ -13,7 +13,7 @@ public class CreatePetDto {
     private String traits;
     private Long customerId;
 
-    CreatePetDto(String name, String speciesOrBreed, Integer age, String specialCareInstructions, String traits, Long customerId) {
+    public CreatePetDto(String name, String speciesOrBreed, Integer age, String specialCareInstructions, String traits, Long customerId) {
         this.name = name;
         this.speciesOrBreed = speciesOrBreed;
         this.age = age;
