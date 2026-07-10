@@ -1,5 +1,6 @@
 package CS340.PetPal.Service;
 
+
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class PetService {
         // First, look up the customer to ensure they exist
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new RuntimeException("Customer not found with ID: " + customerId));
-
+        
         // Attach the customer to the pet, then save the pet
         pet.setCustomer(customer);
         return petRepository.save(pet);
@@ -33,7 +34,7 @@ public class PetService {
     public List<Pet> getPetsByCustomerId(Long customerId) {
         return petRepository.findByCustomerId(customerId);
     }
-
+    
     public void deletePet(Long petId) {
         petRepository.deleteById(petId);
     }

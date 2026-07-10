@@ -17,6 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Entity
 @Table(name = "updates")
 @Getter
@@ -41,8 +42,8 @@ public class Update {
 
     @ManyToOne
     @JoinColumn(name = "provider_id", nullable = false)
-    @JsonIgnoreProperties({ "services", "updates", "reviews" })
-    private Provider provider;
+    @JsonIgnoreProperties({"services", "updates", "reviews"})
+    private Provider provider; 
 
     public Update(String name, LocalDateTime time, String duration, double price, Provider provider) {
         this.name = name;

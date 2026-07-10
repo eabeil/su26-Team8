@@ -11,25 +11,25 @@ import CS340.PetPal.Repository.CustomerRepository;
 @Service
 public class CustomerService {
 
-  private final CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
-  public CustomerService(CustomerRepository customerRepository) {
-    this.customerRepository = customerRepository;
-  }
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 
-  public Customer createCustomer(Customer customer) {
-    return customerRepository.save(customer);
-  }
+    public Customer createCustomer(Customer customer) {
+        return customerRepository.save(customer);
+    }
 
-  public List<Customer> getAllCustomers() {
-    return customerRepository.findAll();
-  }
+    public List<Customer> getAllCustomers() {
+        return customerRepository.findAll();
+    }
 
-  public Optional<Customer> getCustomerById(Long id) {
-    return customerRepository.findById(id);
-  }
+    public Optional<Customer> getCustomerById(Long id) {
+        return customerRepository.findById(id);
+    }
 
-  public Customer updateCustomer(Long id, Customer updatedCustomer) {
+      public Customer updateCustomer(Long id, Customer updatedCustomer) {
     Optional<Customer> existingCustomer = customerRepository.findById(id);
     if (existingCustomer.isPresent()) {
       Customer customer = existingCustomer.get();
@@ -59,12 +59,12 @@ public class CustomerService {
       throw new RuntimeException("Customer not found with id: " + id);
     }
   }
-
-  public void deleteCustomer(Long id) {
-    // Check if they exist first so we can throw a clean error if they don't
-    if (!customerRepository.existsById(id)) {
-      throw new RuntimeException("Customer not found with ID: " + id);
+    
+    public void deleteCustomer(Long id) {
+        // Check if they exist first so we can throw a clean error if they don't
+        if (!customerRepository.existsById(id)) {
+            throw new RuntimeException("Customer not found with ID: " + id);
+        }
+        customerRepository.deleteById(id);
     }
-    customerRepository.deleteById(id);
-  }
 }
