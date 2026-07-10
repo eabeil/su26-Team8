@@ -34,13 +34,13 @@ public class JobService {
             throw new RuntimeException("Job not found with id: " + jobId);
         }
         Job existingJob = existingJobO.get();
-        if (job.getName() != null && !job.getName().isEmpty()) {
+        if (!job.getName().isEmpty()) {
             existingJob.setName(job.getName());
         }
         if (job.getTime() != null) {
             existingJob.setTime(job.getTime());
         }
-        if (job.getDuration() != null && !job.getDuration().isEmpty()) {
+        if (!job.getDuration().isEmpty()) {
             existingJob.setDuration(job.getDuration());
         }
         if (job.getPrice() != 0) {

@@ -34,13 +34,13 @@ public class UpdateService {
             throw new RuntimeException("Update not found with id: " + updateId);
         }
         Update existingUpdate = existingUpdateO.get();
-        if (update.getName() != null && !update.getName().isEmpty()) {
+        if (!update.getName().isEmpty()) {
             existingUpdate.setName(update.getName());
         }
-        if (update.getTime() != null && update.getTime() != null) {
+        if (update.getTime() != null) {
             existingUpdate.setTime(update.getTime());
         }
-        if (update.getDuration() != null && !update.getDuration().isEmpty()) {
+        if (!update.getDuration().isEmpty()) {
             existingUpdate.setDuration((update.getDuration()));
         }
         if (update.getPrice() != 0) {

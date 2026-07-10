@@ -34,22 +34,22 @@ public class ProviderService {
             throw new RuntimeException("Provider not found with id: " + providerId);
         }
         Provider existingProvider = existingProviderO.get();
-        if (provider.getName() != null && !provider.getName().isEmpty()) {
+        if (!provider.getName().isEmpty()) {
             existingProvider.setName(provider.getName());
         }
-        if (provider.getDescription() != null && !provider.getDescription().isEmpty()) {
+        if (!provider.getDescription().isEmpty()) {
             existingProvider.setDescription(provider.getDescription());
         }
-        if (provider.getImageUrl() != null && !provider.getImageUrl().isEmpty()) {
+        if (!provider.getImageUrl().isEmpty()) {
             existingProvider.setImageUrl(provider.getImageUrl());
         }
-        if (provider.getAddress() != null && !provider.getAddress().isEmpty()) {
+        if (!provider.getAddress().isEmpty()) {
             existingProvider.setAddress(provider.getAddress());
         }
-        if (provider.getPhone() != null && !provider.getPhone().isEmpty()) {
+        if (!provider.getPhone().isEmpty()) {
             existingProvider.setPhone(provider.getPhone());
         }
-        if (provider.getEmail() != null && !provider.getEmail().isEmpty()) {
+        if (!provider.getEmail().isEmpty()) {
             existingProvider.setEmail(provider.getEmail());
         }
         return this.providerRepository.save(existingProvider);
