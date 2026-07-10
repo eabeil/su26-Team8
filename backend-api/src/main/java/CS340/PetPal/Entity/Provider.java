@@ -46,9 +46,11 @@ public class Provider {
     private String email;
 
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({ "provider" })
     private List<Job> jobs;
 
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({ "provider" })
     private List<Update> updates;
 
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
