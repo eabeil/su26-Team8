@@ -42,7 +42,7 @@ public class Job {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "provider_id", nullable = false)
-    @JsonIgnoreProperties({ "services", "updates", "reviews" })
+    @JsonIgnoreProperties({ "jobs", "updates", "reviews" })
     private Provider provider;
 
     public Job(String name, LocalDateTime time, String duration, double price) {
