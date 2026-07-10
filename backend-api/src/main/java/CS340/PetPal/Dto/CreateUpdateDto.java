@@ -18,5 +18,5 @@ public class CreateUpdateDto {
         this.time = time;
         this.description = description;
         this.providerId = providerId;
-    }    
+    }
 }

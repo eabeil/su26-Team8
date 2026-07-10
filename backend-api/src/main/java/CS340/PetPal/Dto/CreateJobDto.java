@@ -1,4 +1,4 @@
-package CS340.PetPal.Dto;
+package CS340.PetPal.DTO;
 
 import java.time.LocalDateTime;
 

@@ -11,9 +11,10 @@ public class UpdateProviderDto {
     private String imageUrl;
     private String address;
     private String phone;
-    private String email; 
-    
-    public UpdateProviderDto(String name, String description, String imageUrl, String address, String phone, String email) {
+    private String email;
+
+    public UpdateProviderDto(String name, String description, String imageUrl, String address, String phone,
+            String email) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;

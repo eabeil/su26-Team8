@@ -57,7 +57,8 @@ public class ProviderApiController {
 
     // update provider
     @PutMapping("/{id}")
-    public ResponseEntity<Provider> updateProvider(@PathVariable("id") Long providerId, @RequestBody UpdateProviderDto dto) {
+    public ResponseEntity<Provider> updateProvider(@PathVariable("id") Long providerId,
+            @RequestBody UpdateProviderDto dto) {
         try {
             Provider updatedProvider = this.providerService.updateProvider(providerId, dto);
             return ResponseEntity.ok(updatedProvider);

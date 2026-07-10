@@ -56,8 +56,7 @@ public class UpdateService {
 
     public void deleteUpdate(Long updateId) {
         Optional<Update> updateO = this.updateRepository.findById(updateId);
-        if (updateO.isEmpty())
-        {
+        if (updateO.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no update with id " + updateId);
         }
         Update update = updateO.get();

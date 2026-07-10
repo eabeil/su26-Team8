@@ -13,7 +13,8 @@ public class CreateProviderDto {
     private String phone;
     private String email;
 
-    public CreateProviderDto(String name, String description, String imageUrl, String address, String phone, String email) {
+    public CreateProviderDto(String name, String description, String imageUrl, String address, String phone,
+            String email) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
