@@ -47,7 +47,7 @@ public class JobApiController {
     }
 
     // create job
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<Job> createJob(@RequestBody CreateJobDto dto) {
         Job createdJob = this.jobService.createJob(dto);
         URI location = URI.create("/api/services/" + createdJob.getId());

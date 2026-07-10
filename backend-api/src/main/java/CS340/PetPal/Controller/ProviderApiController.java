@@ -45,9 +45,9 @@ public class ProviderApiController {
     }
 
     // create provider
-    @PostMapping
     public ResponseEntity<Provider> createProvider(@RequestBody Provider provider) {
         Provider createdProvider = this.providerService.createProvider(provider);
+    @PostMapping("/")
         URI location = URI.create("/api/providers/" + createdProvider.getId());
         return ResponseEntity.created(location).body(createdProvider);
     }
