@@ -28,14 +28,14 @@ public class JobApiController {
         this.jobService = jobService;
     }
 
-    // get services
+    // get jobs
     @GetMapping("/")
     public ResponseEntity<List<Job>> getAllJobs() {
         List<Job> services = this.jobService.getAllJobs();
         return ResponseEntity.ok(services);
     }
 
-    // get service
+    // get job
     @GetMapping("/{id}")
     public ResponseEntity<Job> getJobById(@PathVariable("id") Long serviceId) {
         Optional<Job> jobO = this.jobService.getJobById(serviceId);
