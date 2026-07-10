@@ -14,6 +14,7 @@ public class PetDto {
     private String speciesOrBreed;
     private Integer age;
     private String specialCareInstructions;
+    private Integer age;
     private String traits;
     
     private Long customerId;
