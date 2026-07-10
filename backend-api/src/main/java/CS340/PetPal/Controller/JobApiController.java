@@ -41,7 +41,8 @@ public class JobApiController {
             Job job = jobO.get();
             return ResponseEntity.ok(job);
         }
-        return ResponseEntity.notFound().build();    }
+        return ResponseEntity.notFound().build();
+    }
 
     // create job
     @PostMapping()
@@ -55,7 +56,7 @@ public class JobApiController {
     @PutMapping("/{id}")
     public ResponseEntity<Job> updateJob(@PathVariable("id") Long serviceId, @RequestBody Job service) {
         try {
-           Job updatedJob = this.jobService.updateJob(serviceId, service);
+            Job updatedJob = this.jobService.updateJob(serviceId, service);
             return ResponseEntity.ok(updatedJob);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
