@@ -44,7 +44,7 @@ public class ReviewService {
         }
         Provider provider = providerO.get();
         Review review = new Review(
-                dto.getReccomended(),
+                dto.getrecommended(),
                 dto.getCustomerComment(),
                 null,
                 LocalDateTime.now(),
@@ -76,7 +76,7 @@ public class ReviewService {
         }
         Review review = reviewO.get();
         review.setCommentEditedAt(LocalDateTime.now());
-        review.setRecommended(dto.getReccomended());
+        review.setRecommended(dto.getrecommended());
         review.setCustomerComment(dto.getCustomerComment());
         return this.reviewRepository.save(review);
     }
