@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CustomerDto {
-    
+    // comment to fix git error.
     private Long id;
     private String fullName;
     private String email;
