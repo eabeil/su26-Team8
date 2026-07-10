@@ -29,10 +29,11 @@ public class ProviderService {
     }
 
     public Provider updateProvider(Long providerId, Provider provider) {
-        Provider existingProvider = this.providerRepository.findById(providerId).orElse(null);
-        if (existingProvider == null) {
+        Optional<Provider> existingProviderO = this.providerRepository.findById(providerId);
+        if (existingProviderO.isEmpty()) {
             throw new RuntimeException("Provider not found with id: " + providerId);
         }
+        Provider existingProvider = existingProviderO.get();
         if (!provider.getName().isEmpty()) {
             existingProvider.setName(provider.getName());
         }

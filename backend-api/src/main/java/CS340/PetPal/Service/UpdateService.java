@@ -29,10 +29,11 @@ public class UpdateService {
     }
 
     public Update updateUpdate(Long updateId, Update update) {
-        Update existingUpdate = this.updateRepository.findById(updateId).orElse(null);
-        if (existingUpdate == null) {
+        Optional<Update> existingUpdateO = this.updateRepository.findById(updateId);
+        if (existingUpdateO.isEmpty()) {
             throw new RuntimeException("Update not found with id: " + updateId);
         }
+        Update existingUpdate = existingUpdateO.get();
         if (!update.getName().isEmpty()) {
             existingUpdate.setName(update.getName());
         }

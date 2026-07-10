@@ -29,10 +29,11 @@ public class JobService {
     }
 
     public Job updateJob(Long jobId, Job job) {
-        Job existingJob = this.jobRepository.findById(jobId).orElse(null);
-        if (existingJob == null) {
+        Optional<Job> existingJobO = this.jobRepository.findById(jobId);
+        if (existingJobO.isEmpty()) {
             throw new RuntimeException("Job not found with id: " + jobId);
         }
+        Job existingJob = existingJobO.get();
         if (!job.getName().isEmpty()) {
             existingJob.setName(job.getName());
         }
