@@ -31,7 +31,7 @@ public class UpdateService {
     public Update updateUpdate(Long updateId, Update update) {
         Update existingUpdate = this.updateRepository.findById(updateId).orElse(null);
         if (existingUpdate == null) {
-            throw new RuntimeException("SErvice not found with id: " + updateId);
+            throw new RuntimeException("Update not found with id: " + updateId);
         }
         if (!update.getName().isEmpty()) {
             existingUpdate.setName(update.getName());
