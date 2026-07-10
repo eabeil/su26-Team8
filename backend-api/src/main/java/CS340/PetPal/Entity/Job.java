@@ -2,7 +2,6 @@ package CS340.PetPal.Entity;
 
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -31,7 +30,6 @@ public class Job {
     private String name;
 
     @Column(nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime time;
 
     @Column(nullable = false)
