@@ -16,7 +16,7 @@ public class ReviewDto {
     private String customerComment;
     private String providerResponse;
     private LocalDateTime createdAt;
-    
+
     private Long customerId;
     private Long providerId;
 }
