@@ -2,8 +2,6 @@ package CS340.PetPal.Entity;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.UpdateTimestamp;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -44,19 +42,15 @@ public class Review {
 
     // Date/Time
     @Column(nullable = false)
-    @UpdateTimestamp
     private LocalDateTime createdAt;
 
     @Column(nullable = true)
-    @UpdateTimestamp
     private LocalDateTime respondedAt;
 
     @Column(nullable = true)
-    @UpdateTimestamp
     private LocalDateTime commentEditedAt;
 
     @Column(nullable = true)
-    @UpdateTimestamp
     private LocalDateTime responseEditedAt;
 
     // The Customer who wrote the review
