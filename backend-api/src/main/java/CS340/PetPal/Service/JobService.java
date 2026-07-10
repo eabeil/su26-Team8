@@ -10,41 +10,41 @@ import CS340.PetPal.Entity.Job;
 
 @Service
 public class JobService {
-    private final JobRepository serviceRepository;
+    private final JobRepository jobRepository;
 
-    public JobService(JobRepository serviceRepository) {
-        this.serviceRepository = serviceRepository;
+    public JobService(JobRepository jobRepository) {
+        this.jobRepository = jobRepository;
     }
 
-    public List<Job> getAllServices() {
-        return this.serviceRepository.findAll();
+    public List<Job> getAllJobs() {
+        return this.jobRepository.findAll();
     }
 
-    public Optional<Job> getServiceById(Long serviceId) {
-        return this.serviceRepository.findById(serviceId);
+    public Optional<Job> getJobById(Long jobId) {
+        return this.jobRepository.findById(jobId);
     }
 
-    public Job createService(Job provider) {
-        return this.serviceRepository.save(provider);
+    public Job createJob(Job job) {
+        return this.jobRepository.save(job);
     }
 
-    public Job updateService(Long serviceId, Job service) {
-        Job existingService = this.serviceRepository.findById(serviceId).orElse(null);
-        if (existingService == null) {
-            throw new RuntimeException("SErvice not found with id: " + serviceId);
+    public Job updateJob(Long jobId, Job job) {
+        Job existingJob = this.jobRepository.findById(jobId).orElse(null);
+        if (existingJob == null) {
+            throw new RuntimeException("Job not found with id: " + jobId);
         }
-        if (!service.getName().isEmpty()) {
-            existingService.setName(service.getName());
+        if (!job.getName().isEmpty()) {
+            existingJob.setName(job.getName());
         }
-        if (service.getTime() != null) {
-            existingService.setTime(service.getTime());
+        if (job.getTime() != null) {
+            existingJob.setTime(job.getTime());
         }
-        if (!service.getDuration().isEmpty()) {
-            existingService.setDuration(service.getDuration());
+        if (!job.getDuration().isEmpty()) {
+            existingJob.setDuration(job.getDuration());
         }
-        if (service.getPrice() != 0) {
-            existingService.setPrice(service.getPrice());
+        if (job.getPrice() != 0) {
+            existingJob.setPrice(job.getPrice());
         }
-        return this.serviceRepository.save(existingService);
+        return this.jobRepository.save(existingJob);
     }
 }

@@ -18,46 +18,46 @@ import CS340.PetPal.Service.JobService;
 import CS340.PetPal.Entity.Job;
 
 @RestController
-@RequestMapping("/api/services")
+@RequestMapping("/api/jobs")
 public class JobApiController {
 
-    private final JobService serviceService;
+    private final JobService jobService;
 
-    public JobApiController(JobService serviceService) {
-        this.serviceService = serviceService;
+    public JobApiController(JobService jobService) {
+        this.jobService = jobService;
     }
 
     // get services
     @GetMapping("/")
-    public ResponseEntity<List<Job>> getAllServices() {
-        List<Job> services = this.serviceService.getAllServices();
+    public ResponseEntity<List<Job>> getAllJobs() {
+        List<Job> services = this.jobService.getAllJobs();
         return ResponseEntity.ok(services);
     }
 
     // get service
     @GetMapping("/{id}")
-    public ResponseEntity<Job> getServiceById(@PathVariable("id") Long serviceId) {
-        Optional<Job> job_o = this.serviceService.getServiceById(serviceId);
+    public ResponseEntity<Job> getJobById(@PathVariable("id") Long serviceId) {
+        Optional<Job> job_o = this.jobService.getJobById(serviceId);
         if (job_o.isPresent()) {
             Job job = job_o.get();
             return ResponseEntity.ok(job);
         }
         return ResponseEntity.notFound().build();    }
 
-    // create service
+    // create job
     @PostMapping()
-    public ResponseEntity<Job> createService(@RequestBody Job service) {
-        Job createdService = this.serviceService.createService(service);
-        URI location = URI.create("/api/services/" + createdService.getId());
-        return ResponseEntity.created(location).body(createdService);
+    public ResponseEntity<Job> createJob(@RequestBody Job job) {
+        Job createdJob = this.jobService.createJob(job);
+        URI location = URI.create("/api/services/" + createdJob.getId());
+        return ResponseEntity.created(location).body(createdJob);
     }
 
     // update service
     @PutMapping("/{id}")
-    public ResponseEntity<Job> updateService(@PathVariable("id") Long serviceId, @RequestBody Job service) {
+    public ResponseEntity<Job> updateJob(@PathVariable("id") Long serviceId, @RequestBody Job service) {
         try {
-           Job updatedService = this.serviceService.updateService(serviceId, service);
-            return ResponseEntity.ok(updatedService);
+           Job updatedJob = this.jobService.updateJob(serviceId, service);
+            return ResponseEntity.ok(updatedJob);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
