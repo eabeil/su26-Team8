@@ -28,12 +28,14 @@ The PetPal backend exposes a RESTful API for the Pet care platform described in 
 
 ## 2. UML Class Diagram
 
-![UML Class Diagram](../docs/uml-class-diagram.png)
+![UML Class Diagram](uml-class-diagram.png)
 
 ---
 
 
 ## 3. API Endpoints
+
+Note that all endpoints may or may not end in a forward slash.
 
 ### 3.1 Customer Endpoints
 
@@ -198,12 +200,84 @@ Example response:
 ```json
 [
   {
-    "id": 1,
     "name": "name",
     "time": "2007-12-03T10:15:30",
     "duration": "duration",
-    "price": 0,
-    "providerId": 1
+    "price": 0.0,
+    "provider": {
+      "name": "new name",
+      "description": "description",
+      "imageUrl": "imageUrl",
+      "address": "address",
+      "phone": "phone",
+      "email": "email",
+      "id": 3
+    },
+    "id": 10
+  },
+  {
+    "name": "name",
+    "time": "2007-12-03T10:15:30",
+    "duration": "duration",
+    "price": 0.0,
+    "provider": {
+      "name": "new name",
+      "description": "description",
+      "imageUrl": "imageUrl",
+      "address": "address",
+      "phone": "phone",
+      "email": "email",
+      "id": 3
+    },
+    "id": 11
+  },
+  {
+    "name": "name",
+    "time": "2007-12-03T10:15:30",
+    "duration": "duration",
+    "price": 0.0,
+    "provider": {
+      "name": "new name",
+      "description": "description",
+      "imageUrl": "imageUrl",
+      "address": "address",
+      "phone": "phone",
+      "email": "email",
+      "id": 3
+    },
+    "id": 12
+  },
+  {
+    "name": "name",
+    "time": "2007-12-03T10:15:30",
+    "duration": "duration",
+    "price": 0.0,
+    "provider": {
+      "name": "new name",
+      "description": "description",
+      "imageUrl": "imageUrl",
+      "address": "address",
+      "phone": "phone",
+      "email": "email",
+      "id": 3
+    },
+    "id": 13
+  },
+  {
+    "name": "name",
+    "time": "2007-12-03T10:15:30",
+    "duration": "duration",
+    "price": 0.0,
+    "provider": {
+      "name": "new name",
+      "description": "description",
+      "imageUrl": "imageUrl",
+      "address": "address",
+      "phone": "phone",
+      "email": "email",
+      "id": 3
+    },
+    "id": 14
   }
 ]
 ```
@@ -218,12 +292,20 @@ Example response:
 
 ```json
 {
-  "id": 1,
   "name": "name",
   "time": "2007-12-03T10:15:30",
   "duration": "duration",
-  "price": 0,
-  "providerId": 1
+  "price": 0.0,
+  "provider": {
+    "name": "name",
+    "description": "description",
+    "imageUrl": "imageUrl",
+    "address": "address",
+    "phone": "phone",
+    "email": "email",
+    "id": 3
+  },
+  "id": 10
 }
 ```
 
@@ -237,24 +319,33 @@ Request body:
 
 ```json
 {
-  "name": "name",
-  "time": "2007-12-03T10:15:30",
-  "duration": "duration",
-  "price": 0,
-  "providerId": 1
+	"name":"name",
+	"time":"2007-12-03T10:15:30",
+	"duration":"duration",
+	"price":0,
+	"providerId":3
 }
+
 ```
 
 Example response:
 
 ```json
 {
-  "id": 1,
   "name": "name",
   "time": "2007-12-03T10:15:30",
   "duration": "duration",
-  "price": 0,
-  "providerId": 1
+  "price": 0.0,
+  "provider": {
+    "name": "new name",
+    "description": "description",
+    "imageUrl": "imageUrl",
+    "address": "address",
+    "phone": "phone",
+    "email": "email",
+    "id": 3
+  },
+  "id": 15
 }
 ```
 
@@ -268,10 +359,10 @@ Request body:
 
 ```json
 {
-  "name": "new name",
-  "time": "2007-12-03T10:15:30",
-  "duration": "duration",
-  "price": 3.14
+	"name":"new name",
+	"time":"2007-12-03T10:15:30",
+	"duration":"duration",
+	"price":3.14
 }
 ```
 
@@ -279,12 +370,20 @@ Example response:
 
 ```json
 {
-  "id": 1,
   "name": "new name",
   "time": "2007-12-03T10:15:30",
   "duration": "duration",
   "price": 3.14,
-  "providerId": 1
+  "provider": {
+    "name": "new name",
+    "description": "description",
+    "imageUrl": "imageUrl",
+    "address": "address",
+    "phone": "phone",
+    "email": "email",
+    "id": 3
+  },
+  "id": 10
 }
 ```
 
@@ -431,13 +530,28 @@ Example response:
 ```json
 [
   {
-    "id": 1,
     "name": "name",
     "description": "description",
     "imageUrl": "imageUrl",
     "address": "address",
     "phone": "phone",
-    "email": "email"
+    "email": "email",
+    "jobs": [],
+    "updates": [],
+    "reviews": [],
+    "id": 4
+  },
+  {
+    "name": "name",
+    "description": "description",
+    "imageUrl": "imageUrl",
+    "address": "address",
+    "phone": "phone",
+    "email": "email",
+    "jobs": [],
+    "updates": [],
+    "reviews": [],
+    "id": 15
   }
 ]
 ```
@@ -452,13 +566,16 @@ Example response:
 
 ```json
 {
-  "id": 1,
   "name": "name",
   "description": "description",
   "imageUrl": "imageUrl",
   "address": "address",
   "phone": "phone",
-  "email": "email"
+  "email": "email",
+  "jobs": [],
+  "updates": [],
+  "reviews": [],
+  "id": 15
 }
 ```
 
@@ -473,12 +590,36 @@ Example response:
 ```json
 [
   {
-    "id": 1,
     "name": "name",
     "time": "2007-12-03T10:15:30",
     "duration": "duration",
-    "price": 0,
-    "providerId": 1
+    "price": 0.0,
+    "provider": {
+      "name": "new name",
+      "description": "description",
+      "imageUrl": "imageUrl",
+      "address": "address",
+      "phone": "phone",
+      "email": "email",
+      "id": 3
+    },
+    "id": 11
+  },
+  {
+    "name": "name",
+    "time": "2007-12-03T10:15:30",
+    "duration": "duration",
+    "price": 0.0,
+    "provider": {
+      "name": "new name",
+      "description": "description",
+      "imageUrl": "imageUrl",
+      "address": "address",
+      "phone": "phone",
+      "email": "email",
+      "id": 3
+    },
+    "id": 12
   }
 ]
 ```
@@ -494,10 +635,34 @@ Example response:
 ```json
 [
   {
-    "id": 1,
     "title": "title",
+    "createdAt": "2026-07-10T19:43:34.583288",
     "description": "description",
-    "providerId": 1
+    "provider": {
+      "name": "new name",
+      "description": "description",
+      "imageUrl": "imageUrl",
+      "address": "address",
+      "phone": "phone",
+      "email": "email",
+      "id": 3
+    },
+    "id": 14
+  },
+  {
+    "title": "title",
+    "createdAt": "2026-07-10T19:43:34.715738",
+    "description": "description",
+    "provider": {
+      "name": "new name",
+      "description": "description",
+      "imageUrl": "imageUrl",
+      "address": "address",
+      "phone": "phone",
+      "email": "email",
+      "id": 3
+    },
+    "id": 15
   }
 ]
 ```
@@ -513,12 +678,33 @@ Example response:
 ```json
 [
   {
-    "id": 1,
     "recommended": true,
     "customerComment": "customerComment",
-    "providerResponse": "providerResponse",
-    "customerId": 4,
-    "providerId": 1
+    "providerResponse": null,
+    "createdAt": "2026-07-10T19:36:24.92159",
+    "respondedAt": null,
+    "commentEditedAt": null,
+    "responseEditedAt": null,
+    "customer": {
+      "name": "name",
+      "email": "unique_email",
+      "phone": "phone",
+      "password": "password",
+      "id": 4
+    },
+    "provider": {
+      "name": "name",
+      "description": "description",
+      "imageUrl": "imageUrl",
+      "address": "address",
+      "phone": "phone",
+      "email": "email",
+      "id": 4
+    },
+    "hasResponse": false,
+    "id": 11,
+    "wasEdited": false,
+    "wasResponseEdited": false
   }
 ]
 ```
@@ -526,19 +712,19 @@ Example response:
 #### Create a provider
 
 ```http
-POST /api/providers/{id}
+POST /api/providers/
 ```
 
 Request body:
 
 ```json
 {
-  "name": "name",
-  "description": "description",
-  "imageUrl": "imageUrl",
-  "address": "address",
-  "phone": "phone",
-  "email": "email"
+	"name":"name",
+	"description":"description",
+	"imageUrl":"imageUrl",
+	"address":"address",
+	"phone":"phone",
+	"email":"email"
 }
 ```
 
@@ -546,13 +732,16 @@ Example response:
 
 ```json
 {
-  "id": 1,
   "name": "name",
   "description": "description",
   "imageUrl": "imageUrl",
   "address": "address",
   "phone": "phone",
-  "email": "email"
+  "email": "email",
+  "jobs": [],
+  "updates": [],
+  "reviews": [],
+  "id": 16
 }
 ```
 
@@ -566,12 +755,12 @@ Request body:
 
 ```json
 {
-  "name": "new name",
-  "description": "description",
-  "imageUrl": "imageUrl",
-  "address": "address",
-  "phone": "phone",
-  "email": "email"
+	"name":"new name",
+	"description":"description",
+	"imageUrl":"imageUrl",
+	"address":"address",
+	"phone":"phone",
+	"email":"email"
 }
 ```
 
@@ -579,13 +768,16 @@ Example response:
 
 ```json
 {
-  "id": 1,
   "name": "new name",
   "description": "description",
   "imageUrl": "imageUrl",
   "address": "address",
   "phone": "phone",
-  "email": "email"
+  "email": "email",
+  "jobs": [],
+  "updates": [],
+  "reviews": [],
+  "id": 16
 }
 ```
 
@@ -772,10 +964,34 @@ Example response:
 ```json
 [
   {
-    "id": 1,
     "title": "title",
+    "createdAt": "2026-07-10T19:43:34.583288",
     "description": "description",
-    "providerId": 3
+    "provider": {
+      "name": "new name",
+      "description": "description",
+      "imageUrl": "imageUrl",
+      "address": "address",
+      "phone": "phone",
+      "email": "email",
+      "id": 3
+    },
+    "id": 14
+  },
+  {
+    "title": "title",
+    "createdAt": "2026-07-10T19:43:34.715738",
+    "description": "description",
+    "provider": {
+      "name": "new name",
+      "description": "description",
+      "imageUrl": "imageUrl",
+      "address": "address",
+      "phone": "phone",
+      "email": "email",
+      "id": 3
+    },
+    "id": 15
   }
 ]
 ```
@@ -790,10 +1006,19 @@ Example response:
 
 ```json
 {
-  "id": 1,
   "title": "title",
+  "createdAt": "2026-07-10T19:43:34.715738",
   "description": "description",
-  "providerId": 3
+  "provider": {
+    "name": "name",
+    "description": "description",
+    "imageUrl": "imageUrl",
+    "address": "address",
+    "phone": "phone",
+    "email": "email",
+    "id": 3
+  },
+  "id": 15
 }
 ```
 
@@ -807,9 +1032,9 @@ Request body:
 
 ```json
 {
-  "title": "title",
-  "description": "description",
-  "providerId": 3
+	"title":"title",
+	"description":"description",
+	"providerId":3
 }
 ```
 
@@ -817,10 +1042,19 @@ Example response:
 
 ```json
 {
-  "id": 1,
   "title": "title",
+  "createdAt": "2026-07-10T19:43:34.715738",
   "description": "description",
-  "providerId": 3
+  "provider": {
+    "name": "name",
+    "description": "description",
+    "imageUrl": "imageUrl",
+    "address": "address",
+    "phone": "phone",
+    "email": "email",
+    "id": 3
+  },
+  "id": 15
 }
 ```
 
@@ -843,10 +1077,19 @@ Example response:
 
 ```json
 {
-  "id": 1,
   "title": "new title",
+  "createdAt": "2026-07-10T23:23:29.032264051",
   "description": "description",
-  "providerId": 3
+  "provider": {
+    "name": "name",
+    "description": "description",
+    "imageUrl": "imageUrl",
+    "address": "address",
+    "phone": "phone",
+    "email": "email",
+    "id": 3
+  },
+  "id": 15
 }
 ```
 
