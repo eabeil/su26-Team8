@@ -32,14 +32,14 @@ The PetPal backend exposes a RESTful API for the Pet care platform described in 
 
 ---
 
-````markdown
+
 ## 3. API Endpoints
 
 ### 3.1 Customer Endpoints
 
 #### Get all customers
 
-```http
+``` http
 GET /api/customers
 ```
 
