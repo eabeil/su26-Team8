@@ -2,7 +2,6 @@ package CS340.PetPal.Controller;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import CS340.PetPal.Service.UpdateService;
 import CS340.PetPal.Dto.CreateUpdateDto;
@@ -30,46 +30,58 @@ public class UpdateApiController {
     }
 
     // get updates
-    @GetMapping("/")
+    @GetMapping({"/", ""})
     public ResponseEntity<List<Update>> getAllUpdates() {
-        List<Update> providers = this.updateService.getAllUpdates();
-        return ResponseEntity.ok(providers);
+        try {
+            List<Update> providers = this.updateService.getAllUpdates();
+            return ResponseEntity.ok(providers);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).build();
+        }
     }
 
     // get update
-    @GetMapping("/{id}")
+    @GetMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Update> getUpdateById(@PathVariable("id") Long updateId) {
-        Optional<Update> updateO = this.updateService.getUpdateById(updateId);
-        if (updateO.isPresent()) {
-            Update update = updateO.get();
+        try {
+            Update update = this.updateService.getUpdateById(updateId);
             return ResponseEntity.ok(update);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).build();
         }
-        return ResponseEntity.notFound().build();
     }
 
     // create update
-    @PostMapping("/")
+    @PostMapping({"/", ""})
     public ResponseEntity<Update> createUpdate(@RequestBody CreateUpdateDto dto) {
-        Update createdUpdate = this.updateService.createUpdate(dto);
-        URI location = URI.create("/api/updates/" + createdUpdate.getId());
-        return ResponseEntity.created(location).body(createdUpdate);
+        try {
+            Update update = this.updateService.createUpdate(dto);
+            URI location = URI.create("/api/updates/" + update.getId());
+            return ResponseEntity.created(location).body(update);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).build();
+        }
     }
 
     // update update
-    @PutMapping("/{id}")
+    @PutMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Update> updateUpdate(@PathVariable("id") Long providerId, @RequestBody UpdateUpdateDto dto) {
         try {
             Update updatedUpdate = this.updateService.updateUpdate(providerId, dto);
             return ResponseEntity.ok(updatedUpdate);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).build();
         }
     }
 
     // delete update
-    @DeleteMapping("/{id}")
+    @DeleteMapping({"/{id}/", "/{id}"})
     public ResponseEntity<Void> deleteUpdate(@PathVariable("id") Long updateId) {
-        this.updateService.deleteUpdate(updateId);
-        return ResponseEntity.noContent().build();
+        try {
+            this.updateService.deleteUpdate(updateId);
+            return ResponseEntity.noContent().build();
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).build();
+        }
     }
 }

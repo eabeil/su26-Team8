@@ -30,7 +30,7 @@ public class Update {
     private String title;
 
     @Column(nullable = false)
-    private LocalDateTime time;
+    private LocalDateTime createdAt;
 
     @Column(nullable = false)
     private String description;
@@ -40,9 +40,9 @@ public class Update {
     @JsonIgnoreProperties({ "jobs", "updates", "reviews" })
     private Provider provider;
 
-    public Update(String title, LocalDateTime time, String description, Provider provider) {
+    public Update(String title, LocalDateTime createdAt, String description, Provider provider) {
         this.title = title;
-        this.time = time;
+        this.createdAt = createdAt;
         this.description = description;
         this.provider = provider;
     }

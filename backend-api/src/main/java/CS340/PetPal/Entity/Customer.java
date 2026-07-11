@@ -28,12 +28,13 @@ public class Customer {
     private Long id;
 
     @Column(nullable = false)
-    private String fullName;
+    private String name;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    private String phoneNumber;
+    @Column(nullable = false)
+    private String phone;
 
     @Column(nullable = false)
     private String password;
@@ -43,13 +44,13 @@ public class Customer {
     private List<Pet> pets;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties({"customer"})
+    @JsonIgnoreProperties({"customer", "provider"})
     private List<Review> reviews;
  
-    public Customer(String fullName, String email,String phoneNumber, String password) {
-        this.fullName = fullName;
+    public Customer(String name, String email, String phone, String password, List<Pet> pets, List<Review> reviews) {
+        this.name = name;
         this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.phone = phone;
         this.password = password;
     }
 }

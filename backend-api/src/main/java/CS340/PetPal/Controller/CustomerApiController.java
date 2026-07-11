@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
-import CS340.PetPal.Dto.CustomerDto;
-import CS340.PetPal.Entity.Customer;
 import CS340.PetPal.Service.CustomerService;
+import CS340.PetPal.Entity.Customer;
+import CS340.PetPal.Entity.Pet;
+import CS340.PetPal.Entity.Review;
+import CS340.PetPal.Dto.CreateCustomerDto;
+import CS340.PetPal.Dto.UpdateCustomerDto;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -27,43 +31,81 @@ public class CustomerApiController {
         this.customerService = customerService;
     }
 
-    @PostMapping
-    public ResponseEntity<CustomerDto> createCustomer(@RequestBody Customer customer) {
-        CustomerDto createdCustomer = customerService.createCustomer(customer);
-        URI location = URI.create("/api/customers/" + createdCustomer.getId());
-        return ResponseEntity.created(location).body(createdCustomer);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<CustomerDto>> getAllCustomers() {
-        return ResponseEntity.ok(customerService.getAllCustomers());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Long id) {
-        return customerService.getCustomerById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
-    }
-    
-    @PutMapping("/{id}")
-    public ResponseEntity<CustomerDto> updateCustomer(@PathVariable Long id, @RequestBody Customer updatedCustomer) {
+    // get customers
+    @GetMapping({"/", ""})
+    public ResponseEntity<List<Customer>> getAllCustomers() {
         try {
-            CustomerDto customerDto = (CustomerDto) this.customerService.updateCustomer(id, updatedCustomer);
-            return ResponseEntity.ok(customerDto);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+            List<Customer> customers = this.customerService.getAllCustomers();
+            return ResponseEntity.ok(customers);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).build();
         }
     }
-    
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
+    // get customer
+    @GetMapping({"/{id}/", "/{id}"})
+    public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Long customerId) {
         try {
-            customerService.deleteCustomer(id);
-            return ResponseEntity.noContent().build(); 
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(this.customerService.getCustomerById(customerId));
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).build();
+        }
+    }
+
+    // get customer pets
+    @GetMapping({"/{id}/pets/", "/{id}/pets"})
+    public ResponseEntity<List<Pet>> getCustomerPets(@PathVariable("id") Long customerId) {
+        try {
+            List<Pet> pets = this.customerService.getCustomerPets(customerId);
+            return ResponseEntity.ok(pets);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).build();
+        }
+    }
+
+    // get customer reviews
+    @GetMapping({"/{id}/reviews/", "/{id}/reviews"})
+    public ResponseEntity<List<Review>> getCustomerReviews(@PathVariable("id") Long customerId) {
+        try {
+            List<Review> reviews = this.customerService.getCustomerReviews(customerId);
+            return ResponseEntity.ok(reviews);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).build();
+        }
+    }
+
+    // create customer
+    @PostMapping({"/", ""})
+    public ResponseEntity<Customer> createCustomer(@RequestBody CreateCustomerDto dto) {
+        try {
+            Customer customer = this.customerService.createCustomer(dto);
+            URI location = URI.create("/api/customers/" + customer.getId());
+            return ResponseEntity.created(location).body(customer);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).build();
+        }
+    }
+
+    // update customer
+    @PutMapping({"/{id}/", "/{id}"})
+    public ResponseEntity<Customer> updateCustomer(@PathVariable("id") Long customerId,
+            @RequestBody UpdateCustomerDto dto) {
+        try {
+            Customer customer = this.customerService.updateCustomer(customerId, dto);
+            return ResponseEntity.ok(customer);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).build();
+        }
+    }
+
+    // delete customer
+    @DeleteMapping({"/{id}/", "/{id}"})
+    public ResponseEntity<Void> deleteCustomer(@PathVariable("id") Long customerId) {
+        try {
+            this.customerService.deleteCustomer(customerId);
+            return ResponseEntity.noContent().build();
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).build();
         }
     }
 }

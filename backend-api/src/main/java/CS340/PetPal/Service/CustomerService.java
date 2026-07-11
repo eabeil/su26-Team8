@@ -1,84 +1,79 @@
 package CS340.PetPal.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import CS340.PetPal.Dto.CustomerDto;
+import CS340.PetPal.Dto.CreateCustomerDto;
+import CS340.PetPal.Dto.UpdateCustomerDto;
 import CS340.PetPal.Entity.Customer;
+import CS340.PetPal.Entity.Pet;
+import CS340.PetPal.Entity.Review;
 import CS340.PetPal.Repository.CustomerRepository;
+import CS340.PetPal.Repository.PetRepository;
+import CS340.PetPal.Repository.ReviewRepository;
 
 @Service
 public class CustomerService {
-
   private final CustomerRepository customerRepository;
+  private final ReviewRepository reviewRepository;
+  private final PetRepository petRepository;
 
-  public CustomerService(CustomerRepository customerRepository) {
+  public CustomerService(CustomerRepository customerRepository, ReviewRepository reviewRepository, PetRepository petRepository) {
     this.customerRepository = customerRepository;
+    this.reviewRepository = reviewRepository;
+    this.petRepository = petRepository;
   }
 
-    public CustomerDto createCustomer(Customer customer) {
-      Customer savedCustomer = customerRepository.save(customer);
-      return convertToDTO(savedCustomer);
-    }
-
-    public List<CustomerDto> getAllCustomers() {
-      return customerRepository.findAll()
-        .stream()
-        .map(this::convertToDTO)
-        .collect(Collectors.toList());
-    }
-
-
-  public Optional<CustomerDto> getCustomerById(Long id) {
-    return customerRepository.findById(id).map(this::convertToDTO);
+  public Customer createCustomer(CreateCustomerDto dto) {
+    Customer customer = new Customer(dto.getName(), dto.getEmail(), dto.getPhone(), dto.getPassword(), Collections.emptyList(), Collections.emptyList());
+    return this.customerRepository.save(customer);
   }
 
-  public CustomerDto updateCustomer(Long id, Customer updatedCustomer) {
-    Optional<Customer> existingCustomer = customerRepository.findById(id);
-        
-    if (existingCustomer.isPresent()) {
-      Customer customer = existingCustomer.get();
+    public List<Customer> getAllCustomers() {
+      return this.customerRepository.findAll();
+    }
 
-        if (updatedCustomer.getFullName() != null) {
-          customer.setFullName(updatedCustomer.getFullName());
-          }
-          if (updatedCustomer.getPhoneNumber() != null) {
-            customer.setPhoneNumber(updatedCustomer.getPhoneNumber());
-          }
-          if (updatedCustomer.getEmail() != null) {
-            customer.setEmail(updatedCustomer.getEmail());
-          }
-          if (updatedCustomer.getPassword() != null) {
-            customer.setPassword(updatedCustomer.getPassword());
-          }
+  public Customer getCustomerById(Long customerId) {
+    Optional<Customer> customerO = this.customerRepository.findById(customerId);
+    if (customerO.isEmpty()) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+    Customer customer = customerO.get();
+    return customer;
+  }
 
-          Customer savedCustomer = customerRepository.save(customer);
-          return convertToDTO(savedCustomer);
-        } else {
-          throw new RuntimeException("Customer not found with id: " + id);
-      }
+    public List<Review> getCustomerReviews(Long customerId) {
+        return this.reviewRepository.findByCustomerId(customerId);
+    }
+
+    public List<Pet> getCustomerPets(Long customerId) {
+        return this.petRepository.findByCustomerId(customerId);
+    }
+
+  public Customer updateCustomer(Long customerId, UpdateCustomerDto dto) {
+    Optional<Customer> customerO = this.customerRepository.findById(customerId);
+    if (customerO.isEmpty()) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+    Customer customer = customerO.get();
+    customer.setName(dto.getName());
+    customer.setEmail(dto.getEmail());
+    customer.setPhone(dto.getPhone());
+    customer.setPassword(dto.getPassword());
+    return this.customerRepository.save(customer);
     }
     
-    public void deleteCustomer(Long id) {
-        // Check if they exist first so we can throw a clean error if they don't
-      if (!customerRepository.existsById(id)) {
-        throw new RuntimeException("Customer not found with ID: " + id);
+    public void deleteCustomer(Long customerId) throws ResponseStatusException {
+      Optional<Customer> customerO = this.customerRepository.findById(customerId);
+      if (customerO.isEmpty()) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
       }
-      customerRepository.deleteById(id);
+      Customer customer = customerO.get();
+      this.customerRepository.delete(customer);
     }
-
-    private CustomerDto convertToDTO(Customer customer){
-      CustomerDto dto = new CustomerDto();
-      dto.setId(customer.getId());
-      dto.setFullName(customer.getFullName());
-      dto.setEmail(customer.getEmail());
-      dto.setPhoneNumber(customer.getPhoneNumber());
-      return dto;
-
-    }
-    
-
 }

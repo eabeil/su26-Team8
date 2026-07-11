@@ -28,14 +28,18 @@ public class JobService {
         return this.jobRepository.findAll();
     }
 
-    public Optional<Job> getJobById(Long jobId) {
-        return this.jobRepository.findById(jobId);
+    public Job getJobById(Long jobId) {
+        Optional<Job> jobO = this.jobRepository.findById(jobId);
+        if (jobO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return jobO.get();
     }
 
     public Job createJob(CreateJobDto dto) {
         Optional<Provider> providerO = this.providerReposotiry.findById(dto.getProviderId());
         if (providerO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider of id " + dto.getProviderId());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         Provider provider = providerO.get();
         Job job = new Job(dto.getName(), dto.getTime(), dto.getDuration(), dto.getPrice(), provider);
@@ -43,22 +47,22 @@ public class JobService {
     }
 
     public Job updateJob(Long jobId, UpdateJobDto dto) {
-        Optional<Job> existingJobO = this.jobRepository.findById(jobId);
-        if (existingJobO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no job with id " + jobId);
+        Optional<Job> jobO = this.jobRepository.findById(jobId);
+        if (jobO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        Job existingJob = existingJobO.get();
-        existingJob.setName(dto.getName());
-        existingJob.setTime(dto.getTime());
-        existingJob.setDuration(dto.getDuration());
-        existingJob.setPrice(dto.getPrice());
-        return this.jobRepository.save(existingJob);
+        Job job = jobO.get();
+        job.setName(dto.getName());
+        job.setTime(dto.getTime());
+        job.setDuration(dto.getDuration());
+        job.setPrice(dto.getPrice());
+        return this.jobRepository.save(job);
     }
 
     public void deleteJob(Long jobId) {
         Optional<Job> jobO = this.jobRepository.findById(jobId);
         if (jobO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no job with id " + jobId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         Job job = jobO.get();
         this.jobRepository.delete(job);
