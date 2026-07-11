@@ -35,6 +35,8 @@ The PetPal backend exposes a RESTful API for the Pet care platform described in 
 
 ## 3. API Endpoints
 
+Note that all endpoints may or may not end in a forward slash.
+
 ### 3.1 Customer Endpoints
 
 #### Get all customers
