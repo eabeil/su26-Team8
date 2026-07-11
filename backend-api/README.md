@@ -205,7 +205,7 @@ Example response:
     "duration": "duration",
     "price": 0.0,
     "provider": {
-      "name": "new name",
+      "name": "name",
       "description": "description",
       "imageUrl": "imageUrl",
       "address": "address",
@@ -221,7 +221,7 @@ Example response:
     "duration": "duration",
     "price": 0.0,
     "provider": {
-      "name": "new name",
+      "name": "name",
       "description": "description",
       "imageUrl": "imageUrl",
       "address": "address",
@@ -237,7 +237,7 @@ Example response:
     "duration": "duration",
     "price": 0.0,
     "provider": {
-      "name": "new name",
+      "name": "name",
       "description": "description",
       "imageUrl": "imageUrl",
       "address": "address",
@@ -246,38 +246,6 @@ Example response:
       "id": 3
     },
     "id": 12
-  },
-  {
-    "name": "name",
-    "time": "2007-12-03T10:15:30",
-    "duration": "duration",
-    "price": 0.0,
-    "provider": {
-      "name": "new name",
-      "description": "description",
-      "imageUrl": "imageUrl",
-      "address": "address",
-      "phone": "phone",
-      "email": "email",
-      "id": 3
-    },
-    "id": 13
-  },
-  {
-    "name": "name",
-    "time": "2007-12-03T10:15:30",
-    "duration": "duration",
-    "price": 0.0,
-    "provider": {
-      "name": "new name",
-      "description": "description",
-      "imageUrl": "imageUrl",
-      "address": "address",
-      "phone": "phone",
-      "email": "email",
-      "id": 3
-    },
-    "id": 14
   }
 ]
 ```
@@ -337,7 +305,7 @@ Example response:
   "duration": "duration",
   "price": 0.0,
   "provider": {
-    "name": "new name",
+    "name": "name",
     "description": "description",
     "imageUrl": "imageUrl",
     "address": "address",
@@ -375,7 +343,7 @@ Example response:
   "duration": "duration",
   "price": 3.14,
   "provider": {
-    "name": "new name",
+    "name": "name",
     "description": "description",
     "imageUrl": "imageUrl",
     "address": "address",
@@ -595,7 +563,7 @@ Example response:
     "duration": "duration",
     "price": 0.0,
     "provider": {
-      "name": "new name",
+      "name": "name",
       "description": "description",
       "imageUrl": "imageUrl",
       "address": "address",
@@ -611,7 +579,7 @@ Example response:
     "duration": "duration",
     "price": 0.0,
     "provider": {
-      "name": "new name",
+      "name": "name",
       "description": "description",
       "imageUrl": "imageUrl",
       "address": "address",
@@ -639,7 +607,7 @@ Example response:
     "createdAt": "2026-07-10T19:43:34.583288",
     "description": "description",
     "provider": {
-      "name": "new name",
+      "name": "name",
       "description": "description",
       "imageUrl": "imageUrl",
       "address": "address",
@@ -654,7 +622,7 @@ Example response:
     "createdAt": "2026-07-10T19:43:34.715738",
     "description": "description",
     "provider": {
-      "name": "new name",
+      "name": "name",
       "description": "description",
       "imageUrl": "imageUrl",
       "address": "address",
@@ -968,7 +936,7 @@ Example response:
     "createdAt": "2026-07-10T19:43:34.583288",
     "description": "description",
     "provider": {
-      "name": "new name",
+      "name": "name",
       "description": "description",
       "imageUrl": "imageUrl",
       "address": "address",
@@ -983,7 +951,7 @@ Example response:
     "createdAt": "2026-07-10T19:43:34.715738",
     "description": "description",
     "provider": {
-      "name": "new name",
+      "name": "name",
       "description": "description",
       "imageUrl": "imageUrl",
       "address": "address",
