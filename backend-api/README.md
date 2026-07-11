@@ -28,7 +28,7 @@ The PetPal backend exposes a RESTful API for the Pet care platform described in 
 
 ## 2. UML Class Diagram
 
-![UML Class Diagram](../docs/uml-class-diagram.png)
+![UML Class Diagram](uml-class-diagram.png)
 
 ---
 
