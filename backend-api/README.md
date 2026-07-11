@@ -5,7 +5,7 @@
 **Base URL:**
 
 - local: http://localhost:8080
-- production: https://su26-team8.onrender.com
+- production: https://su26-team8-8soa.onrender.com/
 
 ## Table of Contents
 
