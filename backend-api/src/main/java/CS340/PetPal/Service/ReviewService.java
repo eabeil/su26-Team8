@@ -34,15 +34,18 @@ public class ReviewService {
 
     public Review createReview(CreateReviewDto dto) {
         Optional<Customer> customerO = this.customerRepostiroy.findById(dto.getCustomerId());
-        if (customerO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        Customer customer = customerO.get();
         Optional<Provider> providerO = this.providerRepository.findById(dto.getProviderId());
+        if (customerO.isEmpty() && providerO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + dto.getCustomerId() + " and no provider with id " + dto.getProviderId() + ".");
+        }
+        if (customerO.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + dto.getCustomerId() + ".");
+        }
         if (providerO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + dto.getProviderId() + ".");
         }
         Provider provider = providerO.get();
+        Customer customer = customerO.get();
         Review review = new Review(
                 dto.getRecommended(),
                 dto.getCustomerComment(),
@@ -63,7 +66,7 @@ public class ReviewService {
     public Review getReviewById(Long reviewId) {
         Optional<Review> reviewO = this.reviewRepository.findById(reviewId);
         if (reviewO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no review with id " + reviewId + ".");
         }
         Review review = reviewO.get();
         return review;
@@ -72,7 +75,7 @@ public class ReviewService {
     public Review editReviewComment(Long reviewId, EditCommentReviewDto dto) {
         Optional<Review> reviewO = this.reviewRepository.findById(reviewId);
         if (reviewO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no review with id " + reviewId + ".");
         }
         Review review = reviewO.get();
         review.setCommentEditedAt(LocalDateTime.now());
@@ -84,11 +87,11 @@ public class ReviewService {
     public Review respondReview(Long reviewId, RespondReviewDto dto) {
         Optional<Review> reviewO = this.reviewRepository.findById(reviewId);
         if (reviewO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no review with id " + reviewId + ".");
         }
         Review review = reviewO.get();
         if (review.getHasResponse()) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT);
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "review has no response.");
         }
         review.setProviderResponse(dto.getProviderResponse());
         review.setRespondedAt(LocalDateTime.now());
@@ -98,11 +101,11 @@ public class ReviewService {
     public Review editReviewResponse(Long reviewId, EditResponseReviewDto dto) {
         Optional<Review> reviewO = this.reviewRepository.findById(reviewId);
         if (reviewO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no review with id " + reviewId + ".");
         }
         Review review = reviewO.get();
         if (!review.getHasResponse()) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT);
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "review has no response.");
         }
         review.setProviderResponse(dto.getProviderResponse());
         review.setResponseEditedAt(LocalDateTime.now());
@@ -112,7 +115,7 @@ public class ReviewService {
     public void deleteReview(Long reviewId) {
         Optional<Review> reviewO = this.reviewRepository.findById(reviewId);
         if (reviewO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no review with id " + reviewId + ".");
         }
         Review review = reviewO.get();
         this.reviewRepository.delete(review);

@@ -40,7 +40,7 @@ public class ProviderService {
     public Provider getProviderById(Long providerId) {
         Optional<Provider> providerO = this.providerRepository.findById(providerId);
         if (providerO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + providerId + ".");
         }
         Provider provider = providerO.get();
         return provider;

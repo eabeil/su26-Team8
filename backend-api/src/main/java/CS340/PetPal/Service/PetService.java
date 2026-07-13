@@ -51,7 +51,7 @@ public class PetService {
     public Pet updatePet(Long petId, UpdatePetDto dto) {
         Optional<Pet> petO = this.petRepository.findById(petId);
         if (petO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no pet with id " + petId + ".");
         }
         Pet pet = petO.get();
         pet.setName(dto.getName());

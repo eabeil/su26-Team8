@@ -41,7 +41,7 @@ public class CustomerService {
   public Customer getCustomerById(Long customerId) {
     Optional<Customer> customerO = this.customerRepository.findById(customerId);
     if (customerO.isEmpty()) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + customerId + ".");
     }
     Customer customer = customerO.get();
     return customer;
@@ -58,7 +58,7 @@ public class CustomerService {
   public Customer updateCustomer(Long customerId, UpdateCustomerDto dto) {
     Optional<Customer> customerO = this.customerRepository.findById(customerId);
     if (customerO.isEmpty()) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + customerId + ".");
     }
     Customer customer = customerO.get();
     customer.setName(dto.getName());
@@ -71,7 +71,7 @@ public class CustomerService {
     public void deleteCustomer(Long customerId) throws ResponseStatusException {
       Optional<Customer> customerO = this.customerRepository.findById(customerId);
       if (customerO.isEmpty()) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + customerId + ".");
       }
       Customer customer = customerO.get();
       this.customerRepository.delete(customer);

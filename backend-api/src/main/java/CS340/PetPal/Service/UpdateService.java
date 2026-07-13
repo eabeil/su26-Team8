@@ -32,7 +32,7 @@ public class UpdateService {
     public Update getUpdateById(Long updateId) {
         Optional<Update> updateO = this.updateRepository.findById(updateId);
         if (updateO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no update with id " + updateId + ".");
         }
         Update update = updateO.get();
         return update;
@@ -41,7 +41,7 @@ public class UpdateService {
     public Update createUpdate(CreateUpdateDto dto) {
         Optional<Provider> providerO = this.providerRepository.findById(dto.getProviderId());
         if (providerO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + dto.getProviderId() + ".");
         }
         Provider provider = providerO.get();
         Update update = new Update(dto.getTitle(), LocalDateTime.now(), dto.getDescription(), provider);
@@ -51,7 +51,7 @@ public class UpdateService {
     public Update updateUpdate(Long updateId, UpdateUpdateDto dto) {
         Optional<Update> updateO = this.updateRepository.findById(updateId);
         if (updateO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no update with id " + updateId + ".");
         }
         Update update = updateO.get();
         update.setTitle(dto.getTitle());
@@ -63,7 +63,7 @@ public class UpdateService {
     public void deleteUpdate(Long updateId) {
         Optional<Update> updateO = this.updateRepository.findById(updateId);
         if (updateO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no update with id " + updateId + ".");
         }
         Update update = updateO.get();
         this.updateRepository.delete(update);
