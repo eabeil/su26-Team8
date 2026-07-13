@@ -1,20 +1,15 @@
 package CS340.PetPal.Dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class UpdateCustomerDto {
     private String name;
     private String email;
     private String phone;
     private String password;
-
-    public UpdateCustomerDto(String name, String email, String phone, String password) {
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.password = password;
-    }
 }

@@ -1,14 +1,12 @@
 package CS340.PetPal.Dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class RespondReviewDto {
     private String providerResponse;
-
-    public RespondReviewDto(String providerResponse) {
-        this.providerResponse = providerResponse;
-    }
 }
