@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateUpdateDto {
-    private String title;
-    private String description;
+public class ReviewEditResponseDto {
+    private String providerResponse;
 }

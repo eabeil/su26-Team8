@@ -9,5 +9,6 @@ import CS340.PetPal.Entity.Update;
 
 @Repository
 public interface UpdateRepository extends JpaRepository<Update, Long> {
+
     List<Update> findByProviderId(Long providerId);
 }

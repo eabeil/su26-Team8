@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateUpdateDto {
+public class UpdateCreateDto {
     private String title;
     private String description;
+    private long providerId;
 }

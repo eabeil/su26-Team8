@@ -9,5 +9,6 @@ import CS340.PetPal.Entity.Job;
 
 @Repository
 public interface JobRepository extends JpaRepository<Job, Long> {
+    
     List<Job> findByProviderId(Long providerId);
 }

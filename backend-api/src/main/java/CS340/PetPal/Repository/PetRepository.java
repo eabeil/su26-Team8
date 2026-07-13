@@ -9,6 +9,6 @@ import CS340.PetPal.Entity.Pet;
 
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
-    
+
     List<Pet> findByCustomerId(Long customerId);
 }

@@ -16,8 +16,8 @@ import CS340.PetPal.Entity.Job;
 import CS340.PetPal.Entity.Provider;
 import CS340.PetPal.Entity.Review;
 import CS340.PetPal.Entity.Update;
-import CS340.PetPal.Dto.CreateProviderDto;
-import CS340.PetPal.Dto.UpdateProviderDto;
+import CS340.PetPal.Dto.ProviderCreateDto;
+import CS340.PetPal.Dto.ProviderUpdateDto;
 
 @Service
 public class ProviderService {
@@ -26,7 +26,8 @@ public class ProviderService {
     private final UpdateRepository updateRepository;
     private final ReviewRepository reviewRepository;
 
-    public ProviderService(ProviderRepository providerRepository, JobRepository jobRepository, ReviewRepository reviewRepository, UpdateRepository updateRepository) {
+    public ProviderService(ProviderRepository providerRepository, JobRepository jobRepository,
+            ReviewRepository reviewRepository, UpdateRepository updateRepository) {
         this.providerRepository = providerRepository;
         this.jobRepository = jobRepository;
         this.updateRepository = updateRepository;
@@ -40,7 +41,7 @@ public class ProviderService {
     public Provider getProviderById(Long providerId) {
         Optional<Provider> providerO = this.providerRepository.findById(providerId);
         if (providerO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + providerId + ".");
         }
         Provider provider = providerO.get();
         return provider;
@@ -58,17 +59,17 @@ public class ProviderService {
         return this.reviewRepository.findByProviderId(providerId);
     }
 
-    public Provider createProvider(CreateProviderDto dto) {
+    public Provider createProvider(ProviderCreateDto dto) {
         Provider provider = new Provider(dto.getName(), dto.getDescription(), dto.getImageUrl(), dto.getAddress(),
                 dto.getPhone(), dto.getEmail(), Collections.emptyList(), Collections.emptyList(),
                 Collections.emptyList());
         return this.providerRepository.save(provider);
     }
 
-    public Provider updateProvider(Long providerId, UpdateProviderDto dto) {
+    public Provider updateProvider(Long providerId, ProviderUpdateDto dto) {
         Optional<Provider> providerO = this.providerRepository.findById(providerId);
         if (providerO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + providerId + ".");
         }
         Provider provider = providerO.get();
         provider.setName(dto.getName());
@@ -83,7 +84,7 @@ public class ProviderService {
     public void deleteProvider(Long providerId) {
         Optional<Provider> providerO = this.providerRepository.findById(providerId);
         if (providerO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + providerId + ".");
         }
         Provider provider = providerO.get();
         this.providerRepository.delete(provider);

@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateUpdateDto {
-    private String title;
-    private String description;
+public class ReviewCreateDto {
+    private Boolean recommended;
+    private String customerComment;
+    private Long customerId;
+    private Long providerId;
 }
