@@ -28,7 +28,7 @@ public class PetService {
     public Pet createPet(PetCreateDto dto) {
         Optional<Customer> customerO = this.customerRepository.findById(dto.getCustomerId());
         if (customerO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + dto.getCustomerId() + ".");
         }
         Customer customer = customerO.get();
         Pet pet = new Pet(dto.getName(), dto.getSpeciesOrBreed(), dto.getAge(), dto.getSpecialCareInstructions(),
@@ -43,7 +43,7 @@ public class PetService {
     public Pet getPetById(Long petId) {
         Optional<Pet> petO = this.petRepository.findById(petId);
         if (petO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no pet with id " + petId + ".");
         }
         Pet pet = petO.get();
         return pet;
@@ -66,7 +66,7 @@ public class PetService {
     public void deletePet(Long petId) {
         Optional<Pet> petO = this.petRepository.findById(petId);
         if (petO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no pet with id " + petId + ".");
         }
         Pet pet = petO.get();
         this.petRepository.delete(pet);

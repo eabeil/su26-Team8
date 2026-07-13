@@ -69,7 +69,7 @@ public class ProviderService {
     public Provider updateProvider(Long providerId, ProviderUpdateDto dto) {
         Optional<Provider> providerO = this.providerRepository.findById(providerId);
         if (providerO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + providerId + ".");
         }
         Provider provider = providerO.get();
         provider.setName(dto.getName());
@@ -84,7 +84,7 @@ public class ProviderService {
     public void deleteProvider(Long providerId) {
         Optional<Provider> providerO = this.providerRepository.findById(providerId);
         if (providerO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + providerId + ".");
         }
         Provider provider = providerO.get();
         this.providerRepository.delete(provider);
