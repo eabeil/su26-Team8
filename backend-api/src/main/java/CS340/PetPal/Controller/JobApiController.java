@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import CS340.PetPal.Service.JobService;
 import CS340.PetPal.Dto.CreateJobDto;
@@ -30,58 +29,38 @@ public class JobApiController {
     }
 
     // get jobs
-    @GetMapping({"/", ""})
+    @GetMapping({ "/", "" })
     public ResponseEntity<List<Job>> getAllJobs() {
-        try {
-            List<Job> services = this.jobService.getAllJobs();
-            return ResponseEntity.ok(services);
-        } catch (ResponseStatusException e) {
-            return ResponseEntity.status(e.getStatusCode()).build();
-        }
+        List<Job> services = this.jobService.getAllJobs();
+        return ResponseEntity.ok(services);
     }
 
     // get job
-    @GetMapping({"/{id}/", "/{id}"})
+    @GetMapping({ "/{id}/", "/{id}" })
     public ResponseEntity<Job> getJobById(@PathVariable("id") Long jobId) {
-        try {
-            Job job = this.jobService.getJobById(jobId);
-            return ResponseEntity.ok(job);
-        } catch (ResponseStatusException e) {
-            return ResponseEntity.status(e.getStatusCode()).build();
-        }
+        Job job = this.jobService.getJobById(jobId);
+        return ResponseEntity.ok(job);
     }
 
     // create job
-    @PostMapping({"/", ""})
+    @PostMapping({ "/", "" })
     public ResponseEntity<Job> createJob(@RequestBody CreateJobDto dto) {
-        try {
-            Job job = this.jobService.createJob(dto);
-            URI location = URI.create("/api/services/" + job.getId());
-            return ResponseEntity.created(location).body(job);
-        } catch (ResponseStatusException e) {
-            return ResponseEntity.status(e.getStatusCode()).build();
-        }
+        Job job = this.jobService.createJob(dto);
+        URI location = URI.create("/api/services/" + job.getId());
+        return ResponseEntity.created(location).body(job);
     }
 
     // update job
-    @PutMapping({"/{id}/", "/{id}"})
+    @PutMapping({ "/{id}/", "/{id}" })
     public ResponseEntity<Job> updateJob(@PathVariable("id") Long jobId, @RequestBody UpdateJobDto dto) {
-        try {
-            Job updatedJob = this.jobService.updateJob(jobId, dto);
-            return ResponseEntity.ok(updatedJob);
-        } catch (ResponseStatusException e) {
-            return ResponseEntity.status(e.getStatusCode()).build();
-        }
+        Job updatedJob = this.jobService.updateJob(jobId, dto);
+        return ResponseEntity.ok(updatedJob);
     }
 
     // delete job
-    @DeleteMapping({"/{id}/", "/{id}"})
+    @DeleteMapping({ "/{id}/", "/{id}" })
     public ResponseEntity<Void> deleteJob(@PathVariable("id") Long jobId) {
-        try {
-            this.jobService.deleteJob(jobId);
-            return ResponseEntity.noContent().build();
-        } catch (ResponseStatusException e) {
-            return ResponseEntity.status(e.getStatusCode()).build();
-        }
+        this.jobService.deleteJob(jobId);
+        return ResponseEntity.noContent().build();
     }
 }
