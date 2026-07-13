@@ -26,7 +26,8 @@ public class ProviderService {
     private final UpdateRepository updateRepository;
     private final ReviewRepository reviewRepository;
 
-    public ProviderService(ProviderRepository providerRepository, JobRepository jobRepository, ReviewRepository reviewRepository, UpdateRepository updateRepository) {
+    public ProviderService(ProviderRepository providerRepository, JobRepository jobRepository,
+            ReviewRepository reviewRepository, UpdateRepository updateRepository) {
         this.providerRepository = providerRepository;
         this.jobRepository = jobRepository;
         this.updateRepository = updateRepository;

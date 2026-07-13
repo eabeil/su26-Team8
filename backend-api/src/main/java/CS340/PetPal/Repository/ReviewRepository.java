@@ -10,7 +10,6 @@ import CS340.PetPal.Entity.Review;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    
     List<Review> findByCustomerId(Long customerId);
 
     List<Review> findByProviderId(Long providerId);

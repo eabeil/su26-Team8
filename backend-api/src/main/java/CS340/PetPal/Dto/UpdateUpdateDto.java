@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateUpdateDto {
     private String title;
-   private String description;
+    private String description;
 }

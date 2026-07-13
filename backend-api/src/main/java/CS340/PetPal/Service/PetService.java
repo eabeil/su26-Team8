@@ -31,7 +31,8 @@ public class PetService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         Customer customer = customerO.get();
-        Pet pet = new Pet(dto.getName(), dto.getSpeciesOrBreed(), dto.getAge(), dto.getSpecialCareInstructions(), dto.getTraits(), customer);
+        Pet pet = new Pet(dto.getName(), dto.getSpeciesOrBreed(), dto.getAge(), dto.getSpecialCareInstructions(),
+                dto.getTraits(), customer);
         return this.petRepository.save(pet);
     }
 
