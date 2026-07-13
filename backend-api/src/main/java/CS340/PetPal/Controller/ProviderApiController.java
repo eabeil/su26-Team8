@@ -18,8 +18,8 @@ import CS340.PetPal.Entity.Job;
 import CS340.PetPal.Entity.Provider;
 import CS340.PetPal.Entity.Review;
 import CS340.PetPal.Entity.Update;
-import CS340.PetPal.Dto.CreateProviderDto;
-import CS340.PetPal.Dto.UpdateProviderDto;
+import CS340.PetPal.Dto.ProviderCreateDto;
+import CS340.PetPal.Dto.ProviderUpdateDto;
 
 @RestController
 @RequestMapping("/api/providers")
@@ -68,7 +68,7 @@ public class ProviderApiController {
 
     // create provider
     @PostMapping({ "/", "" })
-    public ResponseEntity<Provider> createProvider(@RequestBody CreateProviderDto dto) {
+    public ResponseEntity<Provider> createProvider(@RequestBody ProviderCreateDto dto) {
         Provider provider = this.providerService.createProvider(dto);
         URI location = URI.create("/api/providers/" + provider.getId());
         return ResponseEntity.created(location).body(provider);
@@ -77,7 +77,7 @@ public class ProviderApiController {
     // update provider
     @PutMapping({ "/{id}/", "/{id}" })
     public ResponseEntity<Provider> updateProvider(@PathVariable("id") Long providerId,
-            @RequestBody UpdateProviderDto dto) {
+            @RequestBody ProviderUpdateDto dto) {
         Provider updatedProvider = this.providerService.updateProvider(providerId, dto);
         return ResponseEntity.ok(updatedProvider);
     }

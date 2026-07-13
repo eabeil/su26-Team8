@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateCustomerDto {
+public class PetUpdateDto {
     private String name;
-    private String email;
-    private String phone;
-    private String password;
+    private String speciesOrBreed;
+    private Integer age;
+    private String specialCareInstructions;
+    private String traits;
 }

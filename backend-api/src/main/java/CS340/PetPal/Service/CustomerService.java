@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import CS340.PetPal.Dto.CreateCustomerDto;
-import CS340.PetPal.Dto.UpdateCustomerDto;
+import CS340.PetPal.Dto.CustomerCreateDto;
+import CS340.PetPal.Dto.CustomerUpdateDto;
 import CS340.PetPal.Entity.Customer;
 import CS340.PetPal.Entity.Pet;
 import CS340.PetPal.Entity.Review;
@@ -30,7 +30,7 @@ public class CustomerService {
     this.petRepository = petRepository;
   }
 
-  public Customer createCustomer(CreateCustomerDto dto) {
+  public Customer createCustomer(CustomerCreateDto dto) {
     Customer customer = new Customer(dto.getName(), dto.getEmail(), dto.getPhone(), dto.getPassword(),
         Collections.emptyList(), Collections.emptyList());
     return this.customerRepository.save(customer);
@@ -57,7 +57,7 @@ public class CustomerService {
     return this.petRepository.findByCustomerId(customerId);
   }
 
-  public Customer updateCustomer(Long customerId, UpdateCustomerDto dto) {
+  public Customer updateCustomer(Long customerId, CustomerUpdateDto dto) {
     Optional<Customer> customerO = this.customerRepository.findById(customerId);
     if (customerO.isEmpty()) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + customerId + ".");

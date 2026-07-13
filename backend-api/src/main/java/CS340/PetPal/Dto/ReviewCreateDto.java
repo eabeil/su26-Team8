@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RespondReviewDto {
-    private String providerResponse;
+public class ReviewCreateDto {
+    private Boolean recommended;
+    private String customerComment;
+    private Long customerId;
+    private Long providerId;
 }

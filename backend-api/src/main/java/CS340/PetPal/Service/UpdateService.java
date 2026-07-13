@@ -10,7 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import CS340.PetPal.Repository.ProviderRepository;
 import CS340.PetPal.Repository.UpdateRepository;
-import CS340.PetPal.Dto.CreateUpdateDto;
+import CS340.PetPal.Dto.UpdateCreateDto;
 import CS340.PetPal.Dto.UpdateUpdateDto;
 import CS340.PetPal.Entity.Update;
 import CS340.PetPal.Entity.Provider;
@@ -38,7 +38,7 @@ public class UpdateService {
         return update;
     }
 
-    public Update createUpdate(CreateUpdateDto dto) {
+    public Update createUpdate(UpdateCreateDto dto) {
         Optional<Provider> providerO = this.providerRepository.findById(dto.getProviderId());
         if (providerO.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + dto.getProviderId() + ".");

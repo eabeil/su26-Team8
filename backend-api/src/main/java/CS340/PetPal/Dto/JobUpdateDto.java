@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateJobDto {
+public class JobUpdateDto {
     private String name;
     private LocalDateTime time;
     private String duration;
     private double price;
-    private long providerId;
 }

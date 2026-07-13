@@ -17,8 +17,8 @@ import CS340.PetPal.Service.CustomerService;
 import CS340.PetPal.Entity.Customer;
 import CS340.PetPal.Entity.Pet;
 import CS340.PetPal.Entity.Review;
-import CS340.PetPal.Dto.CreateCustomerDto;
-import CS340.PetPal.Dto.UpdateCustomerDto;
+import CS340.PetPal.Dto.CustomerCreateDto;
+import CS340.PetPal.Dto.CustomerUpdateDto;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -59,7 +59,7 @@ public class CustomerApiController {
 
     // create customer
     @PostMapping({ "/", "" })
-    public ResponseEntity<Customer> createCustomer(@RequestBody CreateCustomerDto dto) {
+    public ResponseEntity<Customer> createCustomer(@RequestBody CustomerCreateDto dto) {
         Customer customer = this.customerService.createCustomer(dto);
         URI location = URI.create("/api/customers/" + customer.getId());
         return ResponseEntity.created(location).body(customer);
@@ -68,7 +68,7 @@ public class CustomerApiController {
     // update customer
     @PutMapping({ "/{id}/", "/{id}" })
     public ResponseEntity<Customer> updateCustomer(@PathVariable("id") Long customerId,
-            @RequestBody UpdateCustomerDto dto) {
+            @RequestBody CustomerUpdateDto dto) {
         Customer customer = this.customerService.updateCustomer(customerId, dto);
         return ResponseEntity.ok(customer);
     }

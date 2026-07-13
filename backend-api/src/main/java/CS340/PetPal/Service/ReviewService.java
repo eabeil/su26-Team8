@@ -8,10 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import CS340.PetPal.Dto.CreateReviewDto;
-import CS340.PetPal.Dto.RespondReviewDto;
-import CS340.PetPal.Dto.EditCommentReviewDto;
-import CS340.PetPal.Dto.EditResponseReviewDto;
+import CS340.PetPal.Dto.ReviewCreateDto;
+import CS340.PetPal.Dto.ReviewRespondDto;
+import CS340.PetPal.Dto.ReviewEditCommentDto;
+import CS340.PetPal.Dto.ReviewEditResponseDto;
 import CS340.PetPal.Entity.Customer;
 import CS340.PetPal.Entity.Provider;
 import CS340.PetPal.Entity.Review;
@@ -32,7 +32,7 @@ public class ReviewService {
         this.providerRepository = providerRepository;
     }
 
-    public Review createReview(CreateReviewDto dto) {
+    public Review createReview(ReviewCreateDto dto) {
         Optional<Customer> customerO = this.customerRepostiroy.findById(dto.getCustomerId());
         Optional<Provider> providerO = this.providerRepository.findById(dto.getProviderId());
         if (customerO.isEmpty() && providerO.isEmpty()) {
@@ -72,7 +72,7 @@ public class ReviewService {
         return review;
     }
 
-    public Review editReviewComment(Long reviewId, EditCommentReviewDto dto) {
+    public Review editReviewComment(Long reviewId, ReviewEditCommentDto dto) {
         Optional<Review> reviewO = this.reviewRepository.findById(reviewId);
         if (reviewO.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no review with id " + reviewId + ".");
@@ -84,7 +84,7 @@ public class ReviewService {
         return this.reviewRepository.save(review);
     }
 
-    public Review respondReview(Long reviewId, RespondReviewDto dto) {
+    public Review respondReview(Long reviewId, ReviewRespondDto dto) {
         Optional<Review> reviewO = this.reviewRepository.findById(reviewId);
         if (reviewO.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no review with id " + reviewId + ".");
@@ -98,7 +98,7 @@ public class ReviewService {
         return this.reviewRepository.save(review);
     }
 
-    public Review editReviewResponse(Long reviewId, EditResponseReviewDto dto) {
+    public Review editReviewResponse(Long reviewId, ReviewEditResponseDto dto) {
         Optional<Review> reviewO = this.reviewRepository.findById(reviewId);
         if (reviewO.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no review with id " + reviewId + ".");

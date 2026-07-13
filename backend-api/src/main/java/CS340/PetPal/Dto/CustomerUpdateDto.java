@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateProviderDto {
+public class CustomerUpdateDto {
     private String name;
-    private String description;
-    private String imageUrl;
-    private String address;
-    private String phone;
     private String email;
+    private String phone;
+    private String password;
 }

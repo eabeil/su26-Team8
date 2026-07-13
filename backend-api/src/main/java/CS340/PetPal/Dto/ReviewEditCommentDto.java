@@ -1,3 +1,4 @@
+
 package CS340.PetPal.Dto;
 
 import lombok.AllArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EditResponseReviewDto {
-    private String providerResponse;
+public class ReviewEditCommentDto {
+    private Boolean recommended;
+    private String customerComment;
 }

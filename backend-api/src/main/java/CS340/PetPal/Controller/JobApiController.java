@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import CS340.PetPal.Service.JobService;
-import CS340.PetPal.Dto.CreateJobDto;
-import CS340.PetPal.Dto.UpdateJobDto;
+import CS340.PetPal.Dto.JobCreateDto;
+import CS340.PetPal.Dto.JobUpdateDto;
 import CS340.PetPal.Entity.Job;
 
 @RestController
@@ -44,7 +44,7 @@ public class JobApiController {
 
     // create job
     @PostMapping({ "/", "" })
-    public ResponseEntity<Job> createJob(@RequestBody CreateJobDto dto) {
+    public ResponseEntity<Job> createJob(@RequestBody JobCreateDto dto) {
         Job job = this.jobService.createJob(dto);
         URI location = URI.create("/api/services/" + job.getId());
         return ResponseEntity.created(location).body(job);
@@ -52,7 +52,7 @@ public class JobApiController {
 
     // update job
     @PutMapping({ "/{id}/", "/{id}" })
-    public ResponseEntity<Job> updateJob(@PathVariable("id") Long jobId, @RequestBody UpdateJobDto dto) {
+    public ResponseEntity<Job> updateJob(@PathVariable("id") Long jobId, @RequestBody JobUpdateDto dto) {
         Job updatedJob = this.jobService.updateJob(jobId, dto);
         return ResponseEntity.ok(updatedJob);
     }

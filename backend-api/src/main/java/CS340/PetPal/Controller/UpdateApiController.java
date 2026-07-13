@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import CS340.PetPal.Service.UpdateService;
-import CS340.PetPal.Dto.CreateUpdateDto;
+import CS340.PetPal.Dto.UpdateCreateDto;
 import CS340.PetPal.Dto.UpdateUpdateDto;
 import CS340.PetPal.Entity.Update;
 
@@ -44,7 +44,7 @@ public class UpdateApiController {
 
     // create update
     @PostMapping({ "/", "" })
-    public ResponseEntity<Update> createUpdate(@RequestBody CreateUpdateDto dto) {
+    public ResponseEntity<Update> createUpdate(@RequestBody UpdateCreateDto dto) {
         Update update = this.updateService.createUpdate(dto);
         URI location = URI.create("/api/updates/" + update.getId());
         return ResponseEntity.created(location).body(update);

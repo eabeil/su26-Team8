@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import CS340.PetPal.Service.ReviewService;
 import CS340.PetPal.Entity.Review;
-import CS340.PetPal.Dto.CreateReviewDto;
-import CS340.PetPal.Dto.EditCommentReviewDto;
-import CS340.PetPal.Dto.EditResponseReviewDto;
-import CS340.PetPal.Dto.RespondReviewDto;
+import CS340.PetPal.Dto.ReviewCreateDto;
+import CS340.PetPal.Dto.ReviewEditCommentDto;
+import CS340.PetPal.Dto.ReviewEditResponseDto;
+import CS340.PetPal.Dto.ReviewRespondDto;
 
 @RestController
 @RequestMapping("/api/reviews")
@@ -46,7 +46,7 @@ public class ReviewApiController {
 
     // create review
     @PostMapping({ "/", "" })
-    public ResponseEntity<Review> createReview(@RequestBody CreateReviewDto dto) {
+    public ResponseEntity<Review> createReview(@RequestBody ReviewCreateDto dto) {
         Review review = this.reviewService.createReview(dto);
         URI location = URI.create("/api/reviews/" + review.getId());
         return ResponseEntity.created(location).body(review);
@@ -55,7 +55,7 @@ public class ReviewApiController {
     // edit review comment
     @PutMapping({ "/{id}/", "/{id}" })
     public ResponseEntity<Review> editReviewComment(@PathVariable("id") Long reviewId,
-            @RequestBody EditCommentReviewDto dto) {
+            @RequestBody ReviewEditCommentDto dto) {
         Review review = this.reviewService.editReviewComment(reviewId, dto);
         return ResponseEntity.ok(review);
     }
@@ -63,7 +63,7 @@ public class ReviewApiController {
     // post review response
     @PostMapping({ "/{id}/response/", "/{id}/response" })
     public ResponseEntity<Review> respondReview(@PathVariable("id") Long reviewId,
-            @RequestBody RespondReviewDto dto) {
+            @RequestBody ReviewRespondDto dto) {
         Review review = this.reviewService.respondReview(reviewId, dto);
         return ResponseEntity.ok(review);
     }
@@ -71,7 +71,7 @@ public class ReviewApiController {
     // edit review response
     @PutMapping({ "/{id}/response/", "/{id}/response" })
     public ResponseEntity<Review> editReviewResponse(@PathVariable("id") Long reviewId,
-            @RequestBody EditResponseReviewDto dto) {
+            @RequestBody ReviewEditResponseDto dto) {
         Review review = this.reviewService.editReviewResponse(reviewId, dto);
         return ResponseEntity.ok(review);
     }
