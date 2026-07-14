@@ -727,8 +727,7 @@ Request body:
 	"description":"description",
 	"imageUrl":"imageUrl",
 	"address":"address",
-	"phone":"phone",
-	"email":"email"
+	"phone":"phone"
 }
 ```
 

@@ -77,7 +77,6 @@ public class ProviderService {
         provider.setImageUrl(dto.getImageUrl());
         provider.setAddress(dto.getAddress());
         provider.setPhone(dto.getPhone());
-        provider.setEmail(dto.getEmail());
         return this.providerRepository.save(provider);
     }
 
