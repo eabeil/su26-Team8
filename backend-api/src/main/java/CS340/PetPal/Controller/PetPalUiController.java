@@ -11,4 +11,9 @@ public class PetPalUiController {
     public String homePage() {
         return "login-page.ftlh";
     }
+    
+    @GetMapping({"signup", "signup/"})
+    public String signup() {
+        return "signup.ftlh";
+    }
 }
