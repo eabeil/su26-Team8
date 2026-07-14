@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import CS340.PetPal.Service.CustomerService;
+import CS340.PetPal.Dto.CustomerCreateDto;
+import CS340.PetPal.Dto.CustomerResponseDto;
+import CS340.PetPal.Dto.CustomerUpdateDto;
 import CS340.PetPal.Entity.Customer;
 import CS340.PetPal.Entity.Pet;
 import CS340.PetPal.Entity.Review;
-import CS340.PetPal.Dto.CustomerCreateDto;
-import CS340.PetPal.Dto.CustomerUpdateDto;
+import CS340.PetPal.Service.CustomerService;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -32,8 +33,8 @@ public class CustomerApiController {
 
     // get customers
     @GetMapping({ "/", "" })
-    public ResponseEntity<List<Customer>> getAllCustomers() {
-        List<Customer> customers = this.customerService.getAllCustomers();
+    public ResponseEntity<List<CustomerResponseDto>> getAllCustomers() {
+        List<CustomerResponseDto> customers = this.customerService.getAllCustomers();
         return ResponseEntity.ok(customers);
     }
 
@@ -59,17 +60,17 @@ public class CustomerApiController {
 
     // create customer
     @PostMapping({ "/", "" })
-    public ResponseEntity<Customer> createCustomer(@RequestBody CustomerCreateDto dto) {
-        Customer customer = this.customerService.createCustomer(dto);
-        URI location = URI.create("/api/customers/" + customer.getId());
+    public ResponseEntity<CustomerResponseDto> createCustomer(@RequestBody CustomerCreateDto dto) {
+        CustomerResponseDto customer = this.customerService.createCustomer(dto);
+        URI location = URI.create("/api/customers/" + customer.id());
         return ResponseEntity.created(location).body(customer);
     }
 
     // update customer
     @PutMapping({ "/{id}/", "/{id}" })
-    public ResponseEntity<Customer> updateCustomer(@PathVariable("id") Long customerId,
+    public ResponseEntity<CustomerResponseDto> updateCustomer(@PathVariable("id") Long customerId,
             @RequestBody CustomerUpdateDto dto) {
-        Customer customer = this.customerService.updateCustomer(customerId, dto);
+        CustomerResponseDto customer = this.customerService.updateCustomer(customerId, dto);
         return ResponseEntity.ok(customer);
     }
 

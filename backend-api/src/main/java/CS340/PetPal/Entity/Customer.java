@@ -2,6 +2,7 @@ package CS340.PetPal.Entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -37,6 +38,7 @@ public class Customer {
     private String phone;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
