@@ -7,12 +7,30 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import CS340.PetPal.Dto.JobCreateDto;
+import CS340.PetPal.Dto.JobUiCreateDto;
+import CS340.PetPal.Dto.JobUpdateDto;
 import CS340.PetPal.Dto.ProviderUpdateDto;
+import CS340.PetPal.Dto.ReviewEditResponseDto;
+import CS340.PetPal.Dto.ReviewRespondDto;
+import CS340.PetPal.Dto.UpdateCreateDto;
+import CS340.PetPal.Dto.UpdateUiCreateDto;
 import CS340.PetPal.Dto.UpdateUpdateDto;
+import CS340.PetPal.Service.JobService;
+import CS340.PetPal.Service.ProviderService;
+import CS340.PetPal.Service.ReviewService;
+import CS340.PetPal.Service.UpdateService;
+import lombok.AllArgsConstructor;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/provider/{providerId}")
 public class ProviderUiController {
+
+    ProviderService providerService;
+    JobService jobService;
+    UpdateService updateService;
+    ReviewService reviewService;
 
    @GetMapping({"/", ""})
    public String providerIndex(@PathVariable Long providerId) {
@@ -22,42 +40,104 @@ public class ProviderUiController {
     @GetMapping({"/customer-profile", "/customer-profile/"})
     public String customerProfile(@PathVariable Long providerId, Model model) {
         model.addAttribute("providerId", providerId);
-        return "provider/customer-profile";
+        return "/provider/customer-profile";
     }
 
     @GetMapping({"/dashboard", "/dashboard/"})
     public String dashboard(@PathVariable Long providerId, Model model) {
         model.addAttribute("providerId", providerId);
-        return "provider/dashboard";
+        return "/provider/dashboard";
     }
 
     @GetMapping({"/edit-profile", "/edit-profile/"})
     public String editProfile(@PathVariable Long providerId, Model model) {
         model.addAttribute("providerId", providerId);
-        return "provider/edit-profile";
+        return "/provider/edit-profile";
     }
 
-    @GetMapping({"/edit-services", "/edit-services"})
-    public String editServices(@PathVariable Long providerId, Model model) {
+    @GetMapping({"/edit-jobs", "/edit-jobs"})
+    public String editJobs(@PathVariable Long providerId, Model model) {
         model.addAttribute("providerId", providerId);
-        return "provider/edit-services";
+        return "/provider/edit-jobs";
     }
 
     @GetMapping({"/pet-profile", "/pet-profile/"})
     public String petProfile(@PathVariable Long providerId, Model model) {
         model.addAttribute("providerId", providerId);
-        return "provider/pet-profile";
+        return "/provider/pet-profile";
     }
 
     @GetMapping({"/respond-reviews", "/respond-reviews/"})
     public String respondReviews(@PathVariable Long providerId, Model model) {
         model.addAttribute("providerId", providerId);
-        return "provider/respond-reviews";
+        return "/provider/respond-reviews";
     }
 
     @GetMapping({"/search-customers", "/search-customers/"})
     public String searchCustomers(@PathVariable Long providerId, Model model) {
         model.addAttribute("providerId", providerId);
-        return "provider/search-customers";
+        return "/provider/search-customers";
+    }
+
+    @GetMapping({"/edit", "/edit/"})
+    public String editProvider(@PathVariable Long providerId, @ModelAttribute ProviderUpdateDto dto) {
+        this.providerService.updateProvider(providerId, dto);
+        return "redirect:/provider/" + providerId + "/dashboard";        
+    }
+
+    @GetMapping({"/delete", "/delete/"})
+    public String deleteProvider(@PathVariable Long providerId, Model model) {
+        this.providerService.deleteProvider(providerId);
+        return "redirect:/";
+    }
+
+    @GetMapping({"/update/create", "/update/create/"})
+    public String createUpdate(@PathVariable Long providerId, @ModelAttribute UpdateUiCreateDto dto) {
+        UpdateCreateDto service_dto = new UpdateCreateDto(dto.getTitle(), dto.getDescription(), providerId);
+        this.updateService.createUpdate(service_dto);
+        return "redirect:/provider/" + providerId + "/dashboard";
+    }
+
+    @GetMapping({"/update/{updateId}/edit", "/update/{updateId}/edit/"})
+    public String editUpdate(@PathVariable Long providerId, @PathVariable Long updateId, @ModelAttribute UpdateUpdateDto dto) {
+        this.updateService.updateUpdate(updateId, dto);
+        return "redirect:/provider/" + providerId + "/dashboard";
+    }
+
+    @GetMapping({"/update/{updateId}/delete", "/update/{updateId}/delete/"})
+    public String deleteUpdate(@PathVariable Long providerId, @PathVariable Long updateId) {
+        this.updateService.deleteUpdate(updateId);
+        return "redirect:/provider/" + providerId + "/dashboard";
+    }
+
+    @GetMapping({"/job/create", "/job/create/"})
+    public String createJob(@PathVariable Long providerId, @ModelAttribute JobUiCreateDto dto, Model model) {
+        JobCreateDto service_dto = new JobCreateDto(dto.getName(), dto.getTime(), dto.getDuration(), dto.getPrice(), providerId);
+        this.jobService.createJob(service_dto);
+        return "redirect:/provider/" + providerId + "/dashboard";
+    }
+
+    @GetMapping({"/job/{jobId}/edit", "/job/{jobId}/edit/"})
+    public String editJob(@PathVariable Long providerId, @PathVariable Long jobId, @ModelAttribute JobUpdateDto dto, Model model) {
+        this.jobService.updateJob(jobId, dto);
+        return "redirect:/provider/" + providerId + "/dashboard";
+    }
+
+    @GetMapping({"/job/{jobId}/delete", "/job/{jobId}/delete/"})
+    public String deleteJob(@PathVariable Long providerId, @PathVariable Long jobId, Model model) {
+        this.jobService.deleteJob(jobId);
+        return "redirect:/provider/" + providerId + "/edit-jobs";
+    }
+
+    @GetMapping({"/review/{reviewId}/create-response", "/review/{reviewId}/create-response/"})
+    public String createReviewResponse(@PathVariable Long providerId, @PathVariable Long reviewId, @ModelAttribute ReviewRespondDto dto) {
+        this.reviewService.respondReview(reviewId, dto);
+        return "redirect:/provider/" + providerId + "/respond-reviews";
+    }
+
+    @GetMapping({"/review/{reviewId}/edit-response", "/review/{reviewId}/edit-response/"})
+    public String editReviewResponse(@PathVariable Long providerId, @PathVariable Long reviewId, @ModelAttribute ReviewEditResponseDto dto) {
+        this.reviewService.editReviewResponse(reviewId, dto);
+        return "redirect:/provider/" + providerId + "/respond-reviews";
     }
 }
