@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PetPalUiController {
     @GetMapping({"", "/"})
     public String homePage() {
-        return "login-page.ftlh";
+        return "login-page";
     }
     
     @GetMapping({"signup", "signup/"})
     public String signup() {
-        return "signup.ftlh";
+        return "signup";
     }
 }
