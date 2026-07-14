@@ -17,9 +17,9 @@
             <div class="max-w-4xl mx-auto px-6 py-4 flex items-center">
                 <h1 class="text-2xl font-extrabold tracking-tight">PetPal</h1>
                 <nav class="ml-auto flex items-center gap-6">
-                    <a href="/provider/dashboard"
+                    <a href="/provider/${providerId}/dashboard"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Dashboard</a>
-                    <a href="/provider/search-customers"
+                    <a href="/provider/${providerId}/search-customers"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Customers</a>
                     <a href="/"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
@@ -138,7 +138,7 @@
                         class="flex justify-center flex-1 px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
                         Add Service
                     </a>
-                    <a href="/provider/dashboard"
+                    <a href="/provider/${providerId}/dashboard"
                         class="flex justify-center flex-1 px-6 py-4 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-500 transition-colors font-medium">
                         Done
                     </a>

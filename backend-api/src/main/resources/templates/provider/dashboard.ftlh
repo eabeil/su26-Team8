@@ -17,9 +17,9 @@
             <div class="max-w-4xl mx-auto px-6 py-4 flex items-center">
                 <h1 class="text-2xl font-extrabold tracking-tight">PetPal</h1>
                 <nav class="ml-auto flex items-center gap-6">
-                    <a href="/provider/dashboard"
+                    <a href="/provider/${providerId}/dashboard"
                         class="text-sm font-semibold text-black hover:text-black underline transition-colors">Dashboard</a>
-                    <a href="/provider/search-customers"
+                    <a href="/provider/${providerId}/search-customers"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Customers</a>
                     <a href="/"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
@@ -64,7 +64,7 @@
                         Developed countries make up approximately 20% of the global dog population, while around 75% of
                         dogs are estimated to be from developing countries, mainly in the form of feral and street dogs.
                     </p>
-                    <a href="/provider/edit-profile"
+                    <a href="/provider/${providerId}/edit-profile"
                         class="flex justify-center px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">Edit
                     </a>
                 </div>
@@ -91,7 +91,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <a href="/provider/edit-contact"
+                <a href="/provider/${providerId}/edit-contact"
                     class="flex justify-center px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">Edit
                 </a>
             </div>
@@ -103,7 +103,7 @@
                 My ratings
             </h3>
             <p class="text-center text-2xl font-extrabold tracking-tight mb-2">75% like / 25% dislike (4 reviews)</p>
-            <a href="/provider/respond-reviews"
+            <a href="/provider/${providerId}/respond-reviews"
                 class="flex justify-center px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
                 View and Respond to Reviews
             </a>
@@ -149,7 +149,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <a href="/provider/edit-services"
+                <a href="/provider/${providerId}/edit-services"
                     class="flex justify-center px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">Edit
                 </a>
             </div>

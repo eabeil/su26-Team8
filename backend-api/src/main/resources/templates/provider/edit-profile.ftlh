@@ -17,9 +17,9 @@
             <div class="max-w-4xl mx-auto px-6 py-4 flex items-center">
                 <h1 class="text-2xl font-extrabold tracking-tight">PetPal</h1>
                 <nav class="ml-auto flex items-center gap-6">
-                    <a href="/provider/dashboard"
+                    <a href="/provider/${providerId}/dashboard/${providerId}"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Dashboard</a>
-                    <a href="/provider/search-customers"
+                    <a href="/provider/${providerId}/search-customers"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Customers</a>
                     <a href="/"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
@@ -90,11 +90,11 @@ The global dog population is estimated at 700 million to 1 billion, distributed 
                             </div>
 
                             <div class="flex gap-4">
-                                <a href="/provider/dashboard/"
+                                <a href="/provider/${providerId}/dashboard/"
                                     class="flex justify-center flex-1 px-6 py-4 mt-8 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
                                     Save
                                 </a>
-                                <a href="/provider/dashboard/"
+                                <a href="/provider/${providerId}/dashboard/"
                                     class="flex justify-center flex-1 px-6 py-4 mt-8 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
                                     Cancel
                                 </a>
@@ -107,7 +107,7 @@ The global dog population is estimated at 700 million to 1 billion, distributed 
 
         <!-- DELETE ACCOUNT BUTTON  -->
         <div class="flex justify-center">
-            <a href="/provider/dashboard/"
+            <a href="/provider/${providerId}/dashboard/"
                 class="flex justify-center px-6 py-4 text-red bg-white border-2 border-red rounded-lg hover:bg-red-500 transition-colors font-medium">
                 Delete Account
             </a>

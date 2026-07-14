@@ -132,7 +132,7 @@
                         </div>
                     <!--info-->
                     <div class="mt-auto flex justify-end">
-                        <a href="/provider/customer-profile"
+                        <a href="/provider/${providerId}/customer-profile"
                             class="text-sm font-semibold border-2 border-black px-6 py-2 rounded-lg hover:bg-black hover:text-white transition-colors">Profile</a>
                     </div>
                     </div>

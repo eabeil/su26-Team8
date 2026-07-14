@@ -17,9 +17,9 @@
             <div class="max-w-4xl mx-auto px-6 py-4 flex items-center">
                 <h1 class="text-2xl font-extrabold tracking-tight">PetPal</h1>
                 <nav class="ml-auto flex items-center gap-6">
-                    <a href="/provider/dashboard"
+                    <a href="/provider/${providerId}/dashboard"
                         class="text-sm font-semibold text-black hover:text-black underline transition-colors">Dashboard</a>
-                    <a href="/provider/search-customers"
+                    <a href="/provider/${providerId}/search-customers"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Customers</a>
                     <a href="/"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
@@ -72,7 +72,7 @@
                         </p>
                     </div>
                     <div class="mt-auto flex justify-end">
-                        <a href="/provider/pet-profile"
+                        <a href="/provider/${providerId}/pet-profile"
                             class="text-sm font-semibold border-2 border-black px-6 py-2 rounded-lg hover:bg-black hover:text-white transition-colors">Profile</a>
                     </div>
                 </div>
