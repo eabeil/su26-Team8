@@ -1,6 +1,7 @@
 package CS340.PetPal.Controller;
 
 import java.net.URI;
+import java.util.concurrent.CompletionService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,10 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+
 import CS340.PetPal.Dto.CustomerCreateDto;
 import CS340.PetPal.Dto.CustomerLoginDto;
 import CS340.PetPal.Dto.CustomerResponseDto;
+import CS340.PetPal.Entity.Customer;
 import CS340.PetPal.Service.CustomerService;
+import CS340.PetPal.Service.CustomerSessionService;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -50,8 +54,8 @@ public class CustomerAuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<CustomerResponseDto> currentCustomer(HttpServletRequest request) {
-        Long customerId = customerSessionService.getCustomerId(request);
+    public ResponseEntity<Customer> currentCustomer(HttpServletRequest request) {
+        Long customerId = CompletionService.getCustomerId(request);
         if (customerId == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Log in to continue.");
         }
