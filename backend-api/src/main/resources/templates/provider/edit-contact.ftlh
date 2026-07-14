@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetPal - Edit Contact Info</title>
+    <!--tailwind setup-->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen font-sans text-black">
+
+    <!-- SITE HEADER -->
+    <header>
+        <div class="bg-white border-b border-gray-200">
+            <div class="max-w-4xl mx-auto px-6 py-4 flex items-center">
+                <h1 class="text-2xl font-extrabold tracking-tight">PetPal</h1>
+                <nav class="ml-auto flex items-center gap-6">
+                    <a href="/provider/dashboard"
+                        class="text-sm font-semibold text-black hover:text-black transition-colors">Dashboard</a>
+                    <a href="/provider/search-customers"
+                        class="text-sm font-semibold text-black hover:text-black transition-colors">Customers</a>
+                    <a href="/"
+                        class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
+                </nav>
+            </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-10 space-y-6">
+
+        <!-- EDIT CONTACT INFO -->
+        <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
+            <h3 class="text-xs text-center text-gray-500 uppercase tracking-widest font-semibold mb-6">
+                Edit Contact Info
+            </h3>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left border-collapse">
+                    <tbody>
+                        <tr class="text-center border-b border-gray-200">
+                            <td class="px-6 py-4 text-gray-500">Email:</td>
+                            <td class="px-6 py-4 text-gray-500">iwalkdogs@email.com</td>
+                            <td class="px-6 py-4 text-right">
+                                <a href="#"
+                                    class="inline-block px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm text-xs">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                        <tr class="text-center border-b border-gray-200">
+                            <td class="px-6 py-4 text-gray-500">Phone:</td>
+                            <td class="px-6 py-4 text-gray-500">(123) 457-7890</td>
+                            <td class="px-6 py-4 text-right">
+                                <a href="#"
+                                    class="inline-block px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm text-xs">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ADD NEW CONTACT METHOD-->
+        <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-8">
+            <h3 class="text-xs text-center text-gray-500 uppercase tracking-widest font-semibold mb-6">
+                Add a New Service
+            </h3>
+            <form class="space-y-6">
+                <div>
+                    <label class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2">
+                        Method
+                    </label>
+                    <input type="text" placeholder="e.g. Phone"
+                        class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2">
+                        Info
+                    </label>
+                    <input type="text" placeholder="e.g. (123) 456-7890"
+                        class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+                </div>
+                <div class="flex gap-4">
+                    <a href="#"
+                        class="flex justify-center flex-1 px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
+                        Add Service
+                    </a>
+                    <a href="/provider/dashboard"
+                        class="flex justify-center flex-1 px-6 py-4 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-500 transition-colors font-medium">
+                        Done
+                    </a>
+                </div>
+            </form>
+        </section>
+
+    </main>
+</body>
