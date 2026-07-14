@@ -17,7 +17,7 @@
             <div class="max-w-4xl mx-auto px-6 py-4 flex items-center">
                 <h1 class="text-2xl font-extrabold tracking-tight">PetPal</h1>
                 <nav class="ml-auto flex items-center gap-6">
-                    <a href="/provider/${providerId}/dashboard/${customerId}"
+                    <a href="/provider/${providerId}/dashboard"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Dashboard</a>
                     <a href="/provider/${providerId}/search-customers"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Customers</a>
