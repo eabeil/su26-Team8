@@ -3,49 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetPal - Login</title>
-    <!--tailwind setup-->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>PetPal | Login</title>
+    <link rel="stylesheet" href="/css/app.css">
 </head>
-<body class="bg-gray-50 flex items-center justify-center min-h-screen font-sans text-black flex flex-col">
+<body class="auth-page">
 
     <!--login container-->
-    <main class="w-full max-w-md p-8 bg-white border border-gray-200 rounded-xl shadow-sm">
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-extrabold tracking-tight">PetPal</h1>
-            <p class="text-sm text-gray-500 mt-2">Find trusted pet care in your neighborhood.</p>
-        </div>
-    
-        <form class="space-y-5" onsubmit="event.preventDefault();">
+    <main class="auth-card">
+        <header class="auth-heading">
+            <h1 class="brand">PetPal</h1>
+            <p>Find trusted pet care in your neighborhood.</p>
+        </header>
+
+        <form class="/login" method="post" class="stack">
                 <!--email input-->
-            <div>
-                <label class="block text-sm font-semibold mb-1">Email</label>
-                <input type="email" placeholder="name@example.com" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
-            </div> 
+            <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" value="${(form.email)!}"
+                       autocomplete="email" required>
+            </div>
+
                 <!--password input-->
-            <div>
-                <label class="block text-sm font-semibold mb-1">Password</label>
-                <input type="password" placeholder="••••••••" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+            <div class="field">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" 
+                       autocomplete="current-password" required>
             </div>
-            <!--dashboard slection-->
-            <div class="pt-4 space-y-3">
-                <p class="text-xs text-center text-gray-400 uppercase tracking-widest font-semibold mb-3">Select your dashboard</p>    
-                <!-- customer login option-->
-                <a href="../customer/dashboard.html" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm">
-                    Log in as Pet Owner
-                </a>       
-                <!--provider login option// make sure that your .html file matches here so that it can link-->
-                <a href="../provider/dashboard.html" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
-                    log in as Provider
-                </a>
-            </div>
+
+             <#if error??>
+                <p class="form-message visible error" role="alert">${error}</p>
+            </#if>
+
+            <button class="button" type="submit">Log in as a pet owner</button>
+            <button class="button" type="submit">Log in as a pet provider</button>
         </form>
 
         <!--sign up card-->
-        <div class="mt-8 text-center text-sm text-gray-500">
-            Don't have an account? <a href="signup.html" class="text-black font-bold hover:underline">Sign up</a>
-        </div>
-    </main>
-
+        <footer class="auth-footer">
+            Don't have an account? <a href="/signup">Create one</a>
+        </footer>
+    </main>    
 </body>
 </html>    
