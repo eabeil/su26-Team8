@@ -15,7 +15,7 @@
             <p>Find trusted pet care in your neighborhood.</p>
         </header>
 
-        <form class="/login" method="post" class="stack">
+        <form action="/login" method="post" class="stack">
                 <!--email input-->
             <div class="field">
                 <label for="email">Email</label>
