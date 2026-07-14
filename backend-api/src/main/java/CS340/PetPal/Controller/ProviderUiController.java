@@ -3,8 +3,12 @@ package CS340.PetPal.Controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import CS340.PetPal.Dto.ProviderUpdateDto;
+import CS340.PetPal.Dto.UpdateUpdateDto;
 
 @Controller
 @RequestMapping("/provider/{providerId}")
@@ -25,12 +29,6 @@ public class ProviderUiController {
     public String dashboard(@PathVariable Long providerId, Model model) {
         model.addAttribute("providerId", providerId);
         return "provider/dashboard";
-    }
-
-    @GetMapping({"/edit-contact", "/edit-contact/"})
-    public String editContact(@PathVariable Long providerId, Model model) {
-        model.addAttribute("providerId", providerId);
-        return "provider/edit-contact";
     }
 
     @GetMapping({"/edit-profile", "/edit-profile/"})

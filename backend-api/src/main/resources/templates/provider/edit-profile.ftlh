@@ -58,6 +58,13 @@
                                 </label>
                                 <input type="text" placeholder="John Doe" value="Sarah Young"
                                     class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+                            </div>                           <div>
+                            <label
+                                    class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 mt-8">
+                                    Phone Number
+                                </label>
+                                <input type="text" placeholder="(123) 456-7890" value=""
+                                    class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
                             </div>
                             <div>
                                 <label

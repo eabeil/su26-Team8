@@ -37,6 +37,8 @@
                 <div class="flex-1">
                     <h2 class="text-xl font-extrabold tracking-tight mb-2">Sarah Young</h2>
                     <p class="text-sm text-gray-600 mb-6">Dog Walking & Sitting • Greensboro, NC</p>
+                    <p class="text-sm text-gray-600 mb-6">myemail@yahoo.com</p>
+                    <p class="text-sm text-gray-600 mb-6">(123) 456-7890</p>
                     <p class="text-sm text-gray-500 leading-relaxed">The dog (Canis familiaris or Canis lupus
                         familiaris) is a domesticated descendant of wolves. Also called the domestic dog, it was
                         selectively bred during the Late Pleistocene by hunter-gatherers. Dogs and the modern gray wolf
@@ -68,32 +70,6 @@
                         class="flex justify-center px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">Edit
                     </a>
                 </div>
-            </div>
-        </section>
-
-        <!-- CONTACT INFO -->
-        <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-8">
-            <h3 class="text-xs text-center text-gray-500 uppercase tracking-widest font-semibold mb-2">
-                My Contact Info
-            </h3>
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm text-center border-collapse">
-                    <tbody>
-                        <tr class="border-b border-gray-200">
-                            <td class="px-6 py-4 text-gray-500">Email:</td>
-                            <td class="px-6 py-4 text-gray-500">iwalkdogs@email.com</td>
-                        </tr>
-                    </tbody>
-                    <tbody>
-                        <tr class="border-b border-gray-200">
-                            <td class="px-6 py-4 text-gray-500">Phone:</td>
-                            <td class="px-6 py-4 text-gray-500">(123) 457-7890</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <a href="/provider/${providerId}/edit-contact"
-                    class="flex justify-center px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">Edit
-                </a>
             </div>
         </section>
 
