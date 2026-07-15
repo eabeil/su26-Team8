@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directory - PetPal</title>
+    <!--tailwind setup-->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans text-black min-h-screen flex flex-col">
+    <!--navigation-->
+    <nav class="bg-white border-b border-gray-200 px-8 md:px-12 py-4 flex justify-between items-center sticky top-0 z-10">
+        <a href="/customer/${customerId?c}/dashboard" class="text-xl font-extrabold tracking-tight">PetPal</a>
+        <div class="space-x-6 text-sm font-medium">
+            <a href="/customer/${customerId?c}/dashboard" class="text-gray-500 hover:text-black transition-colors">Dashboard</a>
+            <a href="/customer/${customerId?c}/providers" class="text-black border-b-2 border-black pb-1">Directory</a>
+            <a href="profile.html" class="text-gray-500 hover:text-black transition-colors">My Profile</a>
+            <a href="../common/index.html" class="text-red-600 hover:text-red-800 transition-colors ml-4">Log Out</a>
+        </div>
+    </nav>
+    
+    <main class="max-w-5xl mx-auto px-8 md:px-12 py-10 flex-grow w-full">
+        <a href="/customer/${customerId?c}/providers" class="text-sm font-semibold text-gray-500 hover:text-black mb-6 inline-block">&larr; Back to Directory</a>
+
+        <#if successMessage??>
+            <p class="bg-green-50 text-green-800 border border-green-200 rounded-xl px-5 py-3 mb-6 text-sm font-semibold" role="status">
+                ${successMessage}
+            </p>
+        </#if>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+            
+            <!--coloumn-->
+            <div class="lg:col-span-3 space-y-8">
+                
+                <!--grid-->
+                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                    
+                    <!--hop half-->
+                    <div class="p-8 flex flex-col sm:flex-row items-start gap-6 border-b border-gray-100">
+                        <img src="${pal.imageUrl}" alt="${pal.name}" class="w-32 h-32 rounded-full object-cover border border-gray-200 flex-shrink-0">
+                        <div>
+                            <h1 class="text-3xl font-extrabold mb-1">${pal.name}</h1>
+                            <p class="text-lg text-gray-500 mb-4">${pal.address}</p>
+                            <div class="flex flex-wrap items-center gap-3">
+                                <span class="font-semibold text-sm">${reviews?size} customer review<#if reviews?size != 1>s</#if></span>
+                                <span class="text-gray-300">|</span>
+                                <span class="bg-green-50 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200">✓ Background Checked</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--info-->
+                    <div class="p-8 bg-gray-50/50">
+                        <h2 class="text-xl font-bold mb-3">About ${pal.name}</h2>
+                        <div class="text-gray-600 space-y-4 leading-relaxed text-sm">
+                            <p>${pal.description}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--service info-->
+                <section>
+                    <h2 class="text-xl font-bold mb-4">Services & Rates</h2>
+                    <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+                        <#list jobs as job>
+                            <div class="flex justify-between items-center gap-4 p-6 border-b border-gray-100 last:border-b-0">
+                                <div>
+                                    <p class="font-semibold">${job.name}</p>
+                                    <p class="text-sm text-gray-500 mt-1">${job.duration}</p>
+                                </div>
+                                <span class="text-gray-700 font-semibold">$${job.price?string["0.00"]}</span>
+                            </div>
+                        <#else>
+                            <p class="p-6 text-sm text-gray-500">Contact this provider for current services and rates.</p>
+                        </#list>
+                    </div>
+                </section>
+            </div>
+
+            <!--right coloumn-->
+            <div class="lg:col-span-2 space-y-8">
+                <div class="bg-black text-white rounded-2xl p-6 shadow-md">
+                    <#if jobs?has_content>
+                        <h2 class="text-3xl font-extrabold mb-1">${jobs?first.price?string["0.00"]}
+                            <span class="text-base text-gray-400 font-normal"> / hour starting rate</span>
+                        </h2>
+                    <#else>
+                        <h2 class="text-xl font-bold mb-1">Contact for rates</h2>
+                    </#if>
+                            
+                    <!--contact info-->
+                    <div class="space-y-4 mb-8 text-sm">
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Phone Number</p>
+                            <p class="font-medium">${pal.phone}</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Email Address</p>
+                            <p class="font-medium">${email}</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <a href="#" class="flex justify-center w-full px-4 py-3 text-black bg-white rounded-lg hover:bg-gray-200 transition-colors font-semibold">
+                        Call Provider
+                        </a>
+                        <a href="#" class="flex justify-center w-full px-4 py-3 text-white bg-black border border-gray-600 rounded-lg hover:bg-gray-800 transition-colors font-semibold">
+                        Email Provider
+                        </a>
+                    </div>
+                    <button class="flex items-center justify-center gap-2 w-full mt-6 text-sm font-bold text-gray-400 hover:text-white transition-colors">
+                        <span class="text-lg">♡</span> Save to Favorites
+                    </button>
+                </div>
+
+
+                <!--reviews-->
+                <section>
+                    <h2 class="text-2xl font-bold mb-4">(${reviews?size})</h2> 
+                    <div class="bg-white border border-gray-200 rounded-2xl p-6 mb-6 shadow-sm">
+                        <#list reviews as review>
+                            <article class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
+                                <div class="flex items-center justify-between gap-4 mb-2">
+                                    <span class="font-bold">${review.customer.name}</span>
+                                    <#if review.wasEdited>
+                                        <span class="text-xs text-gray-500">Edited</span>
+                                    </#if>
+                                </div>
+
+                                <p class="text-xs font-bold mb-2 uppercase tracking-wider">
+                                    <#if review.recommended>
+                                        👍 Recommends
+                                    <#else>
+                                        👎 Does not recommend
+                                    </#if>
+                                </p>
+                                <p class="text-gray-600 text-sm leading-relaxed">${review.customerComment}</p>
+
+                                <#if review.hasResponse>
+                                    <div class="mt-4 ml-4 bg-gray-50 border-l-4 border-black rounded-r-lg p-4">
+                                        <p class="text-xs font-bold uppercase tracking-wider mb-2">
+                                            Response from ${provider.name}<#if review.wasResponseEdited> · Edited</#if>
+                                        </p>
+                                        <p class="text-gray-600 text-sm leading-relaxed">${review.providerResponse}</p>
+                                    </div>
+                                </#if>
+                            </article>
+                        <#else>
+                            <div class="bg-white border-2 border-dashed border-gray-300 rounded-xl p-8 text-center">
+                                <p class="font-semibold">No reviews yet.</p>
+                                <p class="text-sm text-gray-500 mt-1">Be the first customer to share an experience.</p>
+                            </div>
+                        </#list>
+                    </div>
+                </section>
+            </div>   
+        </div>
+    </main>
+
+</body>
+</html>
+
+
