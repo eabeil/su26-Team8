@@ -19,7 +19,7 @@
                 <nav class="ml-auto flex items-center gap-6">
                     <a href="/provider/dashboard"
                         class="text-sm font-semibold text-black hover:text-black underline transition-colors">Dashboard</a>
-                    <a href="/provider/search-customers"
+                    <a href="/provider/customer-list"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Customers</a>
                     <a href="/"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>

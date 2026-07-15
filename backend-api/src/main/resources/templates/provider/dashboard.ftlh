@@ -19,7 +19,7 @@
                 <nav class="ml-auto flex items-center gap-6">
                     <a href="/provider/${providerId}/dashboard"
                         class="text-sm font-semibold text-black hover:text-black underline transition-colors">Dashboard</a>
-                    <a href="/provider/${providerId}/search-customers"
+                    <a href="/provider/${providerId}/customer-list"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Customers</a>
                     <a href="/"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
@@ -66,7 +66,7 @@
                         Developed countries make up approximately 20% of the global dog population, while around 75% of
                         dogs are estimated to be from developing countries, mainly in the form of feral and street dogs.
                     </p>
-                    <a href="/provider/${providerId}/edit-profile"
+                    <a href="/provider/${providerId}/profile-edit"
                         class="flex justify-center px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">Edit
                     </a>
                 </div>
@@ -79,7 +79,7 @@
                 My ratings
             </h3>
             <p class="text-center text-2xl font-extrabold tracking-tight mb-2">75% like / 25% dislike (4 reviews)</p>
-            <a href="/provider/${providerId}/respond-reviews"
+            <a href="/provider/${providerId}/reviews"
                 class="flex justify-center px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
                 View and Respond to Reviews
             </a>
@@ -100,30 +100,16 @@
                             <th class="px-6 py-4 rounded-lg">Price</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="border-b border-gray-200">
-                            <td class="px-6 py-4 text-gray-500">Mon, Jul 6 • 9:00 AM</td>
-                            <td class="px-6 py-4 text-gray-500">Dog Walking</td>
-                            <td class="px-6 py-4 text-gray-500">30 min</td>
-                            <td class="px-6 py-4 text-gray-500">$20</td>
-                        </tr>
-                    </tbody>
-                    <tbody>
-                        <tr class="border-b border-gray-200">
-                            <td class="px-6 py-4 text-gray-500">Wed, Jul 8 • 2:00 PM</td>
-                            <td class="px-6 py-4 text-gray-500">Trail Walk</td>
-                            <td class="px-6 py-4 text-gray-500">60 min</td>
-                            <td class="px-6 py-4 text-gray-500">$35</td>
-                        </tr>
-                    </tbody>
-                    <tbody>
-                        <tr class="border-b border-gray-200">
-                            <td class="px-6 py-4 text-gray-500">Fri, Jul 10 • 4:30 PM</td>
-                            <td class="px-6 py-4 text-gray-500">Pet Sitting</td>
-                            <td class="px-6 py-4 text-gray-500">2 hrs</td>
-                            <td class="px-6 py-4 text-gray-500">$35</td>
-                        </tr>
-                    </tbody>
+                    <#list jobs as job>
+                        <tbody>
+                            <tr class="border-b border-gray-200">
+                                <td class="px-6 py-4 text-gray-500">${job.time?string("EEE, MMM d '•' h:mm a")}</td>
+                                <td class="px-6 py-4 text-gray-500>${job.title}</td>
+                                <td class="px-6 py-4 text-gray-500">${job.duration}</td>
+                                <td class="px-6 py-4 text-gray-500">${job.price}</td>
+                            </tr>
+                        </tbody>
+                    </#list>
                 </table>
                 <a href="/provider/${providerId}/edit-services"
                     class="flex justify-center px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">Edit
@@ -138,15 +124,15 @@
             </h3>
             <div class="space-y-6">
 
-                <!-- Update 1 -->
+                <#list updates as update>
                 <article class="border border-gray-200 rounded-lg p-8">
-                    <img src="/content/dogs-update0.jpg" alt="Update picture" class="w-full h-auto object-cover">
+                    <img src="${update.imageUrl}" alt="Update picture" class="w-full h-auto object-cover">
                     <div class="mt-5">
                         <p class="text-sm text-gray-500">
-                            Walking two dogs at once. I love my job!
+                            ${update.description}
                         </p>
                         <p class="text-xs text-gray-500 mt-1">
-                            Jun 28, 2026 • 4:12 PM
+                            ${update.createdAt?string("EEE, MMM d '•' h:mm a")}
                         </p>
                     </div>
                     <div class="flex items-center gap-6 mt-3">
@@ -155,41 +141,7 @@
                         </a>
                     </div>
                 </article>
-
-                <!-- Update 2 -->
-                <article class="border border-gray-200 rounded-lg p-8">
-                    <img src="/content/dogs-update1.jpg" alt="Update picture" class="w-full h-auto object-cover">
-                    <div class="mt-5">
-                        <p class="text-sm text-gray-500">
-                            Bella looks so happy here!
-                        </p>
-                        <p class="text-xs text-gray-500 mt-1">
-                            Mar 02, 2026 • 1:00 PM
-                        </p>
-                    </div>
-                    <div class="flex items-center gap-6 mt-3">
-                        <a href="#"
-                            class="ml-auto px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">Delete
-                        </a>
-                    </div>
-                </article>
-            </div>
-
-            <div class="mt-5 border border-gray-200 rounded-lg p-4">
-                <h4 class="text-sm font-semibold mb-2">
-                    Make a New Post
-                </h4>
-                <form class="space-y-6">
-                    <div>
-                        <textarea rows="1" placeholder="Image Link"
-                            class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all resize-none"></textarea>
-                        <textarea rows="3" placeholder="What's the update?"
-                            class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"></textarea>
-                        <a href="#"
-                            class="flex justify-center px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">Post
-                        </a>
-                    </div>
-                </form>
+                </#list>
 
             </div>
         </section>
