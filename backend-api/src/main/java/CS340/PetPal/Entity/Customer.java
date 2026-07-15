@@ -47,10 +47,9 @@ public class Customer {
     @JsonIgnoreProperties({"customer", "provider"})
     private List<Review> reviews;
  
-    public Customer(String name, String email, String phone, String password, List<Pet> pets, List<Review> reviews) {
+    public Customer(String name, String email, String phone) {
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.password = password;
     }
 }

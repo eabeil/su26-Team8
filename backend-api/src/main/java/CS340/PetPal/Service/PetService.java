@@ -26,13 +26,12 @@ public class PetService {
     }
 
     public Pet createPet(PetCreateDto dto) {
-        Optional<Customer> customerO = this.customerRepository.findById(dto.getCustomerId());
-        if (customerO.isEmpty()) {
+        Optional<Customer> customer = customerRepository.findById(dto.getCustomerId());
+        if (customer.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + dto.getCustomerId() + ".");
         }
-        Customer customer = customerO.get();
         Pet pet = new Pet(dto.getName(), dto.getSpeciesOrBreed(), dto.getAge(), dto.getSpecialCareInstructions(),
-                dto.getTraits(), customer);
+                dto.getTraits(), customer.get());
         return this.petRepository.save(pet);
     }
 
@@ -41,34 +40,25 @@ public class PetService {
     }
 
     public Pet getPetById(Long petId) {
-        Optional<Pet> petO = this.petRepository.findById(petId);
-        if (petO.isEmpty()) {
+        Optional<Pet> pet = this.petRepository.findById(petId);
+        if (pet.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no pet with id " + petId + ".");
         }
-        Pet pet = petO.get();
-        return pet;
+        return pet.get();
     }
 
     public Pet updatePet(Long petId, PetUpdateDto dto) {
-        Optional<Pet> petO = this.petRepository.findById(petId);
-        if (petO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no pet with id " + petId + ".");
-        }
-        Pet pet = petO.get();
+        Pet pet = getPetById(petId);
         pet.setName(dto.getName());
         pet.setSpeciesOrBreed(dto.getSpeciesOrBreed());
         pet.setAge(dto.getAge());
         pet.setSpecialCareInstructions(dto.getSpecialCareInstructions());
         pet.setTraits(dto.getTraits());
-        return this.petRepository.save(pet);
+        return petRepository.save(pet);
     }
 
     public void deletePet(Long petId) {
-        Optional<Pet> petO = this.petRepository.findById(petId);
-        if (petO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no pet with id " + petId + ".");
-        }
-        Pet pet = petO.get();
+        Pet pet = getPetById(petId);
         this.petRepository.delete(pet);
     }
 }
