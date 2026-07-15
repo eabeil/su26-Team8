@@ -18,8 +18,9 @@ User stories in bold are completed for Code Review on July 16.
     1. Create, modify, or remove a customer profile that includes contact and pet information.
     2. Create, modify, or remove pet profile with their related information.
     3. Browse for Petpal by services, locations, prices, and availability.
-    4. View PetPal profiles and see their rates, prior reviews, updates, and contact information.
-    5. Write reviews and rate.
+    4. Write reviews and rate.
+    5. View PetPal profiles and see their rates, prior reviews, updates, and contact information.
+
 
 2. Provider:
     1. **Create/modify/remove publically viewable profile which includes contact info.**

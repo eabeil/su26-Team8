@@ -77,7 +77,7 @@
   ```
 
 - **US‑4 — Write a review**  
-  _Story:_ As a customer, I want to write a review after an appt., so that I can help others in case if they want to book them in the future.
+  _Story:_ As a customer, I want to write a reviews, so that I can leave feedback for the provider.
   _Acceptance:_
   ```gherkin
   Scenario: Submitting a review on a provider's page
