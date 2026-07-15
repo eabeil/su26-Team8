@@ -124,7 +124,7 @@ public class ProviderUiController {
 
     @GetMapping({"/update/create", "/update/create/"})
     public String createUpdate(@PathVariable Long providerId, @ModelAttribute UpdateUiCreateDto dto) {
-        UpdateCreateDto service_dto = new UpdateCreateDto(dto.getTitle(), dto.getDescription(), providerId);
+        UpdateCreateDto service_dto = new UpdateCreateDto(dto.getTitle(), dto.getDescription(), dto.getImageUrl(), providerId);
         this.updateService.createUpdate(service_dto);
         return "redirect:/provider/" + providerId + "/dashboard";
     }

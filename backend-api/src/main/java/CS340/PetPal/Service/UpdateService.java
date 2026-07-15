@@ -44,7 +44,7 @@ public class UpdateService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + dto.getProviderId() + ".");
         }
         Provider provider = providerO.get();
-        Update update = new Update(dto.getTitle(), LocalDateTime.now(), dto.getDescription(), provider);
+        Update update = new Update(dto.getTitle(), LocalDateTime.now(), dto.getDescription(), dto.getImageUrl(), provider);
         return this.updateRepository.save(update);
     }
 
@@ -57,6 +57,7 @@ public class UpdateService {
         update.setTitle(dto.getTitle());
         update.setCreatedAt(LocalDateTime.now());
         update.setDescription(dto.getDescription());
+        update.setImageUrl(dto.getImageUrl());
         return this.updateRepository.save(update);
     }
 

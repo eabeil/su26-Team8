@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class UpdateCreateDto {
     private String title;
     private String description;
+    private String imageUrl;
     private long providerId;
 }

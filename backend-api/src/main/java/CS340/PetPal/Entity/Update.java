@@ -35,15 +35,19 @@ public class Update {
     @Column(nullable = false)
     private String description;
 
+    @Column(nullable = false) 
+    private String imageUrl;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "provider_id", nullable = false)
     @JsonIgnoreProperties({ "jobs", "updates", "reviews" })
     private Provider provider;
 
-    public Update(String title, LocalDateTime createdAt, String description, Provider provider) {
+    public Update(String title, LocalDateTime createdAt, String description, String imageUrl, Provider provider) {
         this.title = title;
         this.createdAt = createdAt;
         this.description = description;
+        this.imageUrl = imageUrl;
         this.provider = provider;
     }
 }
