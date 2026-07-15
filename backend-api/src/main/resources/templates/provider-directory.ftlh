@@ -82,7 +82,8 @@
             <div class="flex justify-between items-end mb-6">
                 <div>
                     <h1 class="text-2xl font-bold">Top PetPals near Greensboro</h1>
-                    <p class="text-sm text-gray-500 mt-1">Showing 2 highly rated matches</p>
+                    <p class="text-sm text-gray-500 mt-1">Showing ${providers?size} provider<#if providers?size != 1>s</#if>
+                    </p>
                 </div>
                 <!--sorting:down-->
                 <select class="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black bg-white">
@@ -94,18 +95,18 @@
 
             <!--cards-->
             <div class="space-y-6">
-            <#list providers as pal>
+            <#list providers as provider>
                 <!--card one-->
-                <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm flex flex-col sm:flex-row gap-6 hover:shadow-md transition-shadow">
+                <article class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm flex flex-col sm:flex-row gap-6 hover:shadow-md transition-shadow">
                     <!-- Photo -->
-                    <img src="${pal.imageUrl}" alt="${pal.name}" class="w-24 h-24 sm:w-32 sm:h-32 rounded-xl object-cover border border-gray-200 flex-shrink-0">
+                    <img src="${provider.imageUrl}" alt="${provider.name}" class="w-24 h-24 sm:w-32 sm:h-32 rounded-xl object-cover border border-gray-200 flex-shrink-0">
                     
                     <!-- Content -->
                     <div class="flex-grow flex flex-col">
                         <div class="flex justify-between items-start">
                             <div>
-                                <h3 class="text-xl font-bold">${pal.name}</h3>
-                                <p class="text-sm text-gray-500">${pal.address}</p>
+                                <h3 class="text-xl font-bold">${provider.name}</h3>
+                                <p class="text-sm text-gray-500">${provider.address}</p>
                             </div>
                             <#if provider.jobs?has_content>
                             <p class="font-bold text-lg whitespace-nowrap">
@@ -124,7 +125,7 @@
 
                         <!--bio-->
                         <p class="text-sm text-gray-600 line-clamp-2 mb-4">
-                            ${pal.description}
+                            ${provider.description}
                         </p>
 
                         <!--info-->
@@ -132,10 +133,15 @@
                             <a href="/customer/${customerId?c}/providers/${provider.id?c}" class="text-sm font-semibold border-2 border-black px-6 py-2 rounded-lg hover:bg-black hover:text-white transition-colors">View Profile</a>
                         </div>
                     </div>
-                </div>
+                </article>
+                <#else>
+                    <div class="bg-white border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center">
+                        <h2 class="text-xl font-bold">No providers available</h2>
+                        <p class="text-sm text-gray-500 mt-2">Provider profiles will appear here once they are added.</p>
+                    </div>
+                </#list>
             </div>
         </div>
     </main>
-
 </body>
 </html>

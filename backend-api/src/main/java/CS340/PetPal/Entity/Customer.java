@@ -36,9 +36,6 @@ public class Customer {
     @Column(nullable = false)
     private String phone;
 
-    @Column(nullable = false)
-    private String password;
-
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties({"customer"})
     private List<Pet> pets;

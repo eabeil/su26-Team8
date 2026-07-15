@@ -34,14 +34,14 @@
             <div class="lg:col-span-3 space-y-8">
                 
                 <!--grid-->
-                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <section class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
                     
                     <!--hop half-->
                     <div class="p-8 flex flex-col sm:flex-row items-start gap-6 border-b border-gray-100">
-                        <img src="${pal.imageUrl}" alt="${pal.name}" class="w-32 h-32 rounded-full object-cover border border-gray-200 flex-shrink-0">
+                        <img src="${provider.imageUrl}" alt="${provider.name}" class="w-32 h-32 rounded-full object-cover border border-gray-200 flex-shrink-0">
                         <div>
-                            <h1 class="text-3xl font-extrabold mb-1">${pal.name}</h1>
-                            <p class="text-lg text-gray-500 mb-4">${pal.address}</p>
+                            <h1 class="text-3xl font-extrabold mb-1">${provider.name}</h1>
+                            <p class="text-lg text-gray-500 mb-4">${provider.address}</p>
                             <div class="flex flex-wrap items-center gap-3">
                                 <span class="font-semibold text-sm">${reviews?size} customer review<#if reviews?size != 1>s</#if></span>
                                 <span class="text-gray-300">|</span>
@@ -52,12 +52,12 @@
 
                     <!--info-->
                     <div class="p-8 bg-gray-50/50">
-                        <h2 class="text-xl font-bold mb-3">About ${pal.name}</h2>
+                        <h2 class="text-xl font-bold mb-3">About ${provider.name}</h2>
                         <div class="text-gray-600 space-y-4 leading-relaxed text-sm">
-                            <p>${pal.description}</p>
+                            <p>${provider.description}</p>
                         </div>
                     </div>
-                </div>
+                </section>
 
                 <!--service info-->
                 <section>
@@ -76,48 +76,11 @@
                         </#list>
                     </div>
                 </section>
-            </div>
-
-            <!--right coloumn-->
-            <div class="lg:col-span-2 space-y-8">
-                <div class="bg-black text-white rounded-2xl p-6 shadow-md">
-                    <#if jobs?has_content>
-                        <h2 class="text-3xl font-extrabold mb-1">${jobs?first.price?string["0.00"]}
-                            <span class="text-base text-gray-400 font-normal"> / hour starting rate</span>
-                        </h2>
-                    <#else>
-                        <h2 class="text-xl font-bold mb-1">Contact for rates</h2>
-                    </#if>
-                            
-                    <!--contact info-->
-                    <div class="space-y-4 mb-8 text-sm">
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Phone Number</p>
-                            <p class="font-medium">${pal.phone}</p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Email Address</p>
-                            <p class="font-medium">${email}</p>
-                        </div>
-                    </div>
-                    <div class="space-y-3">
-                        <a href="#" class="flex justify-center w-full px-4 py-3 text-black bg-white rounded-lg hover:bg-gray-200 transition-colors font-semibold">
-                        Call Provider
-                        </a>
-                        <a href="#" class="flex justify-center w-full px-4 py-3 text-white bg-black border border-gray-600 rounded-lg hover:bg-gray-800 transition-colors font-semibold">
-                        Email Provider
-                        </a>
-                    </div>
-                    <button class="flex items-center justify-center gap-2 w-full mt-6 text-sm font-bold text-gray-400 hover:text-white transition-colors">
-                        <span class="text-lg">♡</span> Save to Favorites
-                    </button>
-                </div>
-
-
                 <!--reviews-->
-                <section>
-                    <h2 class="text-2xl font-bold mb-4">(${reviews?size})</h2> 
-                    <div class="bg-white border border-gray-200 rounded-2xl p-6 mb-6 shadow-sm">
+
+                <section id="reviews">
+                    <h2 class="text-2xl font-bold mb-4">Reviews (${reviews?size})</h2>
+                    <div class="space-y-4">
                         <#list reviews as review>
                             <article class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
                                 <div class="flex items-center justify-between gap-4 mb-2">
@@ -153,10 +116,91 @@
                         </#list>
                     </div>
                 </section>
-            </div>   
+            </div>
+
+            <!--right coloumn-->
+            <aside class="lg:col-span-2 space-y-8">
+                <section class="bg-black text-white rounded-2xl p-6 shadow-md">
+                    <#if jobs?has_content>
+                        <h2 class="text-3xl font-extrabold mb-1">$${jobs?first.price?string["0.00"]}
+                            <span class="text-base text-gray-400 font-normal"> / hour starting rate</span>
+                        </h2>
+                    <#else>
+                        <h2 class="text-xl font-bold mb-1">Contact for rates</h2>
+                    </#if>
+                    <p class="text-sm text-gray-400 mb-6">Scheduling happens directly with the provider.</p>
+
+                            
+                    <!--contact info-->
+                    <div class="space-y-4 mb-8 text-sm">
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Phone Number</p>
+                            <p class="font-medium">${provider.phone}</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Email Address</p>
+                            <p class="font-medium">${provider.email}</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <a href="#" class="flex justify-center w-full px-4 py-3 text-black bg-white rounded-lg hover:bg-gray-200 transition-colors font-semibold">
+                        Call Provider
+                        </a>
+                        <a href="#" class="flex justify-center w-full px-4 py-3 text-white bg-black border border-gray-600 rounded-lg hover:bg-gray-800 transition-colors font-semibold">
+                        Email Provider
+                        </a>
+                    </div>
+                    
+                    <button class="flex items-center justify-center gap-2 w-full mt-6 text-sm font-bold text-gray-400 hover:text-white transition-colors">
+                        <span class="text-lg">♡</span> Save to Favorites
+                    </button>
+                </section>
+                
+                <section class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+                    <h2 class="font-bold mb-3">Leave a Review</h2>
+                    <form
+                        method="post"
+                        action="/customer/${customerId?c}/providers/${provider.id?c}/reviews">
+                        <fieldset>
+                            <legend class="text-sm font-semibold mb-3">Would you recommend this provider?</legend>
+                            <div class="grid grid-cols-2 gap-3 mb-4">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="recommended" value="true" required class="peer sr-only">
+                                    <span class="flex items-center justify-center gap-2 px-3 py-2.5 border border-gray-300 rounded-lg peer-checked:bg-black peer-checked:text-white peer-checked:border-black transition-colors text-sm font-semibold">
+                                        👍 Recommend
+                                    </span>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="recommended" value="false" required class="peer sr-only">
+                                    <span class="flex items-center justify-center gap-2 px-3 py-2.5 border border-gray-300 rounded-lg peer-checked:bg-black peer-checked:text-white peer-checked:border-black transition-colors text-sm font-semibold">
+                                        👎 Don't
+                                    </span>
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <label for="customerComment" class="block text-sm font-semibold mb-2">Written Review</label>
+                        <textarea
+                            id="customerComment"
+                            name="customerComment"
+                            placeholder="Share your experience working with ${provider.name}..."
+                            minlength="3"
+                            maxlength="1500"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black mb-3"
+                            rows="4"></textarea>
+
+                        <button
+                            type="submit"
+                            class="bg-black text-white w-full py-2.5 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                            Post Review
+                        </button>
+                    </form>
+                </section>
+            </aside>
         </div>
     </main>
-
 </body>
 </html>
 
