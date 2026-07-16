@@ -34,7 +34,7 @@
                 <a href="/customer/dashboard/" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm">
                     Log in as Pet Owner
                 </a>       
-                <a href="/provider/dashboard/" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
+                <a href="/provider/1/dashboard/" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
                     log in as Provider
                 </a>
             </div>

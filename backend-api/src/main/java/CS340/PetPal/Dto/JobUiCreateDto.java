@@ -1,5 +1,7 @@
 package CS340.PetPal.Dto;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,9 +11,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateCreateDto {
-    private String title;
-    private String description;
-    private String imageUrl;
-    private long providerId;
+public class JobUiCreateDto {
+    private String name;
+    private LocalDateTime time;
+    private String duration;
+    private double price;
 }

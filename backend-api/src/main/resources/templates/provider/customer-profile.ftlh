@@ -17,11 +17,11 @@
             <div class="max-w-4xl mx-auto px-6 py-4 flex items-center">
                 <h1 class="text-2xl font-extrabold tracking-tight">PetPal</h1>
                 <nav class="ml-auto flex items-center gap-6">
-                    <a href="dashboard.html"
+                    <a href="/provider/${providerId}/dashboard"
                         class="text-sm font-semibold text-black hover:text-black underline transition-colors">Dashboard</a>
-                    <a href="customer-list.html"
+                    <a href="/provider/${providerId}/customer-list"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Customers</a>
-                    <a href="../common/index.html"
+                    <a href="/"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
                 </nav>
             </div>
@@ -32,7 +32,7 @@
         <!-- PROFILE HEADER -->
         <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-8">
             <div class="flex flex-col sm:flex-row gap-6">
-                <img src="../common/content/male.jpg" alt="Mike Torres"
+                <img src="/content/male.jpg" alt="Mike Torres"
                     class="w-24 h-24 rounded-full object-cover border border-gray-200 flex-shrink-0">
                 <div class="flex-1">
                     <h2 class="text-xl font-extrabold tracking-tight mb-2">Mike Torres</h2>
@@ -54,7 +54,7 @@
                 <div
                     class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm flex flex-col sm:flex-row gap-6 hover:shadow-md transition-shadow">
                     <!-- Photo -->
-                    <img src="../common/content/cat.jpg" alt="Grumpy"
+                    <img src="/content/cat.jpg" alt="Grumpy"
                         class="w-24 h-24 sm:w-32 sm:h-32 rounded-xl object-cover border border-gray-200 flex-shrink-0">
 
                     <!-- Content -->
@@ -72,7 +72,7 @@
                         </p>
                     </div>
                     <div class="mt-auto flex justify-end">
-                        <a href="pet-profile.html"
+                        <a href="/provider/${providerId}/pet-profile"
                             class="text-sm font-semibold border-2 border-black px-6 py-2 rounded-lg hover:bg-black hover:text-white transition-colors">Profile</a>
                     </div>
                 </div>

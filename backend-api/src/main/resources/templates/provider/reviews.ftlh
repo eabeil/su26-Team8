@@ -18,11 +18,11 @@
             <div class="max-w-4xl mx-auto px-6 py-4 flex items-center">
                 <h1 class="text-2xl font-extrabold tracking-tight">PetPal</h1>
                 <nav class="ml-auto flex items-center gap-6">
-                    <a href="dashboard.html"
+                    <a href="/provider/${providerId}/dashboard"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Dashboard</a>
-                    <a href="customer-list.html"
+                    <a href="/provider/${providerId}/customer-list"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Customers</a>
-                    <a href="../common/index.html"
+                    <a href="/"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
                 </nav>
             </div>
@@ -49,9 +49,9 @@
                 <!-- Review 1 -->
                 <article class="border border-gray-200 rounded-lg p-8">
                     <div class="flex items-center justify-between">
-                        <img src="../common/content/male.jpg" alt="Profile picture"
+                        <img src="/content/male.jpg" alt="Profile picture"
                             class="w-16 h-16 rounded-full object-cover border border-gray-200 flex-shrink-0">
-                        <a href="customer-profile.html" class="text-sm font-semibold">Mike Torres</a>
+                        <a href="/provider/${providerId}/customer-profile" class="text-sm font-semibold">Mike Torres</a>
                         <p class="text-xs text-gray-500">Jun 20, 2026</p>
                     </div>
                     <p class="text-sm text-gray-500 mt-2">👍 Liked</p>
@@ -74,9 +74,9 @@
                 <!-- Review 2 -->
                 <article class="border border-gray-200 rounded-lg p-8">
                     <div class="flex items-center justify-between">
-                        <img src="../common/content/female.jpg" alt="Profile picture"
+                        <img src="/content/female.jpg" alt="Profile picture"
                             class="w-16 h-16 rounded-full object-cover border border-gray-200 flex-shrink-0">
-                        <a href="customer-profile.html" class="text-sm font-semibold">Jenny Park</a>
+                        <a href="/provider/${providerId}/customer-profile" class="text-sm font-semibold">Jenny Park</a>
                         <p class="text-xs text-gray-500">Jun 15, 2026</p>
                     </div>
                     <p class="text-sm text-gray-500 mt-2">👍 Liked</p>
@@ -96,9 +96,9 @@
                 <!-- Review 3 -->
                 <article class="border border-gray-200 rounded-lg p-8">
                     <div class="flex items-center justify-between">
-                        <img src="../common/content/male.jpg" alt="Profile picture"
+                        <img src="/content/male.jpg" alt="Profile picture"
                             class="w-16 h-16 rounded-full object-cover border border-gray-200 flex-shrink-0">
-                        <a href="customer-profile.html" class="text-sm font-semibold">Alex Riveray</a>
+                        <a href="/provider/${providerId}/customer-profile" class="text-sm font-semibold">Alex Riveray</a>
                         <p class="text-xs text-gray-500">Jun 10, 2026</p>
                     </div>
                     <p class="text-sm text-gray-500 mt-2">👎 Disliked</p>
@@ -123,9 +123,9 @@
         <!-- Review 4 -->
         <article class="border border-gray-200 rounded-lg p-8">
             <div class="flex items-center justify-between">
-                <img src="../common/content/female.jpg" alt="Profile picture"
+                <img src="/content/female.jpg" alt="Profile picture"
                     class="w-16 h-16 rounded-full object-cover border border-gray-200 flex-shrink-0">
-                <a href="customer-profile.html" class="text-sm font-semibold">Priya Nair</a>
+                <a href="/provider/${providerId}/customer-profile" class="text-sm font-semibold">Priya Nair</a>
                 <p class="text-xs text-gray-500">Jun 2, 2026</p>
             </div>
             <p class="text-sm text-gray-500 mt-2">👍 Liked</p>
@@ -149,7 +149,7 @@
 
         <!-- BACK BUTTON -->
         <div class="flex justify-center">
-            <a href="dashboard.html"
+            <a href="/provider/${providerId}/dashboard"
                 class="flex justify-center px-6 py-4 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-500 transition-colors font-medium">
                 Back to Dashboard
             </a>

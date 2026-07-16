@@ -17,11 +17,11 @@
             <div class="max-w-4xl mx-auto px-6 py-4 flex items-center">
                 <h1 class="text-2xl font-extrabold tracking-tight">PetPal</h1>
                 <nav class="ml-auto flex items-center gap-6">
-                    <a href="dashboard.html"
+                    <a href="/provider/${providerId}/dashboard/${providerId}"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Dashboard</a>
-                    <a href="customer-list.html"
+                    <a href="/provider/${providerId}/customer-list"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Customers</a>
-                    <a href="../common/index.html"
+                    <a href="/"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
                 </nav>
             </div>
@@ -39,14 +39,12 @@
                     <div class="flex-1 w-full">
                         <form class="space-y-6">
                             <div class="flex flex-col sm:flex-row gap-6 items-start">
-                                <img src="../common/content/provider-profile.png" alt="Profile picture"
-                                    class="w-24 h-24 rounded-full object-cover border border-gray-200 flex-shrink-0">
                                 <div class="flex-1 w-full">
                                     <label
                                         class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 mt-8">
                                         Profile Image Link
                                     </label>
-                                    <input type="text" value="../common/content/provider-profile.png"
+                                    <input type="text" value="${provider.imageUrl}"
                                         placeholder="Paste an image URL"
                                         class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
                                 </div>
@@ -56,15 +54,14 @@
                                     class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 mt-8">
                                     Name
                                 </label>
-                                <input type="text" placeholder="John Doe" value="Sarah Young"
+                                <input type="text" placeholder="John Doe" value="${provider.name}"
                                     class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
-                            </div>
-                            <div>
-                                <label
+                            </div>                           <div>
+                            <label
                                     class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 mt-8">
-                                    Services Provided
+                                    Phone Number
                                 </label>
-                                <input type="text" placeholder="e.g. Dog Wallking" value="Dog Walking & Sitting"
+                                <input type="text" placeholder="(123) 456-7890" value="${provider.phone}"
                                     class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
                             </div>
                             <div>
@@ -72,7 +69,7 @@
                                     class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 mt-8">
                                     Location
                                 </label>
-                                <input type="text" placeholder="City, ST" value="Greensboro, NC"
+                                <input type="text" placeholder="City, ST" value="${provider.address}"
                                     class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
                             </div>
                             <div>
@@ -82,21 +79,18 @@
                                 </label>
                                 <textarea rows="8"
                                     class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
-The dog (Canis familiaris or Canis lupus familiaris) is a domesticated descendant of wolves. Also called the domestic dog, it was selectively bred during the Late Pleistocene by hunter-gatherers. Dogs and the modern gray wolf share a common ancestor. Dogs were the first species to be domesticated over 14,000 years ago, before the development of agriculture, though genetic studies suggest the domestication process may have begun over 25,000 years ago. Due to their long association with humans, dogshave gained the ability to thrive on a starch-rich diet that would be inadequate for other canids.
-Dogs have been bred for desired behaviors, sensory capabilities, and physical attributes. Dog breeds vary widely in shape, size, and color. They have the same number of bones (with the exception of the tail), powerful jaws that house around 42 teeth, and well-developed senses of smell, hearing, and sight. Compared to humans, dogs possess a superior sense of smell and hearing, but inferior visual acuity. Dogs perform many roles for humans, such as hunting, herding, pulling loads, protection, companionship, therapy, aiding disabled people, and assisting police and the military.
-Communication in dogs includes eye gaze, facial expression, vocalization, body posture (including movements of bodies and limbs), and chemical communication (scents, pheromones, and taste). They mark their territories by urinating on them, which is more likely when entering a new environment. Over the millennia, dogs have uniquely adapted to human behavior; this adaptation includes being able to understand and communicate with humans. As such, the human–canine bond has been a topic of frequent study, and dogs' influence on human society has given them the sobriquet of "man's best friend".
-The global dog population is estimated at 700 million to 1 billion, distributed around the world. The dog is the most popular pet in the United States, present in 34–40% of households. Developed countries make up approximately 20% of the global dog population, while around 75% of dogs are estimated to be from developing countries, mainly in the form of feral and street dogs. 
+${provider.description}
                                 </textarea>
                             </div>
 
                             <div class="flex gap-4">
-                                <a href="dashboard.html"
-                                    class="flex justify-center flex-1 px-6 py-4 mt-8 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
-                                    Save
-                                </a>
-                                <a href="dashboard.html"
+                                <a href="/provider/${providerId}/dashboard/"
                                     class="flex justify-center flex-1 px-6 py-4 mt-8 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
                                     Cancel
+                                </a> 
+                                <a href="/provider/${providerId}/dashboard/"
+                                    class="flex justify-center flex-1 px-6 py-4 mt-8 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
+                                    Save
                                 </a>
                             </div>
                         </form>
@@ -107,7 +101,7 @@ The global dog population is estimated at 700 million to 1 billion, distributed 
 
         <!-- DELETE ACCOUNT BUTTON  -->
         <div class="flex justify-center">
-            <a href="dashboard.html"
+            <a href="/provider/${providerId}/dashboard/"
                 class="flex justify-center px-6 py-4 text-red bg-white border-2 border-red rounded-lg hover:bg-red-500 transition-colors font-medium">
                 Delete Account
             </a>
