@@ -94,7 +94,7 @@ public class ProviderUiController {
         return ProviderUiController.getTemplate("profile-edit");
     }
 
-    @GetMapping({"/jobs-edit", "/jobs-edit"})
+    @GetMapping({"/jobs-edit", "/jobs-edit/"})
     public String editJobs(@PathVariable Long providerId, Model model) {
         Provider provider = this.providerService.getProviderById(providerId);
         List<Job> jobs = this.providerService.getProviderJobs(providerId);
