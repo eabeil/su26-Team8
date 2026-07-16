@@ -53,11 +53,11 @@ public class ProviderUiController {
     }
 
     public static String getRedirect(Long providerId) {
-        return "redirect:/provider/" + ProviderUiController.getUrl(providerId);
+        return "redirect:" + ProviderUiController.getUrl(providerId);
     }
 
     public static String getRedirect(Long providerId, String page) {
-        return "redirect:/provider/" + ProviderUiController.getUrl(providerId, page);
+        return "redirect:" + ProviderUiController.getUrl(providerId, page);
     }
 
     public static String getTemplate(String name) {
