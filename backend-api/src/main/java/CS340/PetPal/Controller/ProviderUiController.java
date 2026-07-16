@@ -137,9 +137,9 @@ public class ProviderUiController {
     }
 
     @GetMapping({"/delete", "/delete/"})
-    public String deleteProvider(@PathVariable Long providerId, Model model) {
+    public String deleteProvider(@PathVariable Long providerId) {
         this.providerService.deleteProvider(providerId);
-        return "redirect/";
+        return "redirect:/";
     }
 
     @GetMapping({"/update/create", "/update/create/"})
