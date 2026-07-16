@@ -35,12 +35,12 @@ public class CustomerUiController {
     }
 
     @GetMapping("/{customerId}/providers")
-    public String providerDirectory(@PathVariable long customerId, Model model) {
+    public String providerDirectory(@PathVariable Long customerId, Model model) {
         model.addAttribute("customerId", customerId);
         model.addAttribute("providers", providerService.getAllProviders());
-        model.addAttribute("pets", customerService.getCustomerPets(customerId));
         return "provider-directory";
     }
+
 
     @GetMapping("/{customerId}/pets/new")
     public String createPetForm(@PathVariable Long customerId, Model model) {
@@ -100,6 +100,16 @@ public class CustomerUiController {
 
         return dashboardRedirect(customerId);
     }
+
+    @GetMapping("/{customerId}/dashboard")
+    public String dashboard(@PathVariable Long customerId, Model model) {
+        model.addAttribute("customer", customerService.getCustomerById(customerId));
+        model.addAttribute("pets", customerService.getCustomerPets(customerId));
+        model.addAttribute("providers", providerService.getAllProviders());
+
+        return "customer-dashboard";
+    }
+
 
 
     @GetMapping("/{customerId}/providers/{providerId}")
