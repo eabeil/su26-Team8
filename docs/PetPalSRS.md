@@ -57,7 +57,7 @@
   ```
 
 - **US‑2 — Creating Pet profile**  
-  _Story:_ As a customer, I want to create a profile for my pet with all of their information, so providers could have an understanding of their needs. 
+  _Story:_ As a customer, I want to create a profile for my pet with all of their information and existing pet profiles, so providers could have an understanding of their needs. 
   _Acceptance:_
   ```gherkin
   Scenario: Successfully creating a new pet profile
