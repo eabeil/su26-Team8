@@ -33,6 +33,9 @@ public class Pet {
 
     private Integer age;
 
+    @Column(nullable = true)
+    private String imageUrl;
+
     @Column(nullable = false)
     private String specialCareInstructions;
 

@@ -49,6 +49,15 @@ public class PetService {
 
     public Pet updatePet(Long petId, PetUpdateDto dto) {
         Pet pet = getPetById(petId);
+        return savePetUpdates(pet, dto);
+    }
+
+    public Pet updateCustomerPet(Long customerId, Long petId, PetUpdateDto dto) {
+        Pet pet = getCustomerPet(customerId, petId);
+        return savePetUpdates(pet, dto);
+    }
+
+    public Pet savePetUpdates(Pet pet, PetUpdateDto dto) {
         pet.setName(dto.getName());
         pet.setSpeciesOrBreed(dto.getSpeciesOrBreed());
         pet.setAge(dto.getAge());
@@ -56,6 +65,17 @@ public class PetService {
         pet.setTraits(dto.getTraits());
         return petRepository.save(pet);
     }
+
+    public Pet getCustomerPet(Long customerId, Long petId) {
+        Pet pet = getPetById(petId);
+        if (!pet.getCustomer().getId().equals(customerId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "No pet with id " + petId + " belongs to customer " + customerId + ".");
+        }
+
+        return pet;
+    }
+
 
     public void deletePet(Long petId) {
         Pet pet = getPetById(petId);

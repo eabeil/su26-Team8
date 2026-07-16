@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import CS340.PetPal.Dto.PetCreateDto;
+import CS340.PetPal.Dto.PetUpdateDto;
 import CS340.PetPal.Dto.ReviewCreateDto;
+import CS340.PetPal.Entity.Pet;
 import CS340.PetPal.Service.CustomerService;
 import CS340.PetPal.Service.PetService;
 import CS340.PetPal.Service.ProviderService;
@@ -35,8 +38,69 @@ public class CustomerUiController {
     public String providerDirectory(@PathVariable long customerId, Model model) {
         model.addAttribute("customerId", customerId);
         model.addAttribute("providers", providerService.getAllProviders());
+        model.addAttribute("pets", customerService.getCustomerPets(customerId));
         return "provider-directory";
     }
+
+    @GetMapping("/{customerId}/pets/new")
+    public String createPetForm(@PathVariable Long customerId, Model model) {
+        customerService.getCustomerById(customerId);
+        model.addAttribute("customerId", customerId);
+        model.addAttribute("pageTitle", "Add a New Pet");
+        model.addAttribute("formAction", "/customer/" + customerId + "/pets");
+        model.addAttribute("pet", new Pet());
+        return "pet-form";
+    }
+
+    @PostMapping("/{customerId}/pets")
+    public String createPet(@PathVariable Long customerId,
+            @RequestParam String name,
+            @RequestParam String speciesOrBreed,
+            @RequestParam(required = false) Integer age,
+            @RequestParam(required = false) String imageUrl,
+            @RequestParam String specialCareInstructions,
+            @RequestParam String traits,
+            RedirectAttributes redirectAttributes) {
+        PetCreateDto dto = new PetCreateDto(name, speciesOrBreed, age, imageUrl,
+                specialCareInstructions, traits, customerId);
+
+        petService.createPet(dto);
+        redirectAttributes.addFlashAttribute("successMessage", name + "'s profile was created.");
+
+        return dashboardRedirect(customerId);
+    }
+
+    @GetMapping("/{customerId}/pets/{petId}/edit")
+    public String updatePetForm(@PathVariable Long customerId,
+            @PathVariable Long petId, Model model) {
+        Pet pet = petService.getCustomerPet(customerId, petId);
+        model.addAttribute("customerId", customerId);
+        model.addAttribute("pageTitle", "Update " + pet.getName());
+        model.addAttribute("formAction", "/customer/" + customerId + "/pets/" + petId);
+        model.addAttribute("pet", pet);
+
+        return "pet-form";
+    }
+
+    @PostMapping("/{customerId}/pets/{petId}")
+    public String updatePet(@PathVariable Long customerId,
+            @PathVariable Long petId,
+            @RequestParam String name,
+            @RequestParam String speciesOrBreed,
+            @RequestParam(required = false) Integer age,
+            @RequestParam(required = false) String imageUrl,
+            @RequestParam String specialCareInstructions,
+            @RequestParam String traits,
+            RedirectAttributes redirectAttributes) {
+        PetUpdateDto dto = new PetUpdateDto(name, speciesOrBreed, age, imageUrl,
+                specialCareInstructions, traits);
+
+        petService.updateCustomerPet(customerId, petId, dto);
+        redirectAttributes.addFlashAttribute("successMessage", name + "'s profile was updated.");
+
+        return dashboardRedirect(customerId);
+    }
+
 
     @GetMapping("/{customerId}/providers/{providerId}")
     public String providerProfile(@PathVariable Long customerId,
@@ -59,6 +123,10 @@ public class CustomerUiController {
         redirectAttributes.addFlashAttribute("successMessage", "Your review was posted.");
 
         return "redirect:/customer/" + customerId + "/providers/" + providerId + "#reviews";
+    }
+
+    private String dashboardRedirect(Long customerId) {
+        return "redirect:/customer/" + customerId + "/dashboard#pets";
     }
 
     

@@ -11,6 +11,7 @@ public class PetCreateDto {
     private String name;
     private String speciesOrBreed;
     private Integer age;
+    private String imageUrl;
     private String specialCareInstructions;
     private String traits;
     private Long customerId;
