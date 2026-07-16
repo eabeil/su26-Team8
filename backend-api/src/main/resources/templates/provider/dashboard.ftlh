@@ -17,9 +17,9 @@
             <div class="max-w-4xl mx-auto px-6 py-4 flex items-center">
                 <h1 class="text-2xl font-extrabold tracking-tight">PetPal</h1>
                 <nav class="ml-auto flex items-center gap-6">
-                    <a href="/provider/${providerId}/dashboard"
+                    <a href="/provider/${provider.id}/dashboard"
                         class="text-sm font-semibold text-black hover:text-black underline transition-colors">Dashboard</a>
-                    <a href="/provider/${providerId}/customer-list"
+                    <a href="/provider/${provider.id}/customer-list"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Customers</a>
                     <a href="/"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
@@ -32,41 +32,16 @@
         <!-- PROFILE HEADER -->
         <section class="bg-white border border-gray-200 rounded-xl shadow-sm p-8">
             <div class="flex flex-col sm:flex-row gap-6">
-                <img src="/content/provider-profile.png" alt="Profile picture"
+                <img src="${provider.imageUrl}" alt="Profile picture"
                     class="w-24 h-24 rounded-full object-cover border border-gray-200 flex-shrink-0">
                 <div class="flex-1">
-                    <h2 class="text-xl font-extrabold tracking-tight mb-2">Sarah Young</h2>
-                    <p class="text-sm text-gray-600 mb-6">Dog Walking & Sitting • Greensboro, NC</p>
-                    <p class="text-sm text-gray-600 mb-6">myemail@yahoo.com</p>
-                    <p class="text-sm text-gray-600 mb-6">(123) 456-7890</p>
-                    <p class="text-sm text-gray-500 leading-relaxed">The dog (Canis familiaris or Canis lupus
-                        familiaris) is a domesticated descendant of wolves. Also called the domestic dog, it was
-                        selectively bred during the Late Pleistocene by hunter-gatherers. Dogs and the modern gray wolf
-                        share a common ancestor. Dogs were the first species to be domesticated over 14,000 years
-                        ago, before the development of agriculture, though genetic studies suggest the domestication
-                        process may have begun over 25,000 years ago. Due to their long association with humans, dogs
-                        have gained the ability to thrive on a starch-rich diet that would be inadequate for other
-                        canids. <br>
-                        Dogs have been bred for desired behaviors, sensory capabilities, and physical attributes. Dog
-                        breeds vary widely in shape, size, and color. They have the same number of bones (with the
-                        exception of the tail), powerful jaws that house around 42 teeth, and well-developed senses of
-                        smell, hearing, and sight. Compared to humans, dogs possess a superior sense of smell and
-                        hearing, but inferior visual acuity. Dogs perform many roles for humans, such as hunting,
-                        herding, pulling loads, protection, companionship, therapy, aiding disabled people, and
-                        assisting police and the military. <br>
-                        Communication in dogs includes eye gaze, facial expression, vocalization, body posture
-                        (including movements of bodies and limbs), and chemical communication (scents, pheromones, and
-                        taste). They mark their territories by urinating on them, which is more likely when entering a
-                        new environment. Over the millennia, dogs have uniquely adapted to human behavior; this
-                        adaptation includes being able to understand and communicate with humans. As such, the
-                        human–canine bond has been a topic of frequent study, and dogs' influence on human society has
-                        given them the sobriquet of "man's best friend". <br>
-                        The global dog population is estimated at 700 million to 1 billion, distributed around the
-                        world. The dog is the most popular pet in the United States, present in 34–40% of households.
-                        Developed countries make up approximately 20% of the global dog population, while around 75% of
-                        dogs are estimated to be from developing countries, mainly in the form of feral and street dogs.
+                    <h2 class="text-xl font-extrabold tracking-tight mb-2">${provider.name}</h2>
+                    <p class="text-sm text-gray-600 mb-6">${provider.address}</p>
+                    <p class="text-sm text-gray-600 mb-6">${provider.email}</p>
+                    <p class="text-sm text-gray-600 mb-6">${provider.phone}</p>
+                    <p class="text-sm text-gray-500 leading-relaxed">${provider.description}
                     </p>
-                    <a href="/provider/${providerId}/profile-edit"
+                    <a href="/provider/${provider.id}/profile-edit"
                         class="flex justify-center px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">Edit
                     </a>
                 </div>
@@ -104,7 +79,7 @@
                         <tbody>
                             <tr class="border-b border-gray-200">
                                 <td class="px-6 py-4 text-gray-500">${job.time?string("EEE, MMM d '•' h:mm a")}</td>
-                                <td class="px-6 py-4 text-gray-500>${job.title}</td>
+                                <td class="px-6 py-4 text-gray-500">${job.title}</td>
                                 <td class="px-6 py-4 text-gray-500">${job.duration}</td>
                                 <td class="px-6 py-4 text-gray-500">${job.price}</td>
                             </tr>
@@ -132,7 +107,7 @@
                             ${update.description}
                         </p>
                         <p class="text-xs text-gray-500 mt-1">
-                            ${update.createdAt?string("EEE, MMM d '•' h:mm a")}
+                            ${update.formatedCreatedAt}
                         </p>
                     </div>
                     <div class="flex items-center gap-6 mt-3">
@@ -143,9 +118,64 @@
                 </article>
                 </#list>
 
+                <div class="mt-5 border border-gray-200 rounded-lg p-4">
+                    <h4 class="text-sm font-semibold mb-2">
+                        Make a New Post
+                    </h4>
+                    <form 
+                        class="space-y-6"
+                        action="/provider/${provider.id}/update/create"
+                        method="post">
+                        <div>
+                        <input 
+                                type="text" 
+                                name="title" 
+                                placeholder="Title"
+                                required
+                                value="${(updateCreateDto.title)!}"
+                                class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all resize-none">
+                            <input 
+                                type="text" 
+                                name="imageUrl" 
+                                placeholder="Image Link"
+                                required
+                                value="${(updateCreateDto.imageUrl)!}"
+                                class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all resize-none">
+                            <textarea 
+                                rows="4" 
+                                placeholder="What's the update?"
+                                required
+                                name="description"
+                                class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+${(updateCreateDto.description)!}</textarea>
+                            <button 
+                                type="submit"
+                                class="flex justify-center px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">Post
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </section>
     </main>
+
+    <!-- save page position on reload -->
+    <script>
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', () => {
+                sessionStorage.setItem('scrollY', window.scrollY);
+            });
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const y = sessionStorage.getItem('scrollY');
+            if (y !== null && window.location.hash === '#scrolly') {
+                window.scrollTo(0, parseInt(y, 10));
+                sessionStorage.removeItem('scrollY');
+            }
+        })
+    </script>
 </body>
 
 </html>

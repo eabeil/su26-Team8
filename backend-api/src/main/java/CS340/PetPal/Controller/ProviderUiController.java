@@ -85,6 +85,8 @@ public class ProviderUiController {
         model.addAttribute("provider", provider);
         model.addAttribute("updates", updates);
         model.addAttribute("jobs", jobs);
+        UpdateUiCreateDto updateCreateDto = new UpdateUiCreateDto();
+        model.addAttribute("updateCreateDto", updateCreateDto);
         return ProviderUiController.getTemplate("dashboard");
     }
 
@@ -147,7 +149,7 @@ public class ProviderUiController {
     public String createUpdate(@PathVariable Long providerId, @ModelAttribute UpdateUiCreateDto dto) {
         UpdateCreateDto service_dto = new UpdateCreateDto(dto.getTitle(), dto.getDescription(), dto.getImageUrl(), providerId);
         this.updateService.createUpdate(service_dto);
-        return ProviderUiController.getRedirect(providerId, "dashboard");
+        return ProviderUiController.getRedirect(providerId, "dashboard") + "#scrolly";
     }
 
     @GetMapping({"/update/{updateId}/edit", "/update/{updateId}/edit/"})
