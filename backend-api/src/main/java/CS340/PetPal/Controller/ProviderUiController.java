@@ -176,7 +176,7 @@ public class ProviderUiController {
     }
 
     @GetMapping({"/job/{jobId}/delete", "/job/{jobId}/delete/"})
-    public String deleteJob(@PathVariable Long providerId, @PathVariable Long jobId, Model model) {
+    public String deleteJob(@PathVariable Long providerId, @PathVariable Long jobId) {
         this.jobService.deleteJob(jobId);
         return ProviderUiController.getRedirect(providerId, "edit-jobs");
     }
