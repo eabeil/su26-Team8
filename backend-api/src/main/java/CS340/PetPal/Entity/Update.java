@@ -1,6 +1,7 @@
 package CS340.PetPal.Entity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -49,5 +50,9 @@ public class Update {
         this.description = description;
         this.imageUrl = imageUrl;
         this.provider = provider;
+    }
+
+    public String getFormatedCreatedAt() {
+        return this.createdAt.format(DateTimeFormatter.ofPattern("EEE, MMM d '•' h:mm a"));
     }
 }
