@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import CS340.PetPal.Dto.JobCreateDto;
@@ -142,7 +143,7 @@ public class ProviderUiController {
         return "redirect:/";
     }
 
-    @GetMapping({"/update/create", "/update/create/"})
+    @PostMapping({"/update/create", "/update/create/"})
     public String createUpdate(@PathVariable Long providerId, @ModelAttribute UpdateUiCreateDto dto) {
         UpdateCreateDto service_dto = new UpdateCreateDto(dto.getTitle(), dto.getDescription(), dto.getImageUrl(), providerId);
         this.updateService.createUpdate(service_dto);
@@ -161,8 +162,8 @@ public class ProviderUiController {
         return ProviderUiController.getRedirect(providerId, "dashboard");
     }
 
-    @GetMapping({"/job/create", "/job/create/"})
-    public String createJob(@PathVariable Long providerId, @ModelAttribute JobUiCreateDto dto, Model model) {
+    @PostMapping({"/job/create", "/job/create/"})
+    public String createJob(@PathVariable Long providerId, @ModelAttribute JobUiCreateDto dto) {
         JobCreateDto service_dto = new JobCreateDto(dto.getName(), dto.getTime(), dto.getDuration(), dto.getPrice(), providerId);
         this.jobService.createJob(service_dto);
         return ProviderUiController.getRedirect(providerId, "edit-jobs");
@@ -180,7 +181,7 @@ public class ProviderUiController {
         return ProviderUiController.getRedirect(providerId, "edit-jobs");
     }
 
-    @GetMapping({"/review/{reviewId}/create-response", "/review/{reviewId}/create-response/"})
+    @PostMapping({"/review/{reviewId}/create-response", "/review/{reviewId}/create-response/"})
     public String createReviewResponse(@PathVariable Long providerId, @PathVariable Long reviewId, @ModelAttribute ReviewRespondDto dto) {
         this.reviewService.respondReview(reviewId, dto);
         return ProviderUiController.getRedirect(providerId, "reviews");
