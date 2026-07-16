@@ -18,7 +18,6 @@ import CS340.PetPal.Dto.ReviewEditResponseDto;
 import CS340.PetPal.Dto.ReviewRespondDto;
 import CS340.PetPal.Dto.UpdateCreateDto;
 import CS340.PetPal.Dto.UpdateUiCreateDto;
-import CS340.PetPal.Dto.UpdateUpdateDto;
 import CS340.PetPal.Entity.Customer;
 import CS340.PetPal.Entity.Job;
 import CS340.PetPal.Entity.Pet;
@@ -103,6 +102,8 @@ public class ProviderUiController {
         List<Job> jobs = this.providerService.getProviderJobs(providerId);
         model.addAttribute("provider", provider);
         model.addAttribute("jobs", jobs);
+        JobUiCreateDto jobCreateDto = new JobUiCreateDto();
+        model.addAttribute("jobCreateDto", jobCreateDto);
         return ProviderUiController.getTemplate("jobs-edit");
     }
 
@@ -152,23 +153,17 @@ public class ProviderUiController {
         return ProviderUiController.getRedirect(providerId, "dashboard") + "#scrolly";
     }
 
-    @GetMapping({"/update/{updateId}/edit", "/update/{updateId}/edit/"})
-    public String editUpdate(@PathVariable Long providerId, @PathVariable Long updateId, @ModelAttribute UpdateUpdateDto dto) {
-        this.updateService.updateUpdate(updateId, dto);
-        return ProviderUiController.getRedirect(providerId, "dashboard");
-    }
-
     @GetMapping({"/update/{updateId}/delete", "/update/{updateId}/delete/"})
     public String deleteUpdate(@PathVariable Long providerId, @PathVariable Long updateId) {
         this.updateService.deleteUpdate(updateId);
-        return ProviderUiController.getRedirect(providerId, "dashboard");
+        return ProviderUiController.getRedirect(providerId, "dashboard") + "#scrolly";
     }
 
     @PostMapping({"/job/create", "/job/create/"})
     public String createJob(@PathVariable Long providerId, @ModelAttribute JobUiCreateDto dto) {
         JobCreateDto service_dto = new JobCreateDto(dto.getName(), dto.getTime(), dto.getDuration(), dto.getPrice(), providerId);
         this.jobService.createJob(service_dto);
-        return ProviderUiController.getRedirect(providerId, "edit-jobs");
+        return ProviderUiController.getRedirect(providerId, "jobs-edit") + "#scrolly";
     }
 
     @GetMapping({"/job/{jobId}/edit", "/job/{jobId}/edit/"})

@@ -78,15 +78,15 @@
                     <#list jobs as job>
                         <tbody>
                             <tr class="border-b border-gray-200">
-                                <td class="px-6 py-4 text-gray-500">${job.time?string("EEE, MMM d '•' h:mm a")}</td>
-                                <td class="px-6 py-4 text-gray-500">${job.title}</td>
+                                <td class="px-6 py-4 text-gray-500">${job.formatedTime}</td>
+                                <td class="px-6 py-4 text-gray-500">${job.name}</td>
                                 <td class="px-6 py-4 text-gray-500">${job.duration}</td>
-                                <td class="px-6 py-4 text-gray-500">${job.price}</td>
+                                <td class="px-6 py-4 text-gray-500">$ ${job.price}</td>
                             </tr>
                         </tbody>
                     </#list>
                 </table>
-                <a href="/provider/${providerId}/edit-services"
+                <a href="/provider/${providerId}/jobs-edit"
                     class="flex justify-center px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">Edit
                 </a>
             </div>
