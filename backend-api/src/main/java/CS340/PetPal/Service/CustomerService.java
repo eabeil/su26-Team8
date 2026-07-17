@@ -1,6 +1,6 @@
 package CS340.PetPal.Service;
 
-import java.util.Collections;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -23,30 +23,32 @@ public class CustomerService {
   private final ReviewRepository reviewRepository;
   private final PetRepository petRepository;
 
+
   public CustomerService(CustomerRepository customerRepository, ReviewRepository reviewRepository,
-      PetRepository petRepository) {
+    PetRepository petRepository) {
     this.customerRepository = customerRepository;
     this.reviewRepository = reviewRepository;
     this.petRepository = petRepository;
-  }
+    }
 
-  public Customer createCustomer(CustomerCreateDto dto) {
-    Customer customer = new Customer(dto.getName(), dto.getEmail(), dto.getPhone(), dto.getPassword(),
-        Collections.emptyList(), Collections.emptyList());
-    return this.customerRepository.save(customer);
-  }
 
   public List<Customer> getAllCustomers() {
     return this.customerRepository.findAll();
   }
 
+
+  public Customer createCustomer(CustomerCreateDto dto){
+    Customer customer = new Customer(dto.getName(), dto.getEmail(), dto.getPhone());
+    return this.customerRepository.save(customer);
+  }
+
+
   public Customer getCustomerById(Long customerId) {
-    Optional<Customer> customerO = this.customerRepository.findById(customerId);
-    if (customerO.isEmpty()) {
+    Optional<Customer> customer = customerRepository.findById(customerId);
+    if (customer.isEmpty()) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + customerId + ".");
     }
-    Customer customer = customerO.get();
-    return customer;
+    return customer.get();
   }
 
   public List<Review> getCustomerReviews(Long customerId) {
@@ -57,25 +59,18 @@ public class CustomerService {
     return this.petRepository.findByCustomerId(customerId);
   }
 
-  public Customer updateCustomer(Long customerId, CustomerUpdateDto dto) {
-    Optional<Customer> customerO = this.customerRepository.findById(customerId);
-    if (customerO.isEmpty()) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + customerId + ".");
-    }
-    Customer customer = customerO.get();
+  public Customer updateCustomer(long customerId, CustomerUpdateDto dto) {
+    Customer customer = getCustomerById(customerId);
     customer.setName(dto.getName());
     customer.setEmail(dto.getEmail());
     customer.setPhone(dto.getPhone());
-    customer.setPassword(dto.getPassword());
     return this.customerRepository.save(customer);
   }
 
-  public void deleteCustomer(Long customerId) throws ResponseStatusException {
-    Optional<Customer> customerO = this.customerRepository.findById(customerId);
-    if (customerO.isEmpty()) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + customerId + ".");
-    }
-    Customer customer = customerO.get();
+
+  public void deleteCustomer(Long customerId) {
+    Customer customer = getCustomerById(customerId);
     this.customerRepository.delete(customer);
   }
+
 }
