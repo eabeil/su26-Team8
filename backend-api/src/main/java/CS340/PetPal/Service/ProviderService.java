@@ -98,7 +98,7 @@ public class ProviderService {
         this.providerRepository.delete(provider);
     }
 
-    public boolean getProviderEmailAvaliable(String email) {
+    public boolean getProviderEmailTaken(String email) {
         return this.providerRepository.existsByEmail(email);
     }
 }

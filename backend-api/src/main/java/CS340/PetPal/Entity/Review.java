@@ -71,6 +71,6 @@ public class Review {
     }
 
     public String getFormattedCreatedAt() {
-        return this.createdAt.format(DateTimeFormatter.ofPattern("EEE, MMM d '•' h:mm a"));
+        return this.createdAt.format(DateTimeFormatter.ofPattern("EEE, MMM d, yyyy '•' h:mm a"));
     }
 }

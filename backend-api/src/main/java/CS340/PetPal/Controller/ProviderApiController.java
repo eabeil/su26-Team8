@@ -92,7 +92,7 @@ public class ProviderApiController {
 
     @GetMapping({ "/email_available/{email}", "/email_available/{email}/"})
     public ResponseEntity<Boolean> emailAvaliable(@PathVariable String email) {
-        boolean unique = this.providerService.getProviderEmailAvaliable(email);
+        boolean unique = !this.providerService.getProviderEmailTaken(email);
         return ResponseEntity.ok(unique);
     }
 }

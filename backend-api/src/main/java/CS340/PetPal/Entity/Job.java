@@ -53,6 +53,6 @@ public class Job {
     }
 
     public String getFormattedTime() {
-        return this.time.format(DateTimeFormatter.ofPattern("EEE, MMM d '•' h:mm a"));
+        return this.time.format(DateTimeFormatter.ofPattern("EEE, MMM d, yyyy '•' h:mm a"));
     }
 }

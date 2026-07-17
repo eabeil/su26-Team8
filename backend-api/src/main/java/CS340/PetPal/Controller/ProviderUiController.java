@@ -142,15 +142,15 @@ public class ProviderUiController {
     }
 
     @PostMapping({ "/edit", "/edit/" })
-    public String editProvider(@PathVariable Long providerId, @ModelAttribute ProviderUiUpdateDto dto, RedirectAttributes redirectAttributes) {
+    public String editProvider(@PathVariable Long providerId, @ModelAttribute ProviderUiUpdateDto dto,
+            RedirectAttributes redirectAttributes) {
         String email = dto.getEmail().trim();
         Provider provider = this.providerService.getProviderById(providerId);
         if (!provider.getEmail().equals(email)) {
-            redirectAttributes.addFlashAttribute("emailError", "Email is already taken");
-            return ProviderUiController.getRedirect(providerId, "profile-edit");
-        }
-        if (!this.providerService.getProviderEmailAvaliable(email)) {
-
+            if (this.providerService.getProviderEmailTaken(email)) {
+                redirectAttributes.addFlashAttribute("emailError", "Email is already taken");
+                return ProviderUiController.getRedirect(providerId, "profile-edit");
+            }
         }
         ProviderUpdateDto update_dto = new ProviderUpdateDto(dto.getName(), dto.getDescription(), dto.getImageUrl(),
                 dto.getAddress(), dto.getPhone(), dto.getEmail());
