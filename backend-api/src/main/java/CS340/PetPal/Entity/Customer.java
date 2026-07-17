@@ -36,9 +36,6 @@ public class Customer {
     @Column(nullable = false)
     private String phone;
 
-    @Column(nullable = false)
-    private String password;
-
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties({"customer"})
     private List<Pet> pets;
@@ -47,10 +44,9 @@ public class Customer {
     @JsonIgnoreProperties({"customer", "provider"})
     private List<Review> reviews;
  
-    public Customer(String name, String email, String phone, String password, List<Pet> pets, List<Review> reviews) {
+    public Customer(String name, String email, String phone) {
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.password = password;
     }
 }

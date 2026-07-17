@@ -33,6 +33,9 @@ public class Pet {
 
     private Integer age;
 
+    @Column(name = "image_url", nullable = true)
+    private String imageUrl;
+
     @Column(nullable = false)
     private String specialCareInstructions;
 
@@ -46,10 +49,11 @@ public class Pet {
     private Customer customer;
 
     // Updated Constructor
-    public Pet(String name, String speciesOrBreed, Integer age, String specialCareInstructions, String traits, Customer customer) {
+    public Pet(String name, String speciesOrBreed, Integer age, String imageUrl, String specialCareInstructions, String traits, Customer customer) {
         this.name = name;
         this.speciesOrBreed = speciesOrBreed;
         this.age = age;
+        this.imageUrl = imageUrl;
         this.specialCareInstructions = specialCareInstructions;
         this.traits = traits;
         this.customer = customer;

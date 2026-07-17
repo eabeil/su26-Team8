@@ -26,13 +26,12 @@ public class PetService {
     }
 
     public Pet createPet(PetCreateDto dto) {
-        Optional<Customer> customerO = this.customerRepository.findById(dto.getCustomerId());
-        if (customerO.isEmpty()) {
+        Optional<Customer> customer = customerRepository.findById(dto.getCustomerId());
+        if (customer.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + dto.getCustomerId() + ".");
         }
-        Customer customer = customerO.get();
-        Pet pet = new Pet(dto.getName(), dto.getSpeciesOrBreed(), dto.getAge(), dto.getSpecialCareInstructions(),
-                dto.getTraits(), customer);
+        Pet pet = new Pet(dto.getName(), dto.getSpeciesOrBreed(), dto.getAge(), dto.getImageUrl(), dto.getSpecialCareInstructions(),
+                dto.getTraits(), customer.get());
         return this.petRepository.save(pet);
     }
 
@@ -41,34 +40,46 @@ public class PetService {
     }
 
     public Pet getPetById(Long petId) {
-        Optional<Pet> petO = this.petRepository.findById(petId);
-        if (petO.isEmpty()) {
+        Optional<Pet> pet = this.petRepository.findById(petId);
+        if (pet.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no pet with id " + petId + ".");
         }
-        Pet pet = petO.get();
-        return pet;
+        return pet.get();
     }
 
     public Pet updatePet(Long petId, PetUpdateDto dto) {
-        Optional<Pet> petO = this.petRepository.findById(petId);
-        if (petO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no pet with id " + petId + ".");
-        }
-        Pet pet = petO.get();
+        Pet pet = getPetById(petId);
+        return savePetUpdates(pet, dto);
+    }
+
+    public Pet updateCustomerPet(Long customerId, Long petId, PetUpdateDto dto) {
+        Pet pet = getCustomerPet(customerId, petId);
+        return savePetUpdates(pet, dto);
+    }
+
+    public Pet savePetUpdates(Pet pet, PetUpdateDto dto) {
         pet.setName(dto.getName());
         pet.setSpeciesOrBreed(dto.getSpeciesOrBreed());
         pet.setAge(dto.getAge());
+        pet.setImageUrl(dto.getImageUrl());
         pet.setSpecialCareInstructions(dto.getSpecialCareInstructions());
         pet.setTraits(dto.getTraits());
-        return this.petRepository.save(pet);
+        return petRepository.save(pet);
     }
 
-    public void deletePet(Long petId) {
-        Optional<Pet> petO = this.petRepository.findById(petId);
-        if (petO.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no pet with id " + petId + ".");
+    public Pet getCustomerPet(Long customerId, Long petId) {
+        Pet pet = getPetById(petId);
+        if (!pet.getCustomer().getId().equals(customerId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "No pet with id " + petId + " belongs to customer " + customerId + ".");
         }
-        Pet pet = petO.get();
+
+        return pet;
+    }
+
+
+    public void deletePet(Long petId) {
+        Pet pet = getPetById(petId);
         this.petRepository.delete(pet);
     }
 }

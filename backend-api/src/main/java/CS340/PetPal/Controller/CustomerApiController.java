@@ -13,19 +13,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import CS340.PetPal.Service.CustomerService;
+import CS340.PetPal.Dto.CustomerCreateDto;
+import CS340.PetPal.Dto.CustomerUpdateDto;
 import CS340.PetPal.Entity.Customer;
 import CS340.PetPal.Entity.Pet;
 import CS340.PetPal.Entity.Review;
-import CS340.PetPal.Dto.CustomerCreateDto;
-import CS340.PetPal.Dto.CustomerUpdateDto;
+import CS340.PetPal.Service.CustomerService;
 
 @RestController
 @RequestMapping("/api/customers")
 public class CustomerApiController {
 
     private final CustomerService customerService;
-
     public CustomerApiController(CustomerService customerService) {
         this.customerService = customerService;
     }
@@ -39,8 +38,8 @@ public class CustomerApiController {
 
     // get customer
     @GetMapping({ "/{id}/", "/{id}" })
-    public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Long customerId) {
-        return ResponseEntity.ok(this.customerService.getCustomerById(customerId));
+    public ResponseEntity<Customer> getCustomerById(@PathVariable("id") Long CustomerId){
+        return ResponseEntity.ok(this.customerService.getCustomerById(CustomerId));
     }
 
     // get customer pets
