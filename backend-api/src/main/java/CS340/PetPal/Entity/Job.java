@@ -52,7 +52,7 @@ public class Job {
         this.provider = provider;
     }
 
-    public String getFormatedTime() {
+    public String getFormattedTime() {
         return this.time.format(DateTimeFormatter.ofPattern("EEE, MMM d '•' h:mm a"));
     }
 }

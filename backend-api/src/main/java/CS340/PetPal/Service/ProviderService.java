@@ -75,7 +75,7 @@ public class ProviderService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + providerId + ".");
         }
         Provider provider = providerO.get();
-        if (provider.getEmail() != dto.getEmail()) {
+        if (!provider.getEmail().equals(dto.getEmail())) {
             if (this.providerRepository.existsByEmail(dto.getEmail())) {
                 throw new ResponseStatusException(HttpStatus.CONFLICT, "already provider with email");
             }

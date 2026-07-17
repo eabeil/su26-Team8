@@ -46,7 +46,7 @@ public class ReviewService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + dto.getProviderId() + ".");
         }
         Review review = new Review(dto.getRecommended(), dto.getCustomerComment(), null,
-                LocalDateTime.now(), null, null, null, customer.get(), provider.get());
+                LocalDateTime.now(), customer.get(), provider.get());
         return reviewRepository.save(review);
     }
 
@@ -64,7 +64,6 @@ public class ReviewService {
 
     public Review editReviewComment(Long reviewId, ReviewEditCommentDto dto) {
         Review review = getReviewById(reviewId);
-        review.setCommentEditedAt(LocalDateTime.now());
         review.setRecommended(dto.getRecommended());
         review.setCustomerComment(dto.getCustomerComment());
         return reviewRepository.save(review);
@@ -77,7 +76,6 @@ public class ReviewService {
                     "This review already has a response.");
         }
         review.setProviderResponse(dto.getProviderResponse());
-        review.setRespondedAt(LocalDateTime.now());
         return reviewRepository.save(review);
     }
 
@@ -89,7 +87,6 @@ public class ReviewService {
         }
         
         review.setProviderResponse(dto.getProviderResponse());
-        review.setResponseEditedAt(LocalDateTime.now());
         return reviewRepository.save(review);
     }
 

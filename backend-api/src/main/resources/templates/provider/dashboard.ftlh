@@ -21,8 +21,7 @@
                         class="text-sm font-semibold text-black hover:text-black underline transition-colors">Dashboard</a>
                     <a href="/provider/${provider.id}/customer-list"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Customers</a>
-                    <a href="/"
-                        class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
+                    <a href="/" class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
                 </nav>
             </div>
     </header>
@@ -78,7 +77,7 @@
                     <#list jobs as job>
                         <tbody>
                             <tr class="border-b border-gray-200">
-                                <td class="px-6 py-4 text-gray-500">${job.formatedTime}</td>
+                                <td class="px-6 py-4 text-gray-500">${job.formattedTime}</td>
                                 <td class="px-6 py-4 text-gray-500">${job.name}</td>
                                 <td class="px-6 py-4 text-gray-500">${job.duration}</td>
                                 <td class="px-6 py-4 text-gray-500">$ ${job.price}</td>
@@ -100,62 +99,44 @@
             <div class="space-y-6">
 
                 <#list updates as update>
-                <article class="border border-gray-200 rounded-lg p-8">
-                    <img src="${update.imageUrl}" alt="Update picture" class="w-full h-auto object-cover">
-                    <div class="mt-5">
-                        <p class="text-sm text-gray-500">
-                            ${update.description}
-                        </p>
-                        <p class="text-xs text-gray-500 mt-1">
-                            ${update.formatedCreatedAt}
-                        </p>
-                    </div>
-                    <div class="flex items-center gap-6 mt-3">
-                        <a href="#"
-                            class="ml-auto px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">Delete
-                        </a>
-                    </div>
-                </article>
+                    <article class="border border-gray-200 rounded-lg p-8">
+                        <img src="${update.imageUrl}" alt="Update picture" class="w-full h-auto object-cover">
+                        <div class="mt-5">
+                            <p class="text-sm text-gray-500">
+                                ${update.description}
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">
+                                ${update.formattedCreatedAt}
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-6 mt-3">
+                            <a href="#"
+                                class="ml-auto px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">Delete
+                            </a>
+                        </div>
+                    </article>
                 </#list>
 
                 <div class="mt-5 border border-gray-200 rounded-lg p-4">
                     <h4 class="text-sm font-semibold mb-2">
                         Make a New Post
                     </h4>
-                    <form 
-                        class="space-y-6"
-                        action="/provider/${provider.id}/update/create"
-                        method="post">
+                    <form class="space-y-6" action="/provider/${provider.id}/update/create" method="post">
                         <div>
-                        <input 
-                                type="text" 
-                                name="title" 
-                                placeholder="Title"
-                                required
+                            <input type="text" name="title" placeholder="Title" required
                                 value="${(updateCreateDto.title)!}"
                                 class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all resize-none">
-                            <input 
-                                type="text" 
-                                name="imageUrl" 
-                                placeholder="Image Link"
-                                required
+                            <input type="text" name="imageUrl" placeholder="Image Link" required
                                 value="${(updateCreateDto.imageUrl)!}"
                                 class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all resize-none">
-                            <textarea 
-                                rows="4" 
-                                placeholder="What's the update?"
-                                required
-                                name="description"
-                                class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
-${(updateCreateDto.description)!}</textarea>
-                            <button 
-                                type="submit"
+                            <textarea rows="4" placeholder="What's the update?" required name="description"
+                                class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"></textarea>
+                            <button type="submit"
                                 class="flex justify-center px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">Post
                             </button>
                         </div>
                     </form>
                 </div>
-
             </div>
         </section>
     </main>
