@@ -3,6 +3,7 @@ package CS340.PetPal.Controller;
 import java.net.URI;
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -87,5 +88,11 @@ public class ProviderApiController {
     public ResponseEntity<Void> deleteProvider(@PathVariable("id") Long providerId) {
         this.providerService.deleteProvider(providerId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping({ "/email_available/{email}", "/email_available/{email}/"})
+    public ResponseEntity<Boolean> emailAvaliable(@PathVariable String email) {
+        boolean unique = this.providerService.getProviderEmailAvaliable(email);
+        return ResponseEntity.ok(unique);
     }
 }

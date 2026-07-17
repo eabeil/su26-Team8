@@ -60,6 +60,9 @@ public class ProviderService {
     }
 
     public Provider createProvider(ProviderCreateDto dto) {
+        if (this.providerRepository.existsByEmail(dto.getEmail())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "already provider with email");
+        }
         Provider provider = new Provider(dto.getName(), dto.getDescription(), dto.getImageUrl(), dto.getAddress(),
                 dto.getPhone(), dto.getEmail(), Collections.emptyList(), Collections.emptyList(),
                 Collections.emptyList());
@@ -72,11 +75,17 @@ public class ProviderService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + providerId + ".");
         }
         Provider provider = providerO.get();
+        if (provider.getEmail() != dto.getEmail()) {
+            if (this.providerRepository.existsByEmail(dto.getEmail())) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "already provider with email");
+            }
+        }
         provider.setName(dto.getName());
         provider.setDescription(dto.getDescription());
         provider.setImageUrl(dto.getImageUrl());
         provider.setAddress(dto.getAddress());
         provider.setPhone(dto.getPhone());
+        provider.setEmail(dto.getEmail());
         return this.providerRepository.save(provider);
     }
 
@@ -87,5 +96,9 @@ public class ProviderService {
         }
         Provider provider = providerO.get();
         this.providerRepository.delete(provider);
+    }
+
+    public boolean getProviderEmailAvaliable(String email) {
+        return this.providerRepository.existsByEmail(email);
     }
 }
