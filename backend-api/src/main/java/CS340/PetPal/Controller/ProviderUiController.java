@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import CS340.PetPal.Dto.CustomerSearchQueryDto;
 import CS340.PetPal.Dto.JobCreateDto;
 import CS340.PetPal.Dto.JobUiCreateDto;
 import CS340.PetPal.Dto.JobUpdateDto;
@@ -33,6 +36,7 @@ import CS340.PetPal.Service.PetService;
 import CS340.PetPal.Service.ProviderService;
 import CS340.PetPal.Service.ReviewService;
 import CS340.PetPal.Service.UpdateService;
+import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 
 @Controller
@@ -133,11 +137,33 @@ public class ProviderUiController {
     }
 
     @GetMapping({ "/customer-list", "/customer-list/" })
-    public String customersList(@PathVariable Long providerId, Model model) {
+    public String customersList(@PathVariable Long providerId, @RequestParam(required = false) String nameQuery,
+            @RequestParam(required = false) String locationQuery, Model model) {
         Provider provider = this.providerService.getProviderById(providerId);
-        List<Customer> customers = this.customerService.getAllCustomers();
         model.addAttribute("provider", provider);
+        List<Customer> customers;
+        if (nameQuery == null) {
+            nameQuery = "";
+        }
+        model.addAttribute("nameQuery", nameQuery);
+        nameQuery = nameQuery.trim();
+        if (locationQuery == null) {
+            locationQuery = "";
+        }
+        locationQuery = locationQuery.trim();
+        model.addAttribute("locationQuery", locationQuery);
+        if (nameQuery.isEmpty() && locationQuery.isEmpty()) {
+            customers = this.customerService.getAllCustomers();
+        } else if (!nameQuery.isEmpty() && locationQuery.isEmpty()) {
+            customers = this.customerService.getAllCustomersOfName(nameQuery);
+        } else if (!nameQuery.isEmpty() && locationQuery.isEmpty()) {
+            customers = this.customerService.getAllCustomersOfLocation(locationQuery);
+        } else {
+            customers = this.customerService.getAllCustomersOfNameAndLocation(nameQuery, locationQuery);
+        }
         model.addAttribute("customers", customers);
+        CustomerSearchQueryDto dto = new CustomerSearchQueryDto();
+        model.addAttribute("dto", dto);
         return ProviderUiController.getTemplate("customer-list");
     }
 
@@ -211,5 +237,13 @@ public class ProviderUiController {
             @ModelAttribute ReviewEditResponseDto dto) {
         this.reviewService.editReviewResponse(reviewId, dto);
         return ProviderUiController.getRedirect(providerId, "reviews");
+    }
+
+    @GetMapping({ "/customer-list/search", "/customer-list/search/ "})
+    public String searchCustomers(@PathVariable Long providerId, @ModelAttribute CustomerSearchQueryDto dto) {
+        String nameQuery = dto.getName().trim();
+        String locationQuery = dto.getLocation().trim();
+        return "redirect:" + UriComponentsBuilder.fromPath(ProviderUiController.getUrl(providerId, "customer-list"))
+                .queryParam("name_query", nameQuery).queryParam("location_query", locationQuery).encode().toString();
     }
 }

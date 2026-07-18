@@ -63,7 +63,7 @@ public class Review {
         this.providerResponse = providerResponse;
         this.createdAt = createdAt;
         this.customer = customer;
-        this.provider = provider;
+        this.provider = provider; 
     }
 
     public boolean getHasResponse() {
