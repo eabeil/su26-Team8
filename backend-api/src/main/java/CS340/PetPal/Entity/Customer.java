@@ -30,11 +30,17 @@ public class Customer {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String imageUrl;
+
     @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String phone;
+
+    @Column(nullable = false)
+    private String location;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties({"customer"})
@@ -44,8 +50,10 @@ public class Customer {
     @JsonIgnoreProperties({"customer", "provider"})
     private List<Review> reviews;
  
-    public Customer(String name, String email, String phone) {
+    public Customer(String name, String imageUrl, String location, String email, String phone) {
         this.name = name;
+        this.imageUrl = imageUrl;
+        this.location = location;
         this.email = email;
         this.phone = phone;
     }

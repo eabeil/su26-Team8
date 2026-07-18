@@ -38,7 +38,7 @@ public class CustomerService {
 
 
   public Customer createCustomer(CustomerCreateDto dto){
-    Customer customer = new Customer(dto.getName(), dto.getEmail(), dto.getPhone());
+    Customer customer = new Customer(dto.getName(), dto.getImageUrl(), dto.getLocation(), dto.getEmail(), dto.getPhone());
     return this.customerRepository.save(customer);
   }
 
@@ -62,6 +62,8 @@ public class CustomerService {
   public Customer updateCustomer(long customerId, CustomerUpdateDto dto) {
     Customer customer = getCustomerById(customerId);
     customer.setName(dto.getName());
+    customer.setImageUrl(dto.getImageUrl());
+    customer.setLocation(dto.getLocation());
     customer.setEmail(dto.getEmail());
     customer.setPhone(dto.getPhone());
     return this.customerRepository.save(customer);

@@ -11,6 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CustomerUpdateDto {
     private String name;
+    private String imageUrl;
+    private String location;
     private String email;
     private String phone;
 }
