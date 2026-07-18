@@ -49,7 +49,7 @@ public class CustomerService {
   }
 
   public Customer createCustomer(CustomerCreateDto dto){
-    Customer customer = new Customer(dto.getName(), dto.getImageUrl(), dto.getLocation(), dto.getEmail(), dto.getPhone());
+    Customer customer = new Customer(dto.getName(), dto.getImageUrl(), dto.getDescription(), dto.getLocation(), dto.getEmail(), dto.getPhone());
     return this.customerRepository.save(customer);
   }
 

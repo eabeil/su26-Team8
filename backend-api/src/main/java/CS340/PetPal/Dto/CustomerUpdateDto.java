@@ -12,6 +12,7 @@ import lombok.Setter;
 public class CustomerUpdateDto {
     private String name;
     private String imageUrl;
+    private String description;
     private String location;
     private String email;
     private String phone;

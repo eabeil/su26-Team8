@@ -36,7 +36,6 @@ import CS340.PetPal.Service.PetService;
 import CS340.PetPal.Service.ProviderService;
 import CS340.PetPal.Service.ReviewService;
 import CS340.PetPal.Service.UpdateService;
-import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 
 @Controller
@@ -76,10 +75,14 @@ public class ProviderUiController {
         return ProviderUiController.getRedirect(providerId, "dashboard");
     }
 
-    @GetMapping({ "/customer-profile", "/customer-profile/" })
-    public String customerProfile(@PathVariable Long providerId, Model model) {
+    @GetMapping({ "/customer-profile/{customerId}", "/customer-profile/{customerId}/" })
+    public String customerProfile(@PathVariable Long providerId, @PathVariable Long customerId, Model model) {
         Provider provider = this.providerService.getProviderById(providerId);
         model.addAttribute("provider", provider);
+        Customer customer = this.customerService.getCustomerById(customerId);
+        model.addAttribute("customer", customer);
+        List<Pet> pets = this.customerService.getCustomerPets(customerId);
+        model.addAttribute("pets", pets);
         return ProviderUiController.getTemplate("customer-profile");
     }
 
