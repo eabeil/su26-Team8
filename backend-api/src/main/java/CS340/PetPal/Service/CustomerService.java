@@ -38,7 +38,7 @@ public class CustomerService {
 
 
   public Customer createCustomer(CustomerCreateDto dto){
-    Customer customer = new Customer(dto.getName(), dto.getEmail(), dto.getPhone(), dto.getPassword(), dto.getImageUrl());
+    Customer customer = new Customer(dto.getName(), dto.getEmail(), dto.getPhone(), dto.getImageUrl());
     return this.customerRepository.save(customer);
   }
 
@@ -64,7 +64,6 @@ public class CustomerService {
     customer.setName(dto.getName());
     customer.setEmail(dto.getEmail());
     customer.setPhone(dto.getPhone());
-    customer.setPassword(dto.getPassword());
     customer.setImageUrl(dto.getImageUrl());
     return this.customerRepository.save(customer);
   }
