@@ -50,19 +50,6 @@
                                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
                         </div>
-                        <label
-                            class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Location</label>
-                        <div class="relative">
-                            <input type="text" name="locationQuery" value="${locationQuery}"
-                                placeholder="Search by location..."
-                                class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-sm transition-shadow">
-                            <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                        </div>
                     </div>
 
                     <!--button-->
@@ -91,7 +78,7 @@
                             <div class="flex justify-between items-start">
                                 <div>
                                     <h3 class="text-xl font-bold">${customer.name}</h3>
-                                    <p class="text-sm text-gray-600 mb-6">Pet Owner • ${customer.location}</p>
+                                    <p class="text-sm text-gray-600 mb-6">Pet Owner</p>
                                 </div>
                             </div>
                         </div>

@@ -140,8 +140,7 @@ public class ProviderUiController {
     }
 
     @GetMapping({ "/customer-list", "/customer-list/" })
-    public String customersList(@PathVariable Long providerId, @RequestParam(required = false) String nameQuery,
-            @RequestParam(required = false) String locationQuery, Model model) {
+    public String customersList(@PathVariable Long providerId, @RequestParam(required = false) String nameQuery, Model model) {
         Provider provider = this.providerService.getProviderById(providerId);
         model.addAttribute("provider", provider);
         List<Customer> customers;
@@ -150,19 +149,10 @@ public class ProviderUiController {
         }
         model.addAttribute("nameQuery", nameQuery);
         nameQuery = nameQuery.trim();
-        if (locationQuery == null) {
-            locationQuery = "";
-        }
-        locationQuery = locationQuery.trim();
-        model.addAttribute("locationQuery", locationQuery);
-        if (nameQuery.isEmpty() && locationQuery.isEmpty()) {
+        if (nameQuery.isEmpty()) {
             customers = this.customerService.getAllCustomers();
-        } else if (!nameQuery.isEmpty() && locationQuery.isEmpty()) {
-            customers = this.customerService.getAllCustomersOfName(nameQuery);
-        } else if (!nameQuery.isEmpty() && locationQuery.isEmpty()) {
-            customers = this.customerService.getAllCustomersOfLocation(locationQuery);
         } else {
-            customers = this.customerService.getAllCustomersOfNameAndLocation(nameQuery, locationQuery);
+            customers = this.customerService.getAllCustomersOfName(nameQuery);
         }
         model.addAttribute("customers", customers);
         CustomerSearchQueryDto dto = new CustomerSearchQueryDto();
@@ -245,8 +235,7 @@ public class ProviderUiController {
     @GetMapping({ "/customer-list/search", "/customer-list/search/ "})
     public String searchCustomers(@PathVariable Long providerId, @ModelAttribute CustomerSearchQueryDto dto) {
         String nameQuery = dto.getName().trim();
-        String locationQuery = dto.getLocation().trim();
         return "redirect:" + UriComponentsBuilder.fromPath(ProviderUiController.getUrl(providerId, "customer-list"))
-                .queryParam("name_query", nameQuery).queryParam("location_query", locationQuery).encode().toString();
+                .queryParam("name_query", nameQuery).encode().toString();
     }
 }

@@ -11,5 +11,4 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CustomerSearchQueryDto {
     private String name;
-    private String location;
 }

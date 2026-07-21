@@ -10,6 +10,4 @@ import CS340.PetPal.Entity.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
     List<Customer> findByNameContainingIgnoreCase(String name);
-    List<Customer> findByLocationContainingIgnoreCase(String location);
-    List<Customer> findByNameContainingIgnoreCaseAndLocationContainingIgnoreCase(String name, String location);
 }
