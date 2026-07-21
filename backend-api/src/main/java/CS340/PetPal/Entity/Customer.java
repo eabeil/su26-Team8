@@ -30,11 +30,9 @@ public class Customer {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "image_url", nullable = true)
     private String imageUrl;
 
-    @Column(nullable = false)
-    private String description;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -53,12 +51,13 @@ public class Customer {
     @JsonIgnoreProperties({"customer", "provider"})
     private List<Review> reviews;
  
-    public Customer(String name, String imageUrl, String description, String location, String email, String phone) {
+    public Customer(String name, String email, String phone, String imageUrl) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.description = description;
         this.location = location;
         this.email = email;
         this.phone = phone;
+        this.imageUrl = imageUrl;
     }
 }
