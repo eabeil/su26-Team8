@@ -7,9 +7,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class ProviderUiUpdateDto {
+@NoArgsConstructor
+public class ProviderSignupDto {
     private String name;
     private String description;
     private String imageUrl;

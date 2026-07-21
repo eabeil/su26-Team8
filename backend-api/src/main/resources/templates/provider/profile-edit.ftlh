@@ -71,6 +71,14 @@
                             <div>
                                 <label
                                     class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 mt-8">
+                                    Password
+                                </label>
+                                <input type="password" name="password" placeholder="123password" value="${provider.passwordl}" required
+                                    class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 mt-8">
                                     Phone Number
                                 </label>
                                 <input type="text" name="phone" placeholder="(123) 456-7890" value="${provider.phone}"
@@ -98,7 +106,7 @@ ${provider.description}
                             </div>
 
                             <div class="flex gap-4">
-                                <a href="/provider/${providerId}/dashboard/"
+                                <a href="/provider/${provider.id}/dashboard/"
                                     class="flex justify-center flex-1 px-6 py-4 mt-8 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
                                     Cancel
                                 </a>

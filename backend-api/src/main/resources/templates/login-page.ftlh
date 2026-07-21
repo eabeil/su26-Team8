@@ -42,8 +42,14 @@
 
         <!--sign up card-->
         <div class="mt-8 text-center text-sm text-gray-500">
-            Don't have an account? <a href="/signup/" class="text-black font-bold hover:underline">Sign up</a>
+            Don't have an account?
         </div>
+            <a href="/customer/sign-up/" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
+                Sign up as Customer
+            </a>
+            <a href="/provider/sign-up/" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
+                Sign up as Provider
+            </a>
     </main>
 
 </body>

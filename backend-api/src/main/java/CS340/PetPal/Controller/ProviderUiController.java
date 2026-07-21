@@ -18,6 +18,8 @@ import CS340.PetPal.Dto.CustomerSearchQueryDto;
 import CS340.PetPal.Dto.JobCreateDto;
 import CS340.PetPal.Dto.JobUiCreateDto;
 import CS340.PetPal.Dto.JobUpdateDto;
+import CS340.PetPal.Dto.ProviderCreateDto;
+import CS340.PetPal.Dto.ProviderSignupDto;
 import CS340.PetPal.Dto.ProviderUiUpdateDto;
 import CS340.PetPal.Dto.ProviderUpdateDto;
 import CS340.PetPal.Dto.ReviewEditResponseDto;
@@ -40,7 +42,7 @@ import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/provider/{providerId}")
+@RequestMapping("/provider")
 public class ProviderUiController {
 
     ProviderService providerService;
@@ -58,6 +60,14 @@ public class ProviderUiController {
         return "/provider/" + providerId + "/" + page;
     }
 
+    public static String getUrl() {
+        return "/provider/";
+    }
+
+    public static String getUrl(String page) {
+        return "/provider/" + page;
+    }
+
     public static String getRedirect(Long providerId) {
         return "redirect:" + ProviderUiController.getUrl(providerId);
     }
@@ -66,16 +76,31 @@ public class ProviderUiController {
         return "redirect:" + ProviderUiController.getUrl(providerId, page);
     }
 
+    public static String getRedirect() {
+        return "redirect:" + ProviderUiController.getUrl();
+    }
+
+    public static String getRedirect(String page) {
+        return "redirect:" + ProviderUiController.getUrl(page);
+    }
+
     public static String getTemplate(String name) {
         return "/provider/" + name;
     }
 
-    @GetMapping({ "/", "" })
+    @GetMapping({ "/{providerId}/", "{providerId}" })
     public String providerIndex(@PathVariable Long providerId) {
         return ProviderUiController.getRedirect(providerId, "dashboard");
     }
 
-    @GetMapping({ "/customer-profile/{customerId}", "/customer-profile/{customerId}/" })
+    @GetMapping({ "sign-up", "sign-up/" })
+    public String signup(Model model) {
+        ProviderSignupDto dto = new ProviderSignupDto();
+        model.addAttribute("dto", dto);
+        return ProviderUiController.getTemplate("sign-up");
+    }
+
+    @GetMapping({ "{providerId}/customer-profile/{customerId}", "{providerId}/customer-profile/{customerId}/" })
     public String customerProfile(@PathVariable Long providerId, @PathVariable Long customerId, Model model) {
         Provider provider = this.providerService.getProviderById(providerId);
         model.addAttribute("provider", provider);
@@ -86,7 +111,7 @@ public class ProviderUiController {
         return ProviderUiController.getTemplate("customer-profile");
     }
 
-    @GetMapping({ "/dashboard", "/dashboard/" })
+    @GetMapping({ "{providerId}/dashboard", "{providerId}/dashboard/" })
     public String dashboard(@PathVariable Long providerId, Model model) {
         Provider provider = this.providerService.getProviderById(providerId);
         List<Update> updates = this.providerService.getProviderUpdates(providerId);
@@ -99,7 +124,7 @@ public class ProviderUiController {
         return ProviderUiController.getTemplate("dashboard");
     }
 
-    @GetMapping({ "/profile-edit", "/profile-edit/" })
+    @GetMapping({ "{providerId}/profile-edit", "{providerId}/profile-edit/" })
     public String editProfile(@PathVariable Long providerId, Model model) {
         Provider provider = this.providerService.getProviderById(providerId);
         model.addAttribute("provider", provider);
@@ -108,7 +133,7 @@ public class ProviderUiController {
         return ProviderUiController.getTemplate("profile-edit");
     }
 
-    @GetMapping({ "/jobs-edit", "/jobs-edit/" })
+    @GetMapping({ "{providerId}/jobs-edit", "{providerId}/jobs-edit/" })
     public String editJobs(@PathVariable Long providerId, Model model) {
         Provider provider = this.providerService.getProviderById(providerId);
         List<Job> jobs = this.providerService.getProviderJobs(providerId);
@@ -119,7 +144,7 @@ public class ProviderUiController {
         return ProviderUiController.getTemplate("jobs-edit");
     }
 
-    @GetMapping({ "/pet-profile/{petId}", "/pet-profile/{petId}" })
+    @GetMapping({ "{providerId}/pet-profile/{petId}", "{providerId}/pet-profile/{petId}" })
     public String petProfile(@PathVariable Long providerId, @PathVariable Long petId, Model model) {
         Provider provider = this.providerService.getProviderById(providerId);
         Pet pet = this.petService.getPetById(petId);
@@ -128,7 +153,7 @@ public class ProviderUiController {
         return ProviderUiController.getTemplate("pet-profile");
     }
 
-    @GetMapping({ "/reviews", "/reviews/" })
+    @GetMapping({ "{providerId}/reviews", "{providerId}/reviews/" })
     public String reviews(@PathVariable Long providerId, Model model) {
         Provider provider = this.providerService.getProviderById(providerId);
         List<Review> reviews = this.providerService.getProviderReviews(providerId);
@@ -139,8 +164,9 @@ public class ProviderUiController {
         return ProviderUiController.getTemplate("reviews");
     }
 
-    @GetMapping({ "/customer-list", "/customer-list/" })
-    public String customersList(@PathVariable Long providerId, @RequestParam(required = false) String nameQuery, Model model) {
+    @GetMapping({ "{providerId}/customer-list", "{providerId}/customer-list/" })
+    public String customersList(@PathVariable Long providerId, @RequestParam(required = false) String nameQuery,
+            Model model) {
         Provider provider = this.providerService.getProviderById(providerId);
         model.addAttribute("provider", provider);
         List<Customer> customers;
@@ -160,7 +186,20 @@ public class ProviderUiController {
         return ProviderUiController.getTemplate("customer-list");
     }
 
-    @PostMapping({ "/edit", "/edit/" })
+    @PostMapping({ "create", "create/" })
+    public String create(@ModelAttribute ProviderSignupDto dto, RedirectAttributes redirectAttributes) {
+        String email = dto.getEmail();
+        if (this.providerService.getProviderEmailTaken(email)) {
+            redirectAttributes.addFlashAttribute("emailError", "Email is already taken");
+            return ProviderUiController.getRedirect("sign-up");
+        }
+        ProviderCreateDto service_dto = new ProviderCreateDto(dto.getName(), dto.getDescription(), dto.getImageUrl(),
+                dto.getAddress(), dto.getPhone(), dto.getEmail(), dto.getPassword());
+        Provider provider = this.providerService.createProvider(service_dto);
+        return ProviderUiController.getRedirect(provider.getId(), "dashboard");
+    }
+
+    @PostMapping({ "{providerId}/edit", "{providerId}/edit/" })
     public String editProvider(@PathVariable Long providerId, @ModelAttribute ProviderUiUpdateDto dto,
             RedirectAttributes redirectAttributes) {
         String email = dto.getEmail().trim();
@@ -172,18 +211,18 @@ public class ProviderUiController {
             }
         }
         ProviderUpdateDto update_dto = new ProviderUpdateDto(dto.getName(), dto.getDescription(), dto.getImageUrl(),
-                dto.getAddress(), dto.getPhone(), dto.getEmail());
+                dto.getAddress(), dto.getPhone(), dto.getEmail(), dto.getPassword());
         this.providerService.updateProvider(providerId, update_dto);
         return ProviderUiController.getRedirect(providerId, "dashboard");
     }
 
-    @GetMapping({ "/delete", "/delete/" })
+    @GetMapping({ "{providerId}/delete", "{providerId}/delete/" })
     public String deleteProvider(@PathVariable Long providerId) {
         this.providerService.deleteProvider(providerId);
         return "redirect:/";
     }
 
-    @PostMapping({ "/update/create", "/update/create/" })
+    @PostMapping({ "{providerId}/update/create", "{providerId}/update/create/" })
     public String createUpdate(@PathVariable Long providerId, @ModelAttribute UpdateUiCreateDto dto) {
         UpdateCreateDto service_dto = new UpdateCreateDto(dto.getTitle(), dto.getDescription(), dto.getImageUrl(),
                 providerId);
@@ -191,13 +230,13 @@ public class ProviderUiController {
         return ProviderUiController.getRedirect(providerId, "dashboard") + "#scrolly";
     }
 
-    @GetMapping({ "/update/{updateId}/delete", "/update/{updateId}/delete/" })
+    @GetMapping({ "{providerId}/update/{updateId}/delete", "{providerId}/update/{updateId}/delete/" })
     public String deleteUpdate(@PathVariable Long providerId, @PathVariable Long updateId) {
         this.updateService.deleteUpdate(updateId);
         return ProviderUiController.getRedirect(providerId, "dashboard") + "#scrolly";
     }
 
-    @PostMapping({ "/job/create", "/job/create/" })
+    @PostMapping({ "{providerId}/job/create", "{providerId}/job/create/" })
     public String createJob(@PathVariable Long providerId, @ModelAttribute JobUiCreateDto dto) {
         JobCreateDto service_dto = new JobCreateDto(dto.getName(), dto.getTime(), dto.getDuration(), dto.getPrice(),
                 providerId);
@@ -205,34 +244,35 @@ public class ProviderUiController {
         return ProviderUiController.getRedirect(providerId, "jobs-edit") + "#scrolly";
     }
 
-    @GetMapping({ "/job/{jobId}/edit", "/job/{jobId}/edit/" })
+    @GetMapping({ "{providerId}/job/{jobId}/edit", "{providerId}/job/{jobId}/edit/" })
     public String editJob(@PathVariable Long providerId, @PathVariable Long jobId, @ModelAttribute JobUpdateDto dto,
             Model model) {
         this.jobService.updateJob(jobId, dto);
         return ProviderUiController.getRedirect(providerId, "edit-jobs");
     }
 
-    @GetMapping({ "/job/{jobId}/delete", "/job/{jobId}/delete/" })
+    @GetMapping({ "{providerId}/job/{jobId}/delete", "{providerId}/job/{jobId}/delete/" })
     public String deleteJob(@PathVariable Long providerId, @PathVariable Long jobId) {
         this.jobService.deleteJob(jobId);
         return ProviderUiController.getRedirect(providerId, "edit-jobs");
     }
 
-    @PostMapping({ "/review/{reviewId}/create-response", "/review/{reviewId}/create-response/" })
+    @PostMapping({ "{providerId}/review/{reviewId}/create-response",
+            "{providerId}/review/{reviewId}/create-response/" })
     public String createReviewResponse(@PathVariable Long providerId, @PathVariable Long reviewId,
             @ModelAttribute ReviewRespondDto dto) {
         this.reviewService.respondReview(reviewId, dto);
         return ProviderUiController.getRedirect(providerId, "reviews");
     }
 
-    @GetMapping({ "/review/{reviewId}/edit-response", "/review/{reviewId}/edit-response/" })
+    @GetMapping({ "{providerId}/review/{reviewId}/edit-response", "{providerId}/review/{reviewId}/edit-response/" })
     public String editReviewResponse(@PathVariable Long providerId, @PathVariable Long reviewId,
             @ModelAttribute ReviewEditResponseDto dto) {
         this.reviewService.editReviewResponse(reviewId, dto);
         return ProviderUiController.getRedirect(providerId, "reviews");
     }
 
-    @GetMapping({ "/customer-list/search", "/customer-list/search/ "})
+    @GetMapping({ "{providerId}/customer-list/search", "{providerId}/customer-list/search/ " })
     public String searchCustomers(@PathVariable Long providerId, @ModelAttribute CustomerSearchQueryDto dto) {
         String nameQuery = dto.getName().trim();
         return "redirect:" + UriComponentsBuilder.fromPath(ProviderUiController.getUrl(providerId, "customer-list"))

@@ -64,7 +64,7 @@ public class ProviderService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "already provider with email");
         }
         Provider provider = new Provider(dto.getName(), dto.getDescription(), dto.getImageUrl(), dto.getAddress(),
-                dto.getPhone(), dto.getEmail(), Collections.emptyList(), Collections.emptyList(),
+                dto.getPhone(), dto.getEmail(), dto.getPassword(), Collections.emptyList(), Collections.emptyList(),
                 Collections.emptyList());
         return this.providerRepository.save(provider);
     }
@@ -86,6 +86,7 @@ public class ProviderService {
         provider.setAddress(dto.getAddress());
         provider.setPhone(dto.getPhone());
         provider.setEmail(dto.getEmail());
+        provider.setPassword(dto.getPassword());
         return this.providerRepository.save(provider);
     }
 

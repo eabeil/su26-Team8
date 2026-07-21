@@ -16,4 +16,5 @@ public class ProviderUpdateDto {
     private String address;
     private String phone;
     private String email;
+    private String password;
 }
