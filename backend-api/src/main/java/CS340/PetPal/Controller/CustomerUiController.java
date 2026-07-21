@@ -58,13 +58,14 @@ public class CustomerUiController {
     @PostMapping("/{customerId}/pets")
     public String createPet(@PathVariable Long customerId,
             @RequestParam String name,
+            @RequestParam String description,
             @RequestParam String speciesOrBreed,
             @RequestParam(required = false) Integer age,
             @RequestParam(required = false) String imageUrl,
             @RequestParam String specialCareInstructions,
             @RequestParam String traits,
             RedirectAttributes redirectAttributes) {
-        PetCreateDto dto = new PetCreateDto(name, speciesOrBreed, age, imageUrl,
+        PetCreateDto dto = new PetCreateDto(name, description, speciesOrBreed, age, imageUrl,
                 specialCareInstructions, traits, customerId);
 
         petService.createPet(dto);
@@ -107,13 +108,14 @@ public class CustomerUiController {
     public String updatePet(@PathVariable Long customerId,
             @PathVariable Long petId,
             @RequestParam String name,
+            @RequestParam String description,
             @RequestParam String speciesOrBreed,
             @RequestParam(required = false) Integer age,
             @RequestParam(required = false) String imageUrl,
             @RequestParam String specialCareInstructions,
             @RequestParam String traits,
             RedirectAttributes redirectAttributes) {
-        PetUpdateDto dto = new PetUpdateDto(name, speciesOrBreed, age, imageUrl,
+        PetUpdateDto dto = new PetUpdateDto(name, description, speciesOrBreed, age, imageUrl,
                 specialCareInstructions, traits);
 
         petService.updateCustomerPet(customerId, petId, dto);

@@ -30,7 +30,7 @@ public class PetService {
         if (customer.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + dto.getCustomerId() + ".");
         }
-        Pet pet = new Pet(dto.getName(), dto.getSpeciesOrBreed(), dto.getAge(), dto.getImageUrl(), dto.getSpecialCareInstructions(),
+        Pet pet = new Pet(dto.getName(), dto.getDescription(), dto.getSpeciesOrBreed(), dto.getAge(), dto.getImageUrl(), dto.getSpecialCareInstructions(),
                 dto.getTraits(), customer.get());
         return this.petRepository.save(pet);
     }
@@ -59,6 +59,7 @@ public class PetService {
 
     public Pet savePetUpdates(Pet pet, PetUpdateDto dto) {
         pet.setName(dto.getName());
+        pet.setName(dto.getDescription());
         pet.setSpeciesOrBreed(dto.getSpeciesOrBreed());
         pet.setAge(dto.getAge());
         pet.setImageUrl(dto.getImageUrl());

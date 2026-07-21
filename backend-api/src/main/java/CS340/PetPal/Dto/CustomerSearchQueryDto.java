@@ -9,12 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PetUpdateDto {
+public class CustomerSearchQueryDto {
     private String name;
-    private String description;
-    private String speciesOrBreed;
-    private Integer age;
-    private String imageUrl;
-    private String specialCareInstructions;
-    private String traits;
+    private String location;
 }

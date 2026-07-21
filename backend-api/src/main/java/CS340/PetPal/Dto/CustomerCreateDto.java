@@ -11,6 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CustomerCreateDto {
     private String name;
+    private String imageUrl;
+    private String description;
+    private String location;
     private String email;
     private String phone;
     private String imageUrl;

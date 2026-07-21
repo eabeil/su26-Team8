@@ -36,12 +36,22 @@ public class CustomerService {
     return this.customerRepository.findAll();
   }
 
+  public List<Customer> getAllCustomersOfLocation(String location) {
+    return this.customerRepository.findByLocationContainingIgnoreCase(location);
+  }
+
+  public List<Customer> getAllCustomersOfName(String name) {
+    return this.customerRepository.findByNameContainingIgnoreCase(name);
+  }
+
+  public List<Customer> getAllCustomersOfNameAndLocation(String name, String location) {
+    return this.customerRepository.findByNameContainingIgnoreCaseAndLocationContainingIgnoreCase(name, location);
+  }
 
   public Customer createCustomer(CustomerCreateDto dto){
     Customer customer = new Customer(dto.getName(), dto.getEmail(), dto.getPhone(), dto.getImageUrl());
     return this.customerRepository.save(customer);
   }
-
 
   public Customer getCustomerById(Long customerId) {
     Optional<Customer> customer = customerRepository.findById(customerId);
@@ -62,6 +72,8 @@ public class CustomerService {
   public Customer updateCustomer(long customerId, CustomerUpdateDto dto) {
     Customer customer = getCustomerById(customerId);
     customer.setName(dto.getName());
+    customer.setImageUrl(dto.getImageUrl());
+    customer.setLocation(dto.getLocation());
     customer.setEmail(dto.getEmail());
     customer.setPhone(dto.getPhone());
     customer.setImageUrl(dto.getImageUrl());

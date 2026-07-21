@@ -40,6 +40,9 @@ public class Customer {
     @Column(nullable = false)
     private String phone;
 
+    @Column(nullable = false)
+    private String location;
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties({"customer"})
     private List<Pet> pets;
@@ -50,6 +53,9 @@ public class Customer {
  
     public Customer(String name, String email, String phone, String imageUrl) {
         this.name = name;
+        this.imageUrl = imageUrl;
+        this.description = description;
+        this.location = location;
         this.email = email;
         this.phone = phone;
         this.imageUrl = imageUrl;

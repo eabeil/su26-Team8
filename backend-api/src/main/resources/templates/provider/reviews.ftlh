@@ -22,8 +22,7 @@
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Dashboard</a>
                     <a href="/provider/${providerId}/customer-list"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Customers</a>
-                    <a href="/"
-                        class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
+                    <a href="/" class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
                 </nav>
             </div>
     </header>
@@ -46,104 +45,62 @@
 
             <div class="space-y-6">
 
-                <!-- Review 1 -->
-                <article class="border border-gray-200 rounded-lg p-8">
-                    <div class="flex items-center justify-between">
-                        <img src="/content/male.jpg" alt="Profile picture"
-                            class="w-16 h-16 rounded-full object-cover border border-gray-200 flex-shrink-0">
-                        <a href="/provider/${providerId}/customer-profile" class="text-sm font-semibold">Mike Torres</a>
-                        <p class="text-xs text-gray-500">Jun 20, 2026</p>
-                    </div>
-                    <p class="text-sm text-gray-500 mt-2">👍 Liked</p>
-                    <p class="text-sm text-gray-500 mt-3">
-                        Sarah took great care of my cat last weekend.
-                    </p>
-                    <div class="mt-5 border-t border-gray-200 pt-5">
-                        <label class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2">
-                            Your Response
-                        </label>
-                        <textarea rows="3" placeholder="Write a response..."
-                            class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"></textarea>
-                        <a href="#"
-                            class="flex justify-center mt-3 px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
-                            Post Response
-                        </a>
-                    </div>
-                </article>
-
-                <!-- Review 2 -->
-                <article class="border border-gray-200 rounded-lg p-8">
-                    <div class="flex items-center justify-between">
-                        <img src="/content/female.jpg" alt="Profile picture"
-                            class="w-16 h-16 rounded-full object-cover border border-gray-200 flex-shrink-0">
-                        <a href="/provider/${providerId}/customer-profile" class="text-sm font-semibold">Jenny Park</a>
-                        <p class="text-xs text-gray-500">Jun 15, 2026</p>
-                    </div>
-                    <p class="text-sm text-gray-500 mt-2">👍 Liked</p>
-                    <p class="text-sm text-gray-500 mt-3">
-                        Very reliable and friendly. Our dog looks forward to her walks every week
-                    </p>
-                    <div class="mt-5 border-t border-gray-200 pt-5">
-                        <label class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2">
-                            Your Response
-                        </label>
-                        <p class="text-sm text-gray-500 bg-gray-50 border border-gray-200 rounded-lg px-6 py-4">
-                            Thank you so much, Jenny! Always a pleasure walking her.
+                <#list reviews as review>
+                    <article class="border border-gray-200 rounded-lg p-8">
+                        <div class="flex items-center justify-between">
+                            <img src="" alt="Profile picture"
+                                class="w-16 h-16 rounded-full object-cover border border-gray-200 flex-shrink-0">
+                            <a href="/provider/${provider.id}/customer-profile/${review.customer.id}"
+                                class="text-sm font-semibold">${review.customer.name}</a>
+                            <p class="text-xs text-gray-500">${review.formattedCreatedAt}</p>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2">
+                            <#if review.recommended>
+                                👍 Liked
+                                <#else>
+                                    👎 Disliked
+                            </#if>
                         </p>
-                    </div>
-                </article>
+                        <p class="text-sm text-gray-500 mt-3">
+                            ${review.customerComment}
+                        </p>
 
-                <!-- Review 3 -->
-                <article class="border border-gray-200 rounded-lg p-8">
-                    <div class="flex items-center justify-between">
-                        <img src="/content/male.jpg" alt="Profile picture"
-                            class="w-16 h-16 rounded-full object-cover border border-gray-200 flex-shrink-0">
-                        <a href="/provider/${providerId}/customer-profile" class="text-sm font-semibold">Alex Riveray</a>
-                        <p class="text-xs text-gray-500">Jun 10, 2026</p>
-                    </div>
-                    <p class="text-sm text-gray-500 mt-2">👎 Disliked</p>
-                    <p class="text-sm text-gray-500 mt-3">
-                        Showed up 20 minutes late and didn't message ahead of time.
-                    </p>
-                    <div class="mt-5 border-t border-gray-200 pt-5">
-                        <label class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2">
-                            Your Response
-                        </label>
-                        <textarea rows="3" placeholder="Write a response..."
-                            class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"></textarea>
-                        <a href="#"
-                            class="flex justify-center mt-3 px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
-                            Post Response
-                        </a>
-                    </div>
-                </article>
+                        <#if review.hasResponse>
+
+                            <div class="mt-5 border-t border-gray-200 pt-5">
+                                <label class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2">
+                                    Your Response
+                                </label>
+                                <p class="text-sm text-gray-500 bg-gray-50 border border-gray-200 rounded-lg px-6 py-4">
+                                    ${review.providerResponse}
+                                </p>
+                            </div>
+
+                            <#else>
+
+                                <div class="mt-5 border-t border-gray-200 pt-5">
+                                    <label
+                                        class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2">
+                                        Your Response
+                                    </label>
+
+                                    <form action="/provider/${provider.id}/review/${review.id}/create-response"
+                                        method="post">
+                                        <textarea rows="3" placeholder="Write a response..." name="providerResponse"
+                                            class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"></textarea>
+                                        <button type="submit"
+                                            class="flex justify-center mt-3 px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
+                                            Post Response
+                                        </button>
+                                    </form>
+                                </div>
+                        </#if>
+                    </article>
+                </#list>
+
             </div>
         </section>
 
-        <!-- Review 4 -->
-        <article class="border border-gray-200 rounded-lg p-8">
-            <div class="flex items-center justify-between">
-                <img src="/content/female.jpg" alt="Profile picture"
-                    class="w-16 h-16 rounded-full object-cover border border-gray-200 flex-shrink-0">
-                <a href="/provider/${providerId}/customer-profile" class="text-sm font-semibold">Priya Nair</a>
-                <p class="text-xs text-gray-500">Jun 2, 2026</p>
-            </div>
-            <p class="text-sm text-gray-500 mt-2">👍 Liked</p>
-            <p class="text-sm text-gray-500 mt-3">
-                Great with older dogs, very patient and gentle on the walk.
-            </p>
-            <div class="mt-5 border-t border-gray-200 pt-5">
-                <label class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2">
-                    Your Response
-                </label>
-                <textarea rows="3" placeholder="Write a response..."
-                    class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"></textarea>
-                <a href="#"
-                    class="flex justify-center mt-3 px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
-                    Post Response
-                </a>
-            </div>
-        </article>
         </div>
         </section>
 

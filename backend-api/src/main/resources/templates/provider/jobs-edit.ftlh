@@ -47,7 +47,7 @@
                     <#list jobs as job>
                         <tbody>
                             <tr class="border-b border-gray-200">
-                                <td class="px-6 py-4 text-gray-500">${job.formatedTime}</td>
+                                <td class="px-6 py-4 text-gray-500">${job.formattedTime}</td>
                                 <td class="px-6 py-4 text-gray-500">${job.name}</td>
                                 <td class="px-6 py-4 text-gray-500">${job.duration}</td>
                                 <td class="px-6 py-4 text-gray-500">$ ${job.price}</td>
