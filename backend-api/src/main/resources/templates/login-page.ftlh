@@ -31,7 +31,7 @@
             <div class="pt-4 space-y-3">
                 <p class="text-xs text-center text-gray-400 uppercase tracking-widest font-semibold mb-3">Select your dashboard</p>    
                 <!-- customer login option-->
-                <a href="/customer/dashboard/" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm">
+                <a href="/customer/1/dashboard" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm">
                     Log in as Pet Owner
                 </a>       
                 <a href="/provider/dashboard/" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">

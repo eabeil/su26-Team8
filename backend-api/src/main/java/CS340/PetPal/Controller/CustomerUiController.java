@@ -53,7 +53,6 @@ public class CustomerUiController {
         model.addAttribute("pet", new Pet());
         return "pet-form";
     }
-    
 
     @PostMapping("/{customerId}/pets")
     public String createPet(@PathVariable Long customerId,
@@ -72,24 +71,6 @@ public class CustomerUiController {
 
         return dashboardRedirect(customerId);
     }
-
-    @GetMapping("/{customerId}/profile")
-    public String updateProfileForm(
-        @PathVariable Long customerId,
-        Model model) {
-    Customer customer = customerService.getCustomerById(customerId);
-    model.addAttribute("customerId", customerId);
-    model.addAttribute("pageTitle", "Edit Profile");
-    model.addAttribute(
-            "formAction",
-           "/customer/" + customerId + "/profile");
-    model.addAttribute("profile", customer);
-
-    return "profile-form";
-}
-
-
-
 
     @GetMapping("/{customerId}/pets/{petId}/edit")
     public String updatePetForm(@PathVariable Long customerId,
@@ -121,28 +102,6 @@ public class CustomerUiController {
 
         return dashboardRedirect(customerId);
     }
-
-@PostMapping("/{customerId}/profile")
-public String updateProfile(
-        @PathVariable Long customerId,
-        @RequestParam String name,
-        @RequestParam String email,
-        @RequestParam String phone,
-        @RequestParam(required = false) String imageUrl,
-        RedirectAttributes redirectAttributes) {
-
-    CustomerUpdateDto dto =
-            new CustomerUpdateDto(name, email, phone, imageUrl);
-
-    customerService.updateCustomer(customerId, dto);
-
-    redirectAttributes.addFlashAttribute(
-            "successMessage",
-            name + "'s profile was updated.");
-
-    return "redirect:/customer/" + customerId + "/profile";
-}
-
 
     @GetMapping("/{customerId}/dashboard")
     public String dashboard(@PathVariable Long customerId, Model model) {
@@ -181,6 +140,45 @@ public String updateProfile(
     private String dashboardRedirect(Long customerId) {
         return "redirect:/customer/" + customerId + "/dashboard#pets";
     }
+
+    @GetMapping("/{customerId}/profile")
+    public String updateProfileForm(
+        @PathVariable Long customerId,
+        Model model) {
+
+    Customer customer =
+            customerService.getCustomerById(customerId);
+
+    model.addAttribute("customerId", customerId);
+    model.addAttribute("pageTitle", "Edit Profile");
+    model.addAttribute(
+            "formAction",
+            "/customer/" + customerId + "/profile");
+    model.addAttribute("profile", customer);
+
+    return "profile-form";
+    }
+
+    @PostMapping("/{customerId}/profile")
+    public String updateProfile(
+        @PathVariable Long customerId,
+        @RequestParam String name,
+        @RequestParam String email,
+        @RequestParam String phone,
+        @RequestParam(required = false) String imageUrl,
+        RedirectAttributes redirectAttributes) {
+
+    CustomerUpdateDto dto =
+            new CustomerUpdateDto(name, email, phone, imageUrl);
+
+    customerService.updateCustomer(customerId, dto);
+
+    redirectAttributes.addFlashAttribute(
+            "successMessage",
+            name + "'s profile was updated.");
+
+    return "redirect:/customer/" + customerId + "/profile";
+    }   
 
     
 }
