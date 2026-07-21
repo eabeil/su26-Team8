@@ -156,7 +156,7 @@ public class CustomerUiController {
             "/customer/" + customerId + "/profile");
     model.addAttribute("profile", customer);
 
-    return "profile-form";
+    return "customer-profile";
     }
 
     @PostMapping("/{customerId}/profile")

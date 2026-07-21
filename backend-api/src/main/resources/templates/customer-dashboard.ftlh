@@ -12,7 +12,7 @@
         <div class="space-x-6 text-sm font-medium">
             <a href="/customer/${customer.id?c}/dashboard" class="text-black border-b-2 border-black pb-1">Dashboard</a>
             <a href="/customer/${customer.id?c}/providers" class="text-gray-500 hover:text-black transition-colors">Directory</a>
-            <a href="profile.html" class="text-gray-500 hover:text-black transition-colors">My Profile</a>
+            <a href="/customer/${customerId?c}/profile" class="text-gray-500 hover:text-black transition-colors">My Profile</a>
             <a href="../common/index.html" class="text-red-600 hover:text-red-800 transition-colors ml-4">Log Out</a>
         </div>
     </nav>
