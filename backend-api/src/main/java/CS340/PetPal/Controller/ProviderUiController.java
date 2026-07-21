@@ -2,6 +2,7 @@ package CS340.PetPal.Controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -40,6 +42,7 @@ import CS340.PetPal.Service.ProviderService;
 import CS340.PetPal.Service.ReviewService;
 import CS340.PetPal.Service.UpdateService;
 import CS340.PetPal.Service.ValidationService;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 
 @Controller
@@ -105,7 +108,10 @@ public class ProviderUiController {
     }
 
     @GetMapping({ "{providerId}/customer-profile/{customerId}", "{providerId}/customer-profile/{customerId}/" })
-    public String customerProfile(@PathVariable Long providerId, @PathVariable Long customerId, Model model) {
+    public String customerProfile(@PathVariable Long providerId, @PathVariable Long customerId, Model model, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
         Provider provider = this.providerService.getProviderById(providerId);
         model.addAttribute("provider", provider);
         Customer customer = this.customerService.getCustomerById(customerId);
@@ -116,7 +122,10 @@ public class ProviderUiController {
     }
 
     @GetMapping({ "{providerId}/dashboard", "{providerId}/dashboard/" })
-    public String dashboard(@PathVariable Long providerId, Model model) {
+    public String dashboard(@PathVariable Long providerId, Model model, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
         Provider provider = this.providerService.getProviderById(providerId);
         List<Update> updates = this.providerService.getProviderUpdates(providerId);
         List<Job> jobs = this.providerService.getProviderJobs(providerId);
@@ -129,7 +138,10 @@ public class ProviderUiController {
     }
 
     @GetMapping({ "{providerId}/profile-edit", "{providerId}/profile-edit/" })
-    public String editProfile(@PathVariable Long providerId, Model model) {
+    public String editProfile(@PathVariable Long providerId, Model model, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
         Provider provider = this.providerService.getProviderById(providerId);
         model.addAttribute("provider", provider);
         ProviderUiUpdateDto providerUpdateDto = new ProviderUiUpdateDto();
@@ -138,7 +150,10 @@ public class ProviderUiController {
     }
 
     @GetMapping({ "{providerId}/jobs-edit", "{providerId}/jobs-edit/" })
-    public String editJobs(@PathVariable Long providerId, Model model) {
+    public String editJobs(@PathVariable Long providerId, Model model, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
         Provider provider = this.providerService.getProviderById(providerId);
         List<Job> jobs = this.providerService.getProviderJobs(providerId);
         model.addAttribute("provider", provider);
@@ -149,7 +164,10 @@ public class ProviderUiController {
     }
 
     @GetMapping({ "{providerId}/pet-profile/{petId}", "{providerId}/pet-profile/{petId}" })
-    public String petProfile(@PathVariable Long providerId, @PathVariable Long petId, Model model) {
+    public String petProfile(@PathVariable Long providerId, @PathVariable Long petId, Model model, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
         Provider provider = this.providerService.getProviderById(providerId);
         Pet pet = this.petService.getPetById(petId);
         model.addAttribute("provider", provider);
@@ -158,7 +176,10 @@ public class ProviderUiController {
     }
 
     @GetMapping({ "{providerId}/reviews", "{providerId}/reviews/" })
-    public String reviews(@PathVariable Long providerId, Model model) {
+    public String reviews(@PathVariable Long providerId, Model model, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
         Provider provider = this.providerService.getProviderById(providerId);
         List<Review> reviews = this.providerService.getProviderReviews(providerId);
         model.addAttribute("provider", provider);
@@ -170,7 +191,10 @@ public class ProviderUiController {
 
     @GetMapping({ "{providerId}/customer-list", "{providerId}/customer-list/" })
     public String customersList(@PathVariable Long providerId, @RequestParam(required = false) String nameQuery,
-            Model model) {
+            Model model, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
         Provider provider = this.providerService.getProviderById(providerId);
         model.addAttribute("provider", provider);
         List<Customer> customers;
@@ -190,19 +214,20 @@ public class ProviderUiController {
         return ProviderUiController.getTemplate("customer-list");
     }
 
-    @GetMapping({ "login", "login/"})
-    public String login(@ModelAttribute LoginDto dto, RedirectAttributes redirectAttributes) {
+    @GetMapping({ "login", "login/" })
+    public String login(@ModelAttribute LoginDto dto, RedirectAttributes redirectAttributes, HttpSession session) {
         if (!this.providerService.getProviderEmailTaken(dto.getEmail())) {
             redirectAttributes.addFlashAttribute("email", dto.getEmail());
             redirectAttributes.addFlashAttribute("emailError", "no provider with email");
-            return "redirect:/"; 
+            return "redirect:/";
         }
         Provider provider = this.providerService.getProviderByEmail(dto.getEmail());
         if (!this.passwordEncoder.matches(dto.getPassword(), provider.getPassword())) {
             redirectAttributes.addFlashAttribute("email", dto.getEmail());
             redirectAttributes.addFlashAttribute("passwordError", "invalid password");
-            return "redirect:/"; 
+            return "redirect:/";
         }
+        session.setAttribute("providerId", provider.getId());
         return ProviderUiController.getRedirect(provider.getId(), "dashboard");
     }
 
@@ -221,7 +246,10 @@ public class ProviderUiController {
 
     @PostMapping({ "{providerId}/edit", "{providerId}/edit/" })
     public String editProvider(@PathVariable Long providerId, @ModelAttribute ProviderUiUpdateDto dto,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
         String email = dto.getEmail().trim();
         Provider provider = this.providerService.getProviderById(providerId);
         if (!provider.getEmail().equals(email)) {
@@ -237,13 +265,19 @@ public class ProviderUiController {
     }
 
     @GetMapping({ "{providerId}/delete", "{providerId}/delete/" })
-    public String deleteProvider(@PathVariable Long providerId) {
+    public String deleteProvider(@PathVariable Long providerId, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
         this.providerService.deleteProvider(providerId);
         return "redirect:/";
     }
 
     @PostMapping({ "{providerId}/update/create", "{providerId}/update/create/" })
-    public String createUpdate(@PathVariable Long providerId, @ModelAttribute UpdateUiCreateDto dto) {
+    public String createUpdate(@PathVariable Long providerId, @ModelAttribute UpdateUiCreateDto dto, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
         UpdateCreateDto service_dto = new UpdateCreateDto(dto.getTitle(), dto.getDescription(), dto.getImageUrl(),
                 providerId);
         this.updateService.createUpdate(service_dto);
@@ -251,13 +285,23 @@ public class ProviderUiController {
     }
 
     @GetMapping({ "{providerId}/update/{updateId}/delete", "{providerId}/update/{updateId}/delete/" })
-    public String deleteUpdate(@PathVariable Long providerId, @PathVariable Long updateId) {
+    public String deleteUpdate(@PathVariable Long providerId, @PathVariable Long updateId, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
+        Update update = this.updateService.getUpdateById(updateId);
+        if (!providerId.equals(update.getProvider().getId())) {
+           throw new ResponseStatusException(HttpStatus.FORBIDDEN, "update not owned by provider");
+        }
         this.updateService.deleteUpdate(updateId);
         return ProviderUiController.getRedirect(providerId, "dashboard") + "#scrolly";
     }
 
     @PostMapping({ "{providerId}/job/create", "{providerId}/job/create/" })
-    public String createJob(@PathVariable Long providerId, @ModelAttribute JobUiCreateDto dto) {
+    public String createJob(@PathVariable Long providerId, @ModelAttribute JobUiCreateDto dto, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
         JobCreateDto service_dto = new JobCreateDto(dto.getName(), dto.getTime(), dto.getDuration(), dto.getPrice(),
                 providerId);
         this.jobService.createJob(service_dto);
@@ -266,13 +310,27 @@ public class ProviderUiController {
 
     @GetMapping({ "{providerId}/job/{jobId}/edit", "{providerId}/job/{jobId}/edit/" })
     public String editJob(@PathVariable Long providerId, @PathVariable Long jobId, @ModelAttribute JobUpdateDto dto,
-            Model model) {
+            Model model, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
+        Job job = this.jobService.getJobById(jobId);
+        if (!jobId.equals(job.getProvider().getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "job not owned by provider");
+        }
         this.jobService.updateJob(jobId, dto);
         return ProviderUiController.getRedirect(providerId, "edit-jobs");
     }
 
     @GetMapping({ "{providerId}/job/{jobId}/delete", "{providerId}/job/{jobId}/delete/" })
-    public String deleteJob(@PathVariable Long providerId, @PathVariable Long jobId) {
+    public String deleteJob(@PathVariable Long providerId, @PathVariable Long jobId, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
+        Job job = this.jobService.getJobById(jobId);
+        if (!jobId.equals(job.getProvider().getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "job not owned by provider");
+        }
         this.jobService.deleteJob(jobId);
         return ProviderUiController.getRedirect(providerId, "edit-jobs");
     }
@@ -280,20 +338,37 @@ public class ProviderUiController {
     @PostMapping({ "{providerId}/review/{reviewId}/create-response",
             "{providerId}/review/{reviewId}/create-response/" })
     public String createReviewResponse(@PathVariable Long providerId, @PathVariable Long reviewId,
-            @ModelAttribute ReviewRespondDto dto) {
+            @ModelAttribute ReviewRespondDto dto, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
+        Review review = this.reviewService.getReviewById(reviewId);
+        if (!reviewId.equals(review.getProvider().getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "review not owned by provider");
+        }
         this.reviewService.respondReview(reviewId, dto);
         return ProviderUiController.getRedirect(providerId, "reviews");
     }
 
     @GetMapping({ "{providerId}/review/{reviewId}/edit-response", "{providerId}/review/{reviewId}/edit-response/" })
     public String editReviewResponse(@PathVariable Long providerId, @PathVariable Long reviewId,
-            @ModelAttribute ReviewEditResponseDto dto) {
+            @ModelAttribute ReviewEditResponseDto dto, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
+        Review review = this.reviewService.getReviewById(reviewId);
+        if (!reviewId.equals(review.getProvider().getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "review not owned by provider");
+        }
         this.reviewService.editReviewResponse(reviewId, dto);
         return ProviderUiController.getRedirect(providerId, "reviews");
     }
 
     @GetMapping({ "{providerId}/customer-list/search", "{providerId}/customer-list/search/ " })
-    public String searchCustomers(@PathVariable Long providerId, @ModelAttribute CustomerSearchQueryDto dto) {
+    public String searchCustomers(@PathVariable Long providerId, @ModelAttribute CustomerSearchQueryDto dto, HttpSession session) {
+        if (!providerId.equals(session.getAttribute("providerId"))) {
+            return "redirect:/";
+        }
         String nameQuery = dto.getName().trim();
         return "redirect:" + UriComponentsBuilder.fromPath(ProviderUiController.getUrl(providerId, "customer-list"))
                 .queryParam("name_query", nameQuery).encode().toString();
