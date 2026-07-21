@@ -1,9 +1,8 @@
 package CS340.PetPal.Controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,6 +54,7 @@ public class ProviderUiController {
     ReviewService reviewService;
     CustomerService customerService;
     ValidationService validationService;
+    PasswordEncoder passwordEncoder;
 
     public static String getUrl(Long providerId) {
         return "/provider/" + providerId;
@@ -198,7 +198,7 @@ public class ProviderUiController {
             return "redirect:/"; 
         }
         Provider provider = this.providerService.getProviderByEmail(dto.getEmail());
-        if (!dto.getPassword().equals(provider.getPassword())) {
+        if (!this.passwordEncoder.matches(dto.getPassword(), provider.getPassword())) {
             redirectAttributes.addFlashAttribute("email", dto.getEmail());
             redirectAttributes.addFlashAttribute("passwordError", "invalid password");
             return "redirect:/"; 
