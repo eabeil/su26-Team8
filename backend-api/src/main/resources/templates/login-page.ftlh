@@ -7,7 +7,7 @@
     <!--tailwind setup-->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 flex items-center justify-center min-h-screen font-sans text-black flex flex-col">
+<body method="get" action="/provider/login" class="bg-gray-50 flex items-center justify-center min-h-screen font-sans text-black flex flex-col">
 
     <!--login container-->
     <main class="w-full max-w-md p-8 bg-white border border-gray-200 rounded-xl shadow-sm">
@@ -16,27 +16,37 @@
             <p class="text-sm text-gray-500 mt-2">Find trusted pet care in your neighborhood.</p>
         </div>
     
-        <form class="space-y-5" onsubmit="event.preventDefault();">
+        <form method="get" class="space-y-5">
                 <!--email input-->
             <div>
                 <label class="block text-sm font-semibold mb-1">Email</label>
-                <input type="email" placeholder="name@example.com" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+                <input type="text" name="email" value="${email!}" placeholder="name@example.com" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+                <#if emailError??>
+                    <div id="badEmail" class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+                        ${emailError}
+                    </div>
+                </#if>
             </div> 
                 <!--password input-->
             <div>
                 <label class="block text-sm font-semibold mb-1">Password</label>
-                <input type="password" placeholder="••••••••" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+                <input type="password" name="password" placeholder="••••••••" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+                <#if passwordError??>
+                    <div id="badPassword" class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+                        ${passwordError}
+                    </div>
+                </#if>
             </div>
             <!--dashboard slection-->
             <div class="pt-4 space-y-3">
                 <p class="text-xs text-center text-gray-400 uppercase tracking-widest font-semibold mb-3">Select your dashboard</p>    
                 <!-- customer login option-->
-                <a href="/customer/1/dashboard/" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm">
+                <button type="submit" formaction="/customer/login" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm">
                     Log in as Pet Owner
-                </a>       
-                <a href="/provider/1/dashboard/" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
-                    log in as Provider
-                </a>
+                </button>       
+                <button type="submit" formaction="/provider/login" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
+                    Log in as Provider
+                </button>
             </div>
         </form>
 

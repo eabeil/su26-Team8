@@ -2,6 +2,7 @@ package CS340.PetPal.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import CS340.PetPal.Dto.CustomerSearchQueryDto;
 import CS340.PetPal.Dto.JobCreateDto;
 import CS340.PetPal.Dto.JobUiCreateDto;
 import CS340.PetPal.Dto.JobUpdateDto;
+import CS340.PetPal.Dto.LoginDto;
 import CS340.PetPal.Dto.ProviderCreateDto;
 import CS340.PetPal.Dto.ProviderSignupDto;
 import CS340.PetPal.Dto.ProviderUiUpdateDto;
@@ -38,6 +40,7 @@ import CS340.PetPal.Service.PetService;
 import CS340.PetPal.Service.ProviderService;
 import CS340.PetPal.Service.ReviewService;
 import CS340.PetPal.Service.UpdateService;
+import CS340.PetPal.Service.ValidationService;
 import lombok.AllArgsConstructor;
 
 @Controller
@@ -51,6 +54,7 @@ public class ProviderUiController {
     UpdateService updateService;
     ReviewService reviewService;
     CustomerService customerService;
+    ValidationService validationService;
 
     public static String getUrl(Long providerId) {
         return "/provider/" + providerId;
@@ -186,11 +190,27 @@ public class ProviderUiController {
         return ProviderUiController.getTemplate("customer-list");
     }
 
+    @GetMapping({ "login", "login/"})
+    public String login(@ModelAttribute LoginDto dto, RedirectAttributes redirectAttributes) {
+        if (!this.providerService.getProviderEmailTaken(dto.getEmail())) {
+            redirectAttributes.addFlashAttribute("email", dto.getEmail());
+            redirectAttributes.addFlashAttribute("emailError", "no provider with email");
+            return "redirect:/"; 
+        }
+        Provider provider = this.providerService.getProviderByEmail(dto.getEmail());
+        if (!dto.getPassword().equals(provider.getPassword())) {
+            redirectAttributes.addFlashAttribute("email", dto.getEmail());
+            redirectAttributes.addFlashAttribute("passwordError", "invalid password");
+            return "redirect:/"; 
+        }
+        return ProviderUiController.getRedirect(provider.getId(), "dashboard");
+    }
+
     @PostMapping({ "create", "create/" })
     public String create(@ModelAttribute ProviderSignupDto dto, RedirectAttributes redirectAttributes) {
         String email = dto.getEmail();
         if (this.providerService.getProviderEmailTaken(email)) {
-            redirectAttributes.addFlashAttribute("emailError", "Email is already taken");
+            redirectAttributes.addFlashAttribute("emailError", "email is already taken");
             return ProviderUiController.getRedirect("sign-up");
         }
         ProviderCreateDto service_dto = new ProviderCreateDto(dto.getName(), dto.getDescription(), dto.getImageUrl(),

@@ -47,6 +47,10 @@ public class ProviderService {
         return provider;
     }
 
+    public Provider getProviderByEmail(String email) {
+        return this.providerRepository.findByEmail(email);
+    }
+
     public List<Job> getProviderJobs(Long providerId) {
         return this.jobRepository.findByProviderId(providerId);
     }
