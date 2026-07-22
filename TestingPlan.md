@@ -5,18 +5,49 @@
 
 ## Actors
 - Provider P:
-- Customer C: Users seeking Pet care services
+- Customer C: A registered pet owner with an active session.
 - Service S: 
 
 ## Use Cases
-#### 1. Customer: US‑CUST‑001 — Register & manage profile
-1. Customer C1 logs in for the first time and creates a profile.
-2. C1 edits their profile to add preferences.
-3. C1 exits.
+#### 1. Customer: US-1 — Customer Account and Profile Management
 
-#### 2. 
-1.
-2. 
+1. Customer C1 opens the customer sign-up page and creates an account with valid information.
+2. C1 logs in and is redirected to their customer dashboard.
+3. C1 opens My Profile and updates their name, email, phone number, or profile image.
+4. C1 logs out and is no longer able to access the customer dashboard directly.
+5. Using a disposable account, C1 confirms account deletion and the account can no longer be used to log in.
+
+#### 2. Customer: US-2 — Pet Profile Management
+
+1. Customer C1 logs in and selects Add a New Pet.
+2. C1 creates pet PT1 with a name, species or breed, age, image, traits, and special-care instructions.
+3. PT1 is saved and displayed on C1's dashboard.
+4. C1 edits PT1 and confirms that the updated information remains after reloading the dashboard.
+5. C1 confirms deletion of PT1 and the pet is removed from the dashboard and database.
+
+#### 3. Customer: US-3 — Browse and Filter Providers
+
+1. Customer C1 logs in and navigates to the provider directory.
+2. C1 enters search criteria such as a keyword, location, service type, or maximum rate.
+3. C1 views the providers matching the selected criteria.
+4. C1 sorts the results by review count, recommendation rate, or starting price.
+5. C1 clears the filters and views the complete provider directory again.
+
+#### 4. Customer: US-4 — View and Contact a Provider
+
+1. Customer C1 selects provider P1 from the directory.
+2. C1 views P1's description, services, rates, reviews, phone number, and email address.
+3. C1 selects Call Provider or Email Provider to open an external contact method.
+4. No appointment or booking is created inside PetPal.
+
+#### 5. Customer: US-5 — Leave and Manage a Review
+
+1. Customer C1 logs in and opens provider P1's profile.
+2. C1 chooses Recommend or Don't Recommend, writes review R1, and submits it.
+3. R1 is saved and displayed in P1's review section.
+4. If P1 has responded, the single provider response appears below R1 without a reply chain.
+5. C1 deletes R1 and the review is removed without affecting reviews written by other customers.
+
 
 #### 6. Provider: 
 1.
@@ -30,12 +61,14 @@
 
 ### Performance Requirements
 
-**Scenario P1: Discover page response time < 1.5 seconds**
-- **Setup:** Server under typical load
+**Scenario P1: Provider directory response time < 2 seconds**
+
+- **Setup:** Server under typical classroom-demo load with at least 5 providers and 10 services
 - **Steps:**
-  1. Measure response time for "Browse" page load with 5 active providers, 10+ services
-  2. Repeat 10 times
-- **Expected Outcome:** 95% of requests ≤ 1.5 seconds
+  1. Measure the response time for loading the provider directory.
+  2. Apply a service and maximum-rate filter.
+  3. Repeat the test 10 times.
+- **Expected Outcome:** At least 95% of directory and filter requests complete in 2 seconds or less.
 
 **Scenario P2:**
 - **Setup:** 
@@ -46,12 +79,16 @@
 
 ### Security & Privacy Requirements
 
-**Scenario S1:**
-- **Setup:** 
+**Scenario S1: Customer pages require a valid customer session**
+
+- **Setup:** Customer C1 is logged out.
 - **Steps:**
-  1. x
-  2. y
-- **Expected Outcome:** 
+  1. C1 enters a customer dashboard, pet edit, profile, or directory URL directly.
+  2. Observe the response.
+- **Expected Outcome:**
+  - C1 is redirected to the login page.
+  - Customer account and pet information are not displayed.
+  - Logging out invalidates the existing customer session.
 
 **Scenario S2:**
 - **Setup:** 
@@ -62,12 +99,18 @@
 
 ### Usability Requirements
 
-**Scenario U1:**
-- **Setup:** 
+**Scenario U1: A new customer creates a pet and finds a provider within 5 minutes**
+
+- **Setup:** A new customer participates in hallway testing while a facilitator records the time.
 - **Steps:**
-  1. x
-  2. y
-- **Expected Outcome:** 
+  1. Customer C1 creates an account and logs in.
+  2. C1 creates pet PT1.
+  3. C1 opens the directory and filters providers by a desired service.
+  4. C1 opens provider P1's profile and locates the contact information.
+- **Expected Outcome:**
+  - C1 completes the workflow without assistance in 5 minutes or less.
+  - Navigation and form labels are understandable.
+  - Saved account and pet information remains visible after reloading the page.
 
 **Scenario U2:**
 - **Setup:** 
