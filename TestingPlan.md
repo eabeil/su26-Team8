@@ -99,19 +99,20 @@
 
 ### Usability Requirements
 
-**Scenario U1: A new customer creates a pet and finds a provider within 5 minutes**
+**Scenario U1: A customer leaves and deletes a review within 2 minutes**
 
-- **Setup:** A new customer participates in hallway testing while a facilitator records the time.
+- **Setup:** Customer C1 is logged in and provider P1 is available in the directory.
 - **Steps:**
-  1. Customer C1 creates an account and logs in.
-  2. C1 creates pet PT1.
-  3. C1 opens the directory and filters providers by a desired service.
-  4. C1 opens provider P1's profile and locates the contact information.
+  1. C1 opens P1's profile.
+  2. C1 chooses a recommendation, writes review R1, and submits it.
+  3. C1 confirms that R1 appears in the Reviews section.
+  4. C1 deletes R1.
 - **Expected Outcome:**
-  - C1 completes the workflow without assistance in 5 minutes or less.
-  - Navigation and form labels are understandable.
-  - Saved account and pet information remains visible after reloading the page.
+  - C1 completes the workflow without assistance in 2 minutes or less.
+  - Success messages clearly confirm creation and deletion.
+  - The page returns to the Reviews section after each action.
 
+  
 **Scenario U2:**
 - **Setup:** 
 - **Steps:**
