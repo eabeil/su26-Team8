@@ -33,15 +33,11 @@ public class Customer {
     @Column(name = "image_url", nullable = true)
     private String imageUrl;
 
-
     @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String phone;
-
-    @Column(nullable = false)
-    private String location;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties({"customer"})
@@ -54,8 +50,6 @@ public class Customer {
     public Customer(String name, String email, String phone, String imageUrl) {
         this.name = name;
         this.imageUrl = imageUrl;
-        this.description = description;
-        this.location = location;
         this.email = email;
         this.phone = phone;
         this.imageUrl = imageUrl;

@@ -36,7 +36,6 @@
                     class="w-24 h-24 rounded-full object-cover border border-gray-200 flex-shrink-0">
                 <div class="flex-1">
                     <h2 class="text-xl font-extrabold tracking-tight mb-2">${pet.name}</h2>
-                    <p class="text-sm text-gray-600 mb-6">${pet.customer.location}</p>
                     <p class="text-sm text-gray-500 leading-relaxed">${pet.description}
                     </p>
                 </div>
@@ -108,7 +107,6 @@
                             <div class="flex justify-between items-start">
                                 <div>
                                     <h3 class="text-xl font-bold">${pet.customer.name}</h3>
-                                    <p class="text-sm text-gray-600 mb-6">${pet.customer.location}</p>
                                 </div>
                             </div>
                         </div>

@@ -134,7 +134,7 @@ public String updateProfile(
         RedirectAttributes redirectAttributes) {
 
     CustomerUpdateDto dto =
-            new CustomerUpdateDto(name, email, phone, imageUrl);
+            new CustomerUpdateDto(name, imageUrl, email, phone);
 
     customerService.updateCustomer(customerId, dto);
 

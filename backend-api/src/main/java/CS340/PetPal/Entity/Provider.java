@@ -45,6 +45,9 @@ public class Provider {
     @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
+    private String password;
+
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties({ "provider" })
     private List<Job> jobs;
@@ -58,7 +61,7 @@ public class Provider {
     private List<Review> reviews;
 
     public Provider(String name, String description, String imageUrl, String address, String phone, String email,
-            List<Job> jobs, List<Update> updates, List<Review> reviews) {
+            String password, List<Job> jobs, List<Update> updates, List<Review> reviews) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
@@ -66,6 +69,7 @@ public class Provider {
         this.phone = phone;
         this.email = email;
         this.jobs = jobs;
+        this.password = password;
         this.updates = updates;
         this.reviews = reviews;
     }

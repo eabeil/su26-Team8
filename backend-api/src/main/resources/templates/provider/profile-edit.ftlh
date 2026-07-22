@@ -43,8 +43,13 @@
                                         class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 mt-8">
                                         Profile Image Link
                                     </label>
-                                    <input type="text" name="imageUrl" required placeholder="Paste an image URL" value="${provider.imageUrl}"
+                                    <input type="text" name="imageUrl" required placeholder="Paste an image URL" value="${(imageUrl)!}"
                                         class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+                                    <#if imageUrlError??>
+                                        <div class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+                                            ${naimageUrlErrormeError}
+                                        </div>
+                                    </#if>
                                 </div>
                             </div>
                             <div>
@@ -52,19 +57,37 @@
                                     class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 mt-8">
                                     Name
                                 </label>
-                                <input type="text" name="name" placeholder="John Doe" value="${provider.name}" required
+                                <input type="text" name="name" placeholder="John Doe" value="${(name)!}" required
                                     class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+                                <#if nameError??>
+                                    <div class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+                                        ${nameError}
+                                    </div>
+                                </#if>
                             </div>
                             <div>
                                 <label
                                     class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 mt-8">
                                     Email
                                 </label>
-                                <input type="text" name="email" placeholder="email@provider.com" value="${provider.email}" required
+                                <input type="text" name="email" placeholder="email@provider.com" value="${(email)!}" required
                                     class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
                                 <#if emailError??>
-                                    <div id="badEmail" class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+                                    <div class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
                                         ${emailError}
+                                    </div>
+                                </#if>
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 mt-8">
+                                    Password (must be 8 characters)
+                                </label>
+                                <input type="password" name="password" placeholder="123password" required
+                                    class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+                                <#if passwordError??>
+                                    <div class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+                                        ${passwordError}
                                     </div>
                                 </#if>
                             </div>
@@ -73,18 +96,28 @@
                                     class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 mt-8">
                                     Phone Number
                                 </label>
-                                <input type="text" name="phone" placeholder="(123) 456-7890" value="${provider.phone}"
+                                <input type="text" name="phone" placeholder="(123) 456-7890" value="${(phone)!}"
                                     required
                                     class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+                                <#if phoneError??>
+                                    <div class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+                                        ${phoneError}
+                                    </div>
+                                </#if>
                             </div>
                             <div>
                                 <label
                                     class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 mt-8">
-                                    Location
+                                    Address
                                 </label>
-                                <input type="text" name="address" placeholder="City, ST" value="${provider.address}"
+                                <input type="text" name="address" placeholder="City, ST" value="${(address)!}"
                                     required
                                     class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+                                <#if addressError??>
+                                    <div class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+                                        ${addressError}
+                                    </div>
+                                </#if>
                             </div>
                             <div>
                                 <label
@@ -93,12 +126,12 @@
                                 </label>
                                 <textarea rows="8" placeholder="What's up?" required name="description"
                                     class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
-${provider.description}
+${(description)!}
                                 </textarea>
                             </div>
 
                             <div class="flex gap-4">
-                                <a href="/provider/${providerId}/dashboard/"
+                                <a href="/provider/${provider.id}/dashboard/"
                                     class="flex justify-center flex-1 px-6 py-4 mt-8 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
                                     Cancel
                                 </a>
@@ -122,6 +155,23 @@ ${provider.description}
         </div>
 
     </main>
+
+    <!-- save page position on reload -->
+    <script>
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', () => {
+                sessionStorage.setItem('scrollY', window.scrollY);
+            });
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const y = sessionStorage.getItem('scrollY');
+            if (y !== null && window.location.hash === '#scrolly') {
+                window.scrollTo(0, parseInt(y, 10));
+                sessionStorage.removeItem('scrollY');
+            }
+        })
+    </script>
 </body>
 
 </html>

@@ -35,9 +35,7 @@
                     class="w-24 h-24 rounded-full object-cover border border-gray-200 flex-shrink-0">
                 <div class="flex-1">
                     <h2 class="text-xl font-extrabold tracking-tight mb-2">${customer.name}</h2>
-                    <p class="text-sm text-gray-600 mb-6">${customer.location}</p>
-                    <p class="text-sm text-gray-500 leading-relaxed">${customer.description}
-                    </p>
+                    <p class="text-sm text-gray-600 mb-6">Greensboro, NC</p>
                 </div>
             </div>
         </section>
@@ -62,7 +60,7 @@
                                 <div>
                                     <h3 class="text-xl font-bold">${pet.name} • ${pet.speciesOrBreed} </h3>
                                     <p class="text-sm text-gray-600 mb-6">${pet.age} years old</p>
-                                    <p class="text-sm text-gray-600 mb-6">lives at ${pet.customer.location} with <a
+                                    <p class="text-sm text-gray-600 mb-6">lives with <a
                                             href="/provider/${provider.id}/customer-profile/${customer.id}">${pet.customer.name}</a>
                                     </p>
                                 </div>

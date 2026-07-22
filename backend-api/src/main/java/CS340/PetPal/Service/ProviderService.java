@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -12,6 +13,7 @@ import CS340.PetPal.Repository.JobRepository;
 import CS340.PetPal.Repository.ProviderRepository;
 import CS340.PetPal.Repository.ReviewRepository;
 import CS340.PetPal.Repository.UpdateRepository;
+import lombok.AllArgsConstructor;
 import CS340.PetPal.Entity.Job;
 import CS340.PetPal.Entity.Provider;
 import CS340.PetPal.Entity.Review;
@@ -20,19 +22,13 @@ import CS340.PetPal.Dto.ProviderCreateDto;
 import CS340.PetPal.Dto.ProviderUpdateDto;
 
 @Service
+@AllArgsConstructor
 public class ProviderService {
     private final ProviderRepository providerRepository;
     private final JobRepository jobRepository;
     private final UpdateRepository updateRepository;
     private final ReviewRepository reviewRepository;
-
-    public ProviderService(ProviderRepository providerRepository, JobRepository jobRepository,
-            ReviewRepository reviewRepository, UpdateRepository updateRepository) {
-        this.providerRepository = providerRepository;
-        this.jobRepository = jobRepository;
-        this.updateRepository = updateRepository;
-        this.reviewRepository = reviewRepository;
-    }
+    private final PasswordEncoder passwordEncoder;
 
     public List<Provider> getAllProviders() {
         return this.providerRepository.findAll();
@@ -45,6 +41,10 @@ public class ProviderService {
         }
         Provider provider = providerO.get();
         return provider;
+    }
+
+    public Provider getProviderByEmail(String email) {
+        return this.providerRepository.findByEmail(email);
     }
 
     public List<Job> getProviderJobs(Long providerId) {
@@ -63,8 +63,9 @@ public class ProviderService {
         if (this.providerRepository.existsByEmail(dto.getEmail())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "already provider with email");
         }
+        String encodedPassword = this.passwordEncoder.encode(dto.getPassword());
         Provider provider = new Provider(dto.getName(), dto.getDescription(), dto.getImageUrl(), dto.getAddress(),
-                dto.getPhone(), dto.getEmail(), Collections.emptyList(), Collections.emptyList(),
+                dto.getPhone(), dto.getEmail(), encodedPassword, Collections.emptyList(), Collections.emptyList(),
                 Collections.emptyList());
         return this.providerRepository.save(provider);
     }
@@ -86,6 +87,8 @@ public class ProviderService {
         provider.setAddress(dto.getAddress());
         provider.setPhone(dto.getPhone());
         provider.setEmail(dto.getEmail());
+        String encodedPassword = this.passwordEncoder.encode(dto.getPassword());
+        provider.setPassword(encodedPassword);
         return this.providerRepository.save(provider);
     }
 
