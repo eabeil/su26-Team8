@@ -317,8 +317,9 @@ public class ProviderUiController {
             redirectAttributes.addAttribute("description", dto.getDescription());
             return ProviderUiController.getRedirect(providerId, "profile-edit") + "#scrolly";
         }
+        String encodedPassword = this.passwordEncoder.encode(dto.getPassword());
         ProviderUpdateDto update_dto = new ProviderUpdateDto(dto.getName().trim(), dto.getDescription().trim(), dto.getImageUrl().trim(),
-                dto.getAddress().trim(), dto.getPhone().trim(), dto.getEmail().trim(), dto.getPassword());
+                dto.getAddress().trim(), dto.getPhone().trim(), dto.getEmail().trim(), encodedPassword);
         this.providerService.updateProvider(providerId, update_dto);
         return ProviderUiController.getRedirect(providerId, "dashboard");
     }
