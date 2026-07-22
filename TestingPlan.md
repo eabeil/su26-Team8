@@ -5,8 +5,8 @@
 
 ## Actors
 - Provider P:
-- Customer C:
-- Service S:
+- Customer C: Users seeking Pet care services
+- Service S: 
 
 ## Use Cases
 #### 1. Customer: US‑CUST‑001 — Register & manage profile

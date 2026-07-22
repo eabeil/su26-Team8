@@ -26,6 +26,7 @@
                     class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
             </div>
 
+            
             <div>
                 <label for="email" class="block text-sm font-semibold mb-2">Email Address</label>
                 <input id="email" name="email" type="email" value="${customerSignup.email!}" autocomplete="email" maxlength="150" required

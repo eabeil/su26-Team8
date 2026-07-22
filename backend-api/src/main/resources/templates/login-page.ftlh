@@ -57,22 +57,23 @@
                 <button  method="get" action="/provider/login" type="submit" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg">
                     Log in as Pet Owner
                 </button>    
-                <a href="/provider/login" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
+                <button  method="get" action="/provider/login" type="submit" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg">
                     Log in as Provider
-                </a>
+                </button>
             </div>
         </form>
 
         <!--sign up card-->
         <div class="pt-4 space-y-3">
-            <p class="text-xs text-center text-gray-400 uppercase tracking-widest font-semibold mb-3"></p>Don't have an account?</p>
-        </div>
+            <p class="text-xs text-center text-gray-400 uppercase tracking-widest font-semibold mb-3">Don't have an account?</p>
+        
             <a href="/customer/sign-up" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm">
                 Sign up as Customer
             </a>
             <a href="/provider/sign-up/" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
                 Sign up as Provider
             </a>
+        </div>    
     </main>
 
 </body>
