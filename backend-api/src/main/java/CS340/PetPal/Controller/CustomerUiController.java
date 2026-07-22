@@ -251,6 +251,7 @@ public class CustomerUiController {
             @RequestParam String name,
             @RequestParam String email,
             @RequestParam String phone,
+            @RequestParam String location,
             @RequestParam(required = false) String imageUrl,
             RedirectAttributes redirectAttributes,
             HttpSession session) {
@@ -258,7 +259,7 @@ public class CustomerUiController {
             return loginRedirect();
         }
 
-        CustomerUpdateDto dto = new CustomerUpdateDto(name, email, phone, imageUrl);
+        CustomerUpdateDto dto = new CustomerUpdateDto(name, email, phone, location, imageUrl);
 
         try {
             customerService.updateCustomer(customerId, dto);

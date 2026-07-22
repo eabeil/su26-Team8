@@ -48,6 +48,7 @@ public class CustomerAuthController {
                     customerSignup.getName(),
                     customerSignup.getEmail(),
                     customerSignup.getPhone(),
+                    customerSignup.getLocation(),
                     customerSignup.getImageUrl(),
                     null,
                     null);

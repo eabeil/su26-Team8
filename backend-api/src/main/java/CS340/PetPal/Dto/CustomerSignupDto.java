@@ -13,6 +13,7 @@ public class CustomerSignupDto {
     private String name;
     private String email;
     private String phone;
+    private String location;
     private String imageUrl;
     private String password;
     private String confirmPassword;

@@ -40,6 +40,9 @@ public class Customer {
     @Column(nullable = false)
     private String phone;
 
+    @Column(nullable = true, length = 120)
+    private String location;
+
     @JsonIgnore
     @Column
     private String password;
@@ -52,10 +55,11 @@ public class Customer {
     @JsonIgnoreProperties({"customer", "provider"})
     private List<Review> reviews;
  
-    public Customer(String name, String email, String phone, String imageUrl) {
+    public Customer(String name, String email, String phone, String location, String imageUrl) {
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.location = location;
         this.imageUrl = imageUrl;
     }
 }

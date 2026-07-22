@@ -44,7 +44,7 @@ public class CustomerService {
   }
 
   public Customer createCustomer(CustomerCreateDto dto){
-    Customer customer = new Customer(dto.getName(), dto.getEmail(), dto.getPhone(), dto.getImageUrl());
+    Customer customer = new Customer(dto.getName(), dto.getEmail(), dto.getPhone(), dto.getLocation(), dto.getImageUrl());
     return this.customerRepository.save(customer);
   }
 
@@ -69,13 +69,15 @@ public class CustomerService {
     String name = clean(dto.getName());
     String email = clean(dto.getEmail()).toLowerCase();
     String phone = clean(dto.getPhone());
+    String location = clean(dto.getLocation());
 
-    validateProfile(customerId, name, email, phone);
+    validateProfile(customerId, name, email, phone, location);
 
     customer.setName(dto.getName());
     customer.setImageUrl(dto.getImageUrl());
     customer.setEmail(dto.getEmail());
     customer.setPhone(dto.getPhone());
+    customer.setLocation(location);
     return this.customerRepository.save(customer);
   }
 
@@ -85,8 +87,8 @@ public class CustomerService {
     this.customerRepository.delete(customer);
   }
 
-  
-  private void validateProfile(Long customerId, String name, String email, String phone) {
+
+  private void validateProfile(Long customerId, String name, String email, String phone, String location) {
         if (name.isEmpty() || !validationService.getIsValidString(name)) {
             throw new IllegalArgumentException("Name is required.");
         }
@@ -95,6 +97,9 @@ public class CustomerService {
         }
         if (!validationService.getIsValidPhoneNumber(phone)) {
             throw new IllegalArgumentException("Use the phone format (123) 456-7890.");
+        }
+        if (location.isEmpty() || !validationService.getIsValidString(location)) {
+            throw new IllegalArgumentException("Location is required.");
         }
 
         Optional<Customer> customerWithEmail = customerRepository.findByEmailIgnoreCase(email);

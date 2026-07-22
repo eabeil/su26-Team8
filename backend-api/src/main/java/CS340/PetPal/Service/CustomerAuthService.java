@@ -27,11 +27,12 @@ public class CustomerAuthService {
         String name = clean(dto.getName());
         String email = clean(dto.getEmail()).toLowerCase();
         String phone = clean(dto.getPhone());
+        String location = clean(dto.getLocation());
         String imageUrl = clean(dto.getImageUrl());
 
-        validateSignup(dto, name, email, phone);
+        validateSignup(dto, name, email, phone, location);
 
-        Customer customer = new Customer(name, email, phone, imageUrl);
+        Customer customer = new Customer(name, email, phone, location, imageUrl);
         customer.setPassword(passwordEncoder.encode(dto.getPassword()));
         return customerRepository.save(customer);
     }
@@ -46,7 +47,7 @@ public class CustomerAuthService {
                 .filter(customer -> passwordEncoder.matches(rawPassword, customer.getPassword()));
     }
 
-    private void validateSignup(CustomerSignupDto dto, String name, String email, String phone) {
+    private void validateSignup(CustomerSignupDto dto, String name, String email, String phone, String location) {
         if (name.isEmpty() || !validationService.getIsValidString(name)) {
             throw new IllegalArgumentException("Name is required.");
         }
@@ -58,6 +59,9 @@ public class CustomerAuthService {
         }
         if (!validationService.getIsValidPhoneNumber(phone)) {
             throw new IllegalArgumentException("Use the phone format (123) 456-7890.");
+        }
+        if (location.isEmpty() || !validationService.getIsValidString(location)) {
+            throw new IllegalArgumentException("Location is required.");
         }
         if (dto.getPassword() == null
                 || !validationService.getIsValidPassword(dto.getPassword())) {

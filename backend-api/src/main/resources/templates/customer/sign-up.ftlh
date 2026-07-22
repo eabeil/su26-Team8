@@ -26,7 +26,7 @@
                     class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
             </div>
 
-            
+
             <div>
                 <label for="email" class="block text-sm font-semibold mb-2">Email Address</label>
                 <input id="email" name="email" type="email" value="${customerSignup.email!}" autocomplete="email" maxlength="150" required
@@ -38,6 +38,13 @@
                 <input id="phone" name="phone" type="tel" value="${customerSignup.phone!}" autocomplete="tel" maxlength="30" required
                     placeholder="(336) 555-0123"
                     pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}"
+                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+            </div>
+            
+            <div>
+                <label for="location" class="block text-sm font-semibold mb-2">City and State</label>
+                <input id="location" name="location" type="text" value="${customerSignup.location!}" maxlength="120" required
+                    placeholder="Greensboro, NC"
                     class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
             </div>
 
