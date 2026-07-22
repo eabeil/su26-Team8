@@ -7,7 +7,7 @@
     <!--tailwind setup-->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body method="get" action="/provider/login" class="bg-gray-50 flex items-center justify-center min-h-screen font-sans text-black flex flex-col">
+<body class="bg-gray-50 flex items-center justify-center min-h-screen font-sans text-black flex flex-col">
 
     <!--login container-->
     <main class="w-full max-w-md p-8 bg-white border border-gray-200 rounded-xl shadow-sm">
@@ -54,7 +54,7 @@
             <div class="pt-4 space-y-3">
                 <p class="text-xs text-center text-gray-400 uppercase tracking-widest font-semibold mb-3">Select your dashboard</p>    
                 <!-- customer login option-->
-                <button type="submit" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg">
+                <button  method="get" action="/provider/login" type="submit" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg">
                     Log in as Pet Owner
                 </button>    
                 <a href="/provider/login" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
