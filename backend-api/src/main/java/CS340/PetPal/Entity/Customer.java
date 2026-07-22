@@ -33,7 +33,6 @@ public class Customer {
     @Column(name = "image_url", nullable = true)
     private String imageUrl;
 
-
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -50,6 +49,7 @@ public class Customer {
  
     public Customer(String name, String email, String phone, String imageUrl) {
         this.name = name;
+        this.imageUrl = imageUrl;
         this.email = email;
         this.phone = phone;
         this.imageUrl = imageUrl;

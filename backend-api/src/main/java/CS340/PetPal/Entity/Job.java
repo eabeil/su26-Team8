@@ -1,6 +1,7 @@
 package CS340.PetPal.Entity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -49,5 +50,9 @@ public class Job {
         this.duration = duration;
         this.price = price;
         this.provider = provider;
+    }
+
+    public String getFormattedTime() {
+        return this.time.format(DateTimeFormatter.ofPattern("EEE, MMM d, yyyy '•' h:mm a"));
     }
 }

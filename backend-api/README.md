@@ -727,8 +727,7 @@ Request body:
 	"description":"description",
 	"imageUrl":"imageUrl",
 	"address":"address",
-	"phone":"phone",
-	"email":"email"
+	"phone":"phone"
 }
 ```
 
@@ -1002,6 +1001,7 @@ Request body:
 {
 	"title":"title",
 	"description":"description",
+  "imageUrl":"image_site.com/my_image.png",
 	"providerId":3
 }
 ```
@@ -1013,6 +1013,7 @@ Example response:
   "title": "title",
   "createdAt": "2026-07-10T19:43:34.715738",
   "description": "description",
+  "imageUrl":"image_site.com/my_image.png",
   "provider": {
     "name": "name",
     "description": "description",
@@ -1037,7 +1038,8 @@ Request body:
 ```json
 {
   "title": "new title",
-  "description": "description"
+  "description": "description", 
+  "imageUrl":"image_site.com/my_image.png"
 }
 ```
 
@@ -1048,6 +1050,7 @@ Example response:
   "title": "new title",
   "createdAt": "2026-07-10T23:23:29.032264051",
   "description": "description",
+  "imageUrl":"image_site.com/my_image.png",
   "provider": {
     "name": "name",
     "description": "description",

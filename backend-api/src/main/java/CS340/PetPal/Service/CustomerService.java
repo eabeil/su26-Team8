@@ -36,12 +36,14 @@ public class CustomerService {
     return this.customerRepository.findAll();
   }
 
-
-  public Customer createCustomer(CustomerCreateDto dto){
-    Customer customer = new Customer(dto.getName(), dto.getEmail(), dto.getPhone(), dto.getImageUrl());
-    return this.customerRepository.save(customer);
+  public List<Customer> getAllCustomersOfName(String name) {
+    return this.customerRepository.findByNameContainingIgnoreCase(name);
   }
 
+  public Customer createCustomer(CustomerCreateDto dto){
+    Customer customer = new Customer(dto.getName(), dto.getEmail(), dto.getEmail(), dto.getPhone());
+    return this.customerRepository.save(customer);
+  }
 
   public Customer getCustomerById(Long customerId) {
     Optional<Customer> customer = customerRepository.findById(customerId);
@@ -62,9 +64,9 @@ public class CustomerService {
   public Customer updateCustomer(long customerId, CustomerUpdateDto dto) {
     Customer customer = getCustomerById(customerId);
     customer.setName(dto.getName());
+    customer.setImageUrl(dto.getImageUrl());
     customer.setEmail(dto.getEmail());
     customer.setPhone(dto.getPhone());
-    customer.setImageUrl(dto.getImageUrl());
     return this.customerRepository.save(customer);
   }
 
