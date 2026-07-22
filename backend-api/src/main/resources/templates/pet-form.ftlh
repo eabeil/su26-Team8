@@ -12,8 +12,14 @@
         <div class="space-x-6 text-sm font-medium">
             <a href="/customer/${customerId?c}/dashboard" class="text-black border-b-2 border-black pb-1">Dashboard</a>
             <a href="/customer/${customerId?c}/providers" class="text-gray-500 hover:text-black transition-colors">Directory</a>
-            <a href="profile.html" class="text-gray-500 hover:text-black transition-colors">My Profile</a>
-            <a href="../common/index.html" class="text-red-600 hover:text-red-800 transition-colors ml-4">Log Out</a>
+            <a href="/customer/${customerId?c}/profile" class="text-gray-500 hover:text-black transition-colors">My Profile</a>
+            <form action="/customer/logout" method="post" class="inline ml-4">
+                <button
+                    type="submit"
+                    class="text-red-600 hover:text-red-800 transition-colors">
+                    Log Out
+                </button>
+            </form>
         </div>
     </nav>
 
@@ -94,6 +100,23 @@
                 </div>
             </form>
         </div>
+
+
+        <#if pet.id??>
+            <section class="mt-10 bg-white border border-red-200 rounded-2xl p-7 shadow-sm">
+                <h2 class="text-lg font-bold text-red-700 mb-2">Delete Pet Profile</h2>
+                <p class="text-sm text-gray-600 mb-5">This removes ${pet.name}'s profile from your account.</p>
+                <form method="post" action="/customer/${customerId?c}/pets/${pet.id?c}/delete">
+                    <label class="flex items-start gap-3 text-sm mb-5">
+                        <input type="checkbox" required class="mt-1 accent-red-700">
+                        <span>I understand that this pet profile cannot be restored.</span>
+                    </label>
+                    <button type="submit" class="bg-red-700 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-red-800 transition-colors">
+                        Delete ${pet.name}'s Profile
+                    </button>
+                </form>
+            </section>
+        </#if>
     </main>
 </body>
 </html>

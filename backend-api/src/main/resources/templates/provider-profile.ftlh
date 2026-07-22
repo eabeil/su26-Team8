@@ -14,8 +14,14 @@
         <div class="space-x-6 text-sm font-medium">
             <a href="/customer/${customerId?c}/dashboard" class="text-gray-500 hover:text-black transition-colors">Dashboard</a>
             <a href="/customer/${customerId?c}/providers" class="text-black border-b-2 border-black pb-1">Directory</a>
-            <a href="profile.html" class="text-gray-500 hover:text-black transition-colors">My Profile</a>
-            <a href="../common/index.html" class="text-red-600 hover:text-red-800 transition-colors ml-4">Log Out</a>
+            <a href="/customer/${customerId?c}/profile" class="text-gray-500 hover:text-black transition-colors">My Profile</a>
+            <form action="/customer/logout" method="post" class="inline ml-4">
+                <button
+                    type="submit"
+                    class="text-red-600 hover:text-red-800 transition-colors">
+                    Log Out
+                </button>
+            </form>
         </div>
     </nav>
     
@@ -27,6 +33,12 @@
                 ${successMessage}
             </p>
         </#if>
+        <#if errorMessage??>
+            <p class="bg-red-50 text-red-800 border border-red-200 rounded-xl px-5 py-3 mb-6 text-sm font-semibold" role="alert">
+                ${errorMessage}
+            </p>
+        </#if>
+        
         
         <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
             
@@ -84,9 +96,14 @@
                         <#list reviews as review>
                             <article class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
                                 <div class="flex items-center justify-between gap-4 mb-2">
-                                    <span class="font-bold">${review.customer.name}</span>
-                                    <#if review.wasEdited>
-                                        <span class="text-xs text-gray-500">Edited</span>
+                                    <div>
+                                        <span class="font-bold">${review.customer.name}</span>
+                                        <p class="text-xs text-gray-500">${review.formattedCreatedAt}</p>
+                                    </div>
+                                    <#if review.customer.id == customerId>
+                                        <form method="post" action="/customer/${customerId?c}/providers/${provider.id?c}/reviews/${review.id?c}/delete">
+                                            <button type="submit" class="text-xs font-semibold text-red-600 hover:text-red-800">Delete</button>
+                                        </form>
                                     </#if>
                                 </div>
 
@@ -100,14 +117,13 @@
                                 <p class="text-gray-600 text-sm leading-relaxed">${review.customerComment}</p>
 
                                 <#if review.hasResponse>
-                                    <div class="mt-4 ml-4 bg-gray-50 border-l-4 border-black rounded-r-lg p-4">
-                                        <p class="text-xs font-bold uppercase tracking-wider mb-2">
-                                            Response from ${provider.name}<#if review.wasResponseEdited> · Edited</#if>
-                                        </p>
-                                        <p class="text-gray-600 text-sm leading-relaxed">${review.providerResponse}</p>
+                                    <div class="mt-4 ml-4 border-l-2 border-gray-300 pl-4 py-1">
+                                        <p class="text-xs font-bold uppercase tracking-wider text-gray-500 mb-1">Response from ${provider.name}</p>
+                                        <p class="text-sm text-gray-600">${review.providerResponse}</p>
                                     </div>
                                 </#if>
                             </article>
+
                         <#else>
                             <div class="bg-white border-2 border-dashed border-gray-300 rounded-xl p-8 text-center">
                                 <p class="font-semibold">No reviews yet.</p>
@@ -144,17 +160,14 @@
                     </div>
 
                     <div class="space-y-3">
-                        <a href="#" class="flex justify-center w-full px-4 py-3 text-black bg-white rounded-lg hover:bg-gray-200 transition-colors font-semibold">
+                        <a href="tel:${provider.phone}" class="flex justify-center w-full px-4 py-3 text-black bg-white rounded-lg hover:bg-gray-200 transition-colors font-semibold">
                         Call Provider
                         </a>
-                        <a href="#" class="flex justify-center w-full px-4 py-3 text-white bg-black border border-gray-600 rounded-lg hover:bg-gray-800 transition-colors font-semibold">
+                        <a href="mailto:${provider.email}" class="flex justify-center w-full px-4 py-3 text-white bg-black border border-gray-600 rounded-lg hover:bg-gray-800 transition-colors font-semibold">
                         Email Provider
                         </a>
                     </div>
                     
-                    <button class="flex items-center justify-center gap-2 w-full mt-6 text-sm font-bold text-gray-400 hover:text-white transition-colors">
-                        <span class="text-lg">♡</span> Save to Favorites
-                    </button>
                 </section>
                 
                 <section class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">

@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import CS340.PetPal.Service.PetService;
-import CS340.PetPal.Entity.Pet;
 import CS340.PetPal.Dto.PetCreateDto;
 import CS340.PetPal.Dto.PetUpdateDto;
+import CS340.PetPal.Entity.Pet;
+import CS340.PetPal.Service.PetService;
 
 @RestController
 @RequestMapping("/api/pets")
@@ -45,7 +45,7 @@ public class PetApiController {
     @PostMapping({ "/", "" })
     public ResponseEntity<Pet> createPet(@RequestBody PetCreateDto dto) {
         Pet pet = this.petService.createPet(dto);
-        URI location = URI.create("/api/customers/" + pet.getId());
+        URI location = URI.create("/api/pets/" + pet.getId());
         return ResponseEntity.created(location).body(pet);
     }
 
