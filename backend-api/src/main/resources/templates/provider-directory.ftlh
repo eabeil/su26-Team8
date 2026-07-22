@@ -13,7 +13,7 @@
         <a href="/customer/${customerId?c}/dashboard" class="text-xl font-extrabold tracking-tight">PetPal</a>
         <div class="space-x-6 text-sm font-medium">
             <a href="/customer/${customerId?c}/dashboard" class="text-gray-500 hover:text-black transition-colors">Dashboard</a>
-            <a href="/customer/${customerId?c}/providers"" class="text-black border-b-2 border-black pb-1">Directory</a>
+            <a href="/customer/${customerId?c}/providers" class="text-black border-b-2 border-black pb-1">Directory</a>
             <a href="/customer/${customerId?c}/profile" class="text-gray-500 hover:text-black transition-colors">My Profile</a>
             <form action="/customer/logout" method="post" class="inline ml-4">
                 <button
@@ -32,11 +32,11 @@
             <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm sticky top-24">
                 <h2 class="text-lg font-bold mb-5">Filter Search</h2>
                 
-                <form onsubmit="event.preventDefault();" class="space-y-5">
+                <form id="provider-filters" method="get" action="/customer/${customerId?c}/providers" class="space-y-5">
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Keyword</label>
                         <div class="relative">
-                            <input type="text" placeholder="Search by name..." class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-sm transition-shadow">
+                            <input type="text" name="keyword" value="${keyword!}" placeholder="Name or description..." class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-sm transition-shadow">
                             <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
@@ -46,30 +46,25 @@
                     <!--location-->
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Location</label>
-                        <input type="text" value="Greensboro, NC" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-sm">
+                        <input type="text" name="location" value="${location!}" placeholder="City or address..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-sm">
                     </div>
 
                     <!--service type-->
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Service Type</label>
-                        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-sm bg-white">
-                            <option>All Services</option>
-                            <option>Dog Walking</option>
-                            <option>Pet Sitting</option>
-                            <option>Grooming</option>
-                            <option>Boarding</option>
+                        <select name="service" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-sm bg-white">
+                            <option value="">All Services</option>
+                            <option value="Dog Walking" <#if (service!"") == "Dog Walking">selected</#if>>Dog Walking</option>
+                            <option value="Pet Sitting" <#if (service!"") == "Pet Sitting">selected</#if>>Pet Sitting</option>
+                            <option value="Grooming" <#if (service!"") == "Grooming">selected</#if>>Grooming</option>
+                            <option value="Boarding" <#if (service!"") == "Boarding">selected</#if>>Boarding</option>
                         </select>
                     </div>
 
-                    <!--price raneg-->
+                    <!--price range-->
                     <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Max Hourly Rate</label>
-                        <input type="range" min="15" max="100" value="50" class="w-full accent-black cursor-pointer">
-                        <div class="flex justify-between text-xs text-gray-500 mt-1">
-                            <span>$15</span>
-                            <span>$50 selected</span>
-                            <span>$100+</span>
-                        </div>
+                        <label for="maxRate" class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Max Rate</label>
+                        <input id="maxRate" name="maxRate" type="number" min="0" step="0.01" <#if maxRate??>value="${maxRate?c}"</#if> placeholder="No maximum" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-sm">
                     </div>
 
                     <!--filter-->
@@ -77,6 +72,9 @@
                         <button type="submit" class="w-full bg-black text-white px-4 py-2.5 rounded-lg font-semibold hover:bg-gray-800 transition-colors text-sm">
                             Apply Filters
                         </button>
+                        <a href="/customer/${customerId?c}/providers" class="block text-center text-sm font-semibold text-gray-500 hover:text-black mt-3">
+                            Clear Filters
+                        </a>
                     </div>
                 </form>
             </div>
@@ -87,15 +85,15 @@
             
             <div class="flex justify-between items-end mb-6">
                 <div>
-                    <h1 class="text-2xl font-bold">Top PetPals near Greensboro</h1>
+                    <h1 class="text-2xl font-bold">PetPal Provider Directory</h1>
                     <p class="text-sm text-gray-500 mt-1">Showing ${providers?size} provider<#if providers?size != 1>s</#if>
                     </p>
                 </div>
                 <!--sorting:down-->
-                <select class="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black bg-white">
-                    <option>Sort by: Recommended</option>
-                    <option>Highest Rated</option>
-                    <option>Price: Low to High</option>
+                <select name="sort" form="provider-filters" class="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black bg-white">
+                    <option value="recommended" <#if (sort!"recommended") == "recommended">selected</#if>>Most Reviewed</option>
+                    <option value="rating" <#if (sort!"") == "rating">selected</#if>>Highest Recommended</option>
+                    <option value="price" <#if (sort!"") == "price">selected</#if>>Price: Low to High</option>
                 </select>
             </div>
 

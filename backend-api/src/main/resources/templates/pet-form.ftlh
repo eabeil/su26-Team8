@@ -100,6 +100,23 @@
                 </div>
             </form>
         </div>
+
+
+        <#if pet.id??>
+            <section class="mt-10 bg-white border border-red-200 rounded-2xl p-7 shadow-sm">
+                <h2 class="text-lg font-bold text-red-700 mb-2">Delete Pet Profile</h2>
+                <p class="text-sm text-gray-600 mb-5">This removes ${pet.name}'s profile from your account.</p>
+                <form method="post" action="/customer/${customerId?c}/pets/${pet.id?c}/delete">
+                    <label class="flex items-start gap-3 text-sm mb-5">
+                        <input type="checkbox" required class="mt-1 accent-red-700">
+                        <span>I understand that this pet profile cannot be restored.</span>
+                    </label>
+                    <button type="submit" class="bg-red-700 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-red-800 transition-colors">
+                        Delete ${pet.name}'s Profile
+                    </button>
+                </form>
+            </section>
+        </#if>
     </main>
 </body>
 </html>

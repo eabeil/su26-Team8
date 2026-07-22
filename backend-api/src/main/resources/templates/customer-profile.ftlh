@@ -23,7 +23,7 @@
         </div>   
     </nav>
 
-    
+
     <main class="max-w-4xl mx-auto px-8 md:px-12 py-12 flex-grow w-full">
         <header class="mb-8">
             <a href="/customer/${customerId?c}/dashboard" class="text-sm text-gray-500 hover:text-black font-semibold mb-4 inline-block">
@@ -37,6 +37,12 @@
                 ${successMessage}
             </p>
         </#if>
+        <#if errorMessage??>
+            <p class="bg-red-50 text-red-800 border border-red-200 rounded-xl px-5 py-3 mb-6 text-sm font-semibold" role="alert">
+                ${errorMessage}
+            </p>
+        </#if>
+
         <form method="post" action="${formAction}" class="space-y-8">
             <section class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
                 <div class="flex flex-col md:flex-row md:items-center gap-6 pb-8 mb-8 border-b border-gray-100">
@@ -118,6 +124,23 @@
                 </button>
             </div>
         </form>
+
+        
+        <section class="mt-12 bg-white border border-red-200 rounded-2xl p-8 shadow-sm">
+            <h2 class="text-xl font-bold text-red-700 mb-2">Delete Customer Account</h2>
+            <p class="text-sm text-gray-600 mb-5">
+                This permanently removes your profile, pets, and reviews. Provider accounts are not affected.
+            </p>
+            <form method="post" action="/customer/${customerId?c}/delete">
+                <label class="flex items-start gap-3 text-sm mb-5">
+                    <input type="checkbox" required class="mt-1 accent-red-700">
+                    <span>I understand that this customer account cannot be restored.</span>
+                </label>
+                <button type="submit" class="bg-red-700 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-red-800 transition-colors">
+                    Delete My Account
+                </button>
+            </form>
+        </section>
     </main>
 </body>
 </html>
