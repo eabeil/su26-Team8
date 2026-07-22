@@ -13,9 +13,17 @@
             <a href="/customer/${customerId?c}/dashboard" class="text-gray-500 hover:text-black transition-colors">Dashboard</a>
             <a href="/customer/${customerId?c}/providers" class="text-gray-500 hover:text-black transition-colors">Directory</a>
             <a href="/customer/${customerId?c}/profile" class="text-black border-b-2 border-black pb-1">My Profile</a>
-            <a href="../common/index.html" class="text-red-600 hover:text-red-800 transition-colors ml-4">Log Out</a>
-        </div>
+            <form action="/customer/logout" method="post" class="inline ml-4">
+                <button
+                    type="submit"
+                    class="text-red-600 hover:text-red-800 transition-colors">
+                    Log Out
+                </button>
+            </form>
+        </div>   
     </nav>
+
+    
     <main class="max-w-4xl mx-auto px-8 md:px-12 py-12 flex-grow w-full">
         <header class="mb-8">
             <a href="/customer/${customerId?c}/dashboard" class="text-sm text-gray-500 hover:text-black font-semibold mb-4 inline-block">
@@ -48,7 +56,7 @@
                         <input
                             id="imageUrl"
                             name="imageUrl"
-                            type="url"
+                            type="text"
                             value="${profile.imageUrl!}"
                             placeholder="https://example.com/profile.jpg"
                             class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">

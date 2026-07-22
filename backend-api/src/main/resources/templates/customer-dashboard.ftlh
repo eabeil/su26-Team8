@@ -13,8 +13,14 @@
             <a href="/customer/${customer.id?c}/dashboard" class="text-black border-b-2 border-black pb-1">Dashboard</a>
             <a href="/customer/${customer.id?c}/providers" class="text-gray-500 hover:text-black transition-colors">Directory</a>
             <a href="/customer/${customerId?c}/profile" class="text-gray-500 hover:text-black transition-colors">My Profile</a>
-            <a href="../common/index.html" class="text-red-600 hover:text-red-800 transition-colors ml-4">Log Out</a>
-        </div>
+            <form action="/customer/logout" method="post" class="inline ml-4">
+                <button
+                    type="submit"
+                    class="text-red-600 hover:text-red-800 transition-colors">
+                    Log Out
+                </button>
+            </form>
+        </div>    
     </nav>
 
     <main class="max-w-5xl mx-auto px-8 md:px-12 py-12 flex-grow w-full">

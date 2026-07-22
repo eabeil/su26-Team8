@@ -1,5 +1,7 @@
 package CS340.PetPal.Controller;
 
+import java.util.Objects;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import CS340.PetPal.Service.CustomerService;
 import CS340.PetPal.Service.PetService;
 import CS340.PetPal.Service.ProviderService;
 import CS340.PetPal.Service.ReviewService;
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -37,7 +40,10 @@ public class CustomerUiController {
     }
 
     @GetMapping("/{customerId}/providers")
-    public String providerDirectory(@PathVariable Long customerId, Model model) {
+    public String providerDirectory(@PathVariable Long customerId, Model model, HttpSession session) {
+        if (!isCurrentCustomer(customerId, session)) {
+            return loginRedirect();
+        }
         model.addAttribute("customerId", customerId);
         model.addAttribute("providers", providerService.getAllProviders());
         return "provider-directory";
@@ -45,7 +51,10 @@ public class CustomerUiController {
 
 
     @GetMapping("/{customerId}/pets/new")
-    public String createPetForm(@PathVariable Long customerId, Model model) {
+    public String createPetForm(@PathVariable Long customerId, Model model, HttpSession session) {
+        if (!isCurrentCustomer(customerId, session)) {
+            return loginRedirect();
+        }
         customerService.getCustomerById(customerId);
         model.addAttribute("customerId", customerId);
         model.addAttribute("pageTitle", "Add a New Pet");
@@ -74,7 +83,10 @@ public class CustomerUiController {
 
     @GetMapping("/{customerId}/pets/{petId}/edit")
     public String updatePetForm(@PathVariable Long customerId,
-            @PathVariable Long petId, Model model) {
+            @PathVariable Long petId, Model model, HttpSession session) {
+        if (!isCurrentCustomer(customerId, session)) {
+            return loginRedirect();
+        }
         Pet pet = petService.getCustomerPet(customerId, petId);
         model.addAttribute("customerId", customerId);
         model.addAttribute("pageTitle", "Update " + pet.getName());
@@ -93,6 +105,7 @@ public class CustomerUiController {
             @RequestParam(required = false) String imageUrl,
             @RequestParam String specialCareInstructions,
             @RequestParam String traits,
+            HttpSession session,
             RedirectAttributes redirectAttributes) {
         PetUpdateDto dto = new PetUpdateDto(name, speciesOrBreed, age, imageUrl,
                 specialCareInstructions, traits);
@@ -104,7 +117,10 @@ public class CustomerUiController {
     }
 
     @GetMapping("/{customerId}/dashboard")
-    public String dashboard(@PathVariable Long customerId, Model model) {
+    public String dashboard(@PathVariable Long customerId, Model model, HttpSession session) {
+        if (!isCurrentCustomer(customerId, session)) {
+            return loginRedirect();
+        }
     Customer customer = customerService.getCustomerById(customerId);
     model.addAttribute("customer", customer);
     model.addAttribute("customerId", customerId);
@@ -118,7 +134,10 @@ public class CustomerUiController {
 
     @GetMapping("/{customerId}/providers/{providerId}")
     public String providerProfile(@PathVariable Long customerId,
-            @PathVariable Long providerId, Model model) {
+            @PathVariable Long providerId, Model model, HttpSession session) {
+        if (!isCurrentCustomer(customerId, session)) {
+            return loginRedirect();
+        }
         model.addAttribute("customerId", customerId);
         model.addAttribute("provider", providerService.getProviderById(providerId));
         model.addAttribute("jobs", providerService.getProviderJobs(providerId));
@@ -129,7 +148,10 @@ public class CustomerUiController {
 
     @PostMapping("/{customerId}/providers/{providerId}/reviews")
     public String createReview(@PathVariable Long customerId, @PathVariable Long providerId, @RequestParam Boolean recommended, @RequestParam String customerComment,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes, HttpSession session) {
+        if (!isCurrentCustomer(customerId, session)) {
+            return loginRedirect();
+        }
         ReviewCreateDto dto = new ReviewCreateDto(
                 recommended, customerComment, customerId, providerId);
 
@@ -146,7 +168,11 @@ public class CustomerUiController {
     @GetMapping("/{customerId}/profile")
     public String updateProfileForm(
         @PathVariable Long customerId,
-        Model model) {
+        Model model,
+        HttpSession session) {
+        if (!isCurrentCustomer(customerId, session)) {
+            return loginRedirect();
+        }
 
     Customer customer =
             customerService.getCustomerById(customerId);
@@ -168,7 +194,11 @@ public class CustomerUiController {
         @RequestParam String email,
         @RequestParam String phone,
         @RequestParam(required = false) String imageUrl,
-        RedirectAttributes redirectAttributes) {
+        RedirectAttributes redirectAttributes,
+        HttpSession session) {
+        if (!isCurrentCustomer(customerId, session)) {
+            return loginRedirect();
+        }
 
     CustomerUpdateDto dto =
             new CustomerUpdateDto(name, email, phone, imageUrl);
@@ -180,7 +210,14 @@ public class CustomerUiController {
             name + "'s profile was updated.");
 
     return "redirect:/customer/" + customerId + "/profile";
-    }   
+    } 
 
+    private boolean isCurrentCustomer(Long customerId, HttpSession session) {
+        return Objects.equals(customerId, session.getAttribute("customerId"));
+    }
+
+    private String loginRedirect() {
+        return "redirect:/";
+    }
     
 }

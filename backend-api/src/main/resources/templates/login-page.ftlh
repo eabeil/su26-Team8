@@ -16,7 +16,20 @@
             <p class="text-sm text-gray-500 mt-2">Find trusted pet care in your neighborhood.</p>
         </div>
     
-        <form method="get" class="space-y-5">
+
+        <#if successMessage??>
+            <p class="mb-5 px-4 py-3 rounded-lg bg-green-50 border border-green-200 text-green-700 text-sm font-medium" role="status">
+                ${successMessage}
+            </p>
+        </#if>
+        <#if loginError??>
+            <p class="mb-5 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium" role="alert">
+                ${loginError}
+            </p>
+        </#if>
+
+
+        <form method="post" action="/customer/login" class="space-y-5">
                 <!--email input-->
             <div>
                 <label class="block text-sm font-semibold mb-1">Email</label>
@@ -41,9 +54,9 @@
             <div class="pt-4 space-y-3">
                 <p class="text-xs text-center text-gray-400 uppercase tracking-widest font-semibold mb-3">Select your dashboard</p>    
                 <!-- customer login option-->
-                <a href="/customer/1/dashboard" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm">
+                <button type="submit" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg">
                     Log in as Pet Owner
-                </a>       
+                </button>    
                 <a href="/provider/login" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
                     Log in as Provider
                 </a>
@@ -51,10 +64,10 @@
         </form>
 
         <!--sign up card-->
-        <div class="mt-8 text-center text-sm text-gray-500">
-            Don't have an account?
+        <div class="pt-4 space-y-3">
+            <p class="text-xs text-center text-gray-400 uppercase tracking-widest font-semibold mb-3"></p>Don't have an account?</p>
         </div>
-            <a href="/customer/sign-up/" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
+            <a href="/customer/sign-up" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm">
                 Sign up as Customer
             </a>
             <a href="/provider/sign-up/" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
