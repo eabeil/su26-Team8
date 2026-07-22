@@ -9,37 +9,42 @@
 - Service S: Pet care activities such as dog walking
 
 ## Use Cases
-#### U1.  <!--eabiel -->
+#### U1.  <!--eabiel-->
 1.
 2. 
 
-#### U2.  <!--eabiel -->
+#### U2.  <!--eabiel-->
 1.
 2. 
 
-#### U3. <!--eabiel -->
+#### U3. <!--eabiel-->
 1.
 2.
 
-#### U4. <!--eabiel -->
+#### U4. <!--eabiel-->
 1.
 2.
 
-#### U5. Provider: Create/modify/remove publically viewable profile which includes contact info
-1. 
-2.
+#### U5. Provider: Create publically viewable profile which includes contact info
+1. User navigates to provider signup page.
+2. User fills in information to create a provider account, including an email which is not already taken.
+3. User creates the account and is redirected to the provider dashboard page.
+4. User edits the provider details in the edit provider details page.
+5. User deletes the provider account and is logged out.
 
 #### U6. Provider: Create a list of pet services with included location, prices, and times available.
-1.
-2.
+1. User logs in as a provider.
+2. User goes to edit services page.
+3. User adds a new service with a location, price, and time.
 
 #### U7. Provider: Post updates about pet services which can include photos and videos.
-1.
-2.
+1. User logs in as a provider.
+2. User posts an update to dashboard.
 
 #### U8. Provider: Reply to customer reviews.
-1.
-2.
+1. User logs in as a provider.
+2. User navigates to review viewing page.
+3. User responds to a customer review.
 
 ## CROSS-CUTTING TEST SCENARIOS (Non-Functional Requirements)
 
@@ -52,12 +57,12 @@
   2.
 - **Expected Outcome:** 95% of requests ≤ 1.5 seconds
 
-**Scenario P2:**
-- **Setup:** 
+**Scenario P2: Provider logs in**
+- **Setup: Server is online** 
 - **Steps:**
-  1. x
-  2. y
-- **Expected Outcome:** 
+  1. User navigates to login page
+  2. User logs in as provider
+- **Expected Outcome: 95% of requests ≤ 1.5 seconds** 
 
 ### Security & Privacy Requirements
 
@@ -133,30 +138,34 @@
   2. y
 - **Expected Outcome:** 
 
-**Scenario U5: Provider: Create/modify/remove publically viewable profile which includes contact info.**
-- **Setup:** 
+**Scenario U5: Provider: Create publically viewable profile which includes contact info.**
+- **Setup: Server is online** 
 - **Steps:**
-  1. x
-  2. y
-- **Expected Outcome:** 
+  1. User navigates to Provider signup page
+  2. User enters info for Provider with a unique email
+  3. User creates Provider account
+- **Expected Outcome: A new Provider is added to the database, and the user is redirected to the Provider dashboard page.** 
 
 **Scenario U6: Provider: Create a list of pet services with included location, prices, and times available.**
-- **Setup:** 
+- **Setup: Server is online** 
 - **Steps:**
-  1. x
-  2. y
-- **Expected Outcome:** 
+  1. User logs in as provider
+  2. User navigates to edit services page
+  3. User enters info about a new services and creates it
+- **Expected Outcome: The service is added to the database and the user's page is updated accordingly.** 
 
 **Scenario U7: Provider: Post updates about pet services which can include photos and videos.**
-- **Setup:** 
+- **Setup: Server is online** 
 - **Steps:**
-  1. x
-  2. y
-- **Expected Outcome:** 
+  1. User logs in as Provider.
+  2. User navigates to dashboard page.
+  2. User fills in update form on dashboard page.
+- **Expected Outcome: The update is added to the database and the Provider's page is updated for all users.** 
 
 **Scenario U8: Provider: Reply to customer reviews.**
-- **Setup:** 
+- **Setup: The server is online and a provider has unresponded  reviews** 
 - **Steps:**
-  1. x
-  2. y
-- **Expected Outcome:** 
+  1. User logs in as Provider.
+  2. User navigates to their review page.
+  3. User fills in response form to respond to a review.
+- **Expected Outcome: The review is updated in the database and the review is updated for all users.** 
