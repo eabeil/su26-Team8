@@ -9,10 +9,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerCreateDto {
+public class ProviderUiUpdateDto {
     private String name;
-    private String email;
-    private String phone;
-    private String location;
+    private String description;
     private String imageUrl;
+    private String address;
+    private String phone;
+    private String email;
+    private String password;
 }

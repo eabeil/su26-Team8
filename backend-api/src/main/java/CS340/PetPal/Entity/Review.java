@@ -1,6 +1,7 @@
 package CS340.PetPal.Entity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -44,15 +45,6 @@ public class Review {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = true)
-    private LocalDateTime respondedAt;
-
-    @Column(nullable = true)
-    private LocalDateTime commentEditedAt;
-
-    @Column(nullable = true)
-    private LocalDateTime responseEditedAt;
-
     // The Customer who wrote the review
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
@@ -65,27 +57,20 @@ public class Review {
     @JsonIgnoreProperties({ "reviews", "updates", "jobs" }) // Prevents infinite loops
     private Provider provider;
 
-    public Review(Boolean recommended, String customerComment, String providerResponse, LocalDateTime createdAt, LocalDateTime respondedAt, LocalDateTime commentEditedAt, LocalDateTime responseEditedAt, Customer customer, Provider provider) {
+    public Review(Boolean recommended, String customerComment, String providerResponse, LocalDateTime createdAt, Customer customer, Provider provider) {
         this.recommended = recommended;
         this.customerComment = customerComment;
         this.providerResponse = providerResponse;
         this.createdAt = createdAt;
-        this.respondedAt = respondedAt;
-        this.commentEditedAt = commentEditedAt;
-        this.responseEditedAt = responseEditedAt;
         this.customer = customer;
-        this.provider = provider;
-    }
-
-    public boolean getWasEdited() {
-        return this.commentEditedAt != null;
+        this.provider = provider; 
     }
 
     public boolean getHasResponse() {
         return this.providerResponse != null;
     }
 
-    public boolean getWasResponseEdited() {
-        return this.getResponseEditedAt() != null;
+    public String getFormattedCreatedAt() {
+        return this.createdAt.format(DateTimeFormatter.ofPattern("EEE, MMM d, yyyy '•' h:mm a"));
     }
 }

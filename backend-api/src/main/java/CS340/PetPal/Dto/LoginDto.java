@@ -7,12 +7,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class CustomerCreateDto {
-    private String name;
+@NoArgsConstructor
+public class LoginDto {
     private String email;
-    private String phone;
-    private String location;
-    private String imageUrl;
+    private String password;    
 }

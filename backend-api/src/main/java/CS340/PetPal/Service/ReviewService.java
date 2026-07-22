@@ -33,6 +33,14 @@ public class ReviewService {
     }
 
     public Review createReview(ReviewCreateDto dto) {
+        if (dto.getRecommended() == null) {
+            throw new IllegalArgumentException("Choose whether you recommend this provider.");
+        }
+        if (dto.getCustomerComment() == null || dto.getCustomerComment().trim().length() < 3) {
+            throw new IllegalArgumentException("Your review must be at least 3 characters long.");
+        }
+
+
         Optional<Customer> customer = this.customerRepostiroy.findById(dto.getCustomerId());
         Optional<Provider> provider = this.providerRepository.findById(dto.getProviderId());
         if (customer.isEmpty() && provider.isEmpty()) {
@@ -45,8 +53,8 @@ public class ReviewService {
         if (provider.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no provider with id " + dto.getProviderId() + ".");
         }
-        Review review = new Review(dto.getRecommended(), dto.getCustomerComment(), null,
-                LocalDateTime.now(), null, null, null, customer.get(), provider.get());
+        Review review = new Review(dto.getRecommended(), dto.getCustomerComment().trim(), null,
+                LocalDateTime.now(), customer.get(), provider.get());
         return reviewRepository.save(review);
     }
 
@@ -64,7 +72,6 @@ public class ReviewService {
 
     public Review editReviewComment(Long reviewId, ReviewEditCommentDto dto) {
         Review review = getReviewById(reviewId);
-        review.setCommentEditedAt(LocalDateTime.now());
         review.setRecommended(dto.getRecommended());
         review.setCustomerComment(dto.getCustomerComment());
         return reviewRepository.save(review);
@@ -77,7 +84,6 @@ public class ReviewService {
                     "This review already has a response.");
         }
         review.setProviderResponse(dto.getProviderResponse());
-        review.setRespondedAt(LocalDateTime.now());
         return reviewRepository.save(review);
     }
 
@@ -89,7 +95,6 @@ public class ReviewService {
         }
         
         review.setProviderResponse(dto.getProviderResponse());
-        review.setResponseEditedAt(LocalDateTime.now());
         return reviewRepository.save(review);
     }
 
@@ -97,4 +102,15 @@ public class ReviewService {
         Review review = getReviewById(reviewId);
         reviewRepository.delete(review);
     }
+
+    public void deleteCustomerReview(Long customerId, Long providerId, Long reviewId) {
+        Review review = getReviewById(reviewId);
+        if (!review.getCustomer().getId().equals(customerId)
+                || !review.getProvider().getId().equals(providerId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "No matching review belongs to this customer and provider.");
+        }
+        reviewRepository.delete(review);
+    }
+    
 }

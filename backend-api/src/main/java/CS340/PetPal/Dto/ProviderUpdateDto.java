@@ -15,4 +15,6 @@ public class ProviderUpdateDto {
     private String imageUrl;
     private String address;
     private String phone;
+    private String email;
+    private String password;
 }

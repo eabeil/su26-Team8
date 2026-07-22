@@ -22,13 +22,16 @@ public class CustomerService {
   private final CustomerRepository customerRepository;
   private final ReviewRepository reviewRepository;
   private final PetRepository petRepository;
+  private final ValidationService validationService;
 
 
-  public CustomerService(CustomerRepository customerRepository, ReviewRepository reviewRepository,
+  public CustomerService(CustomerRepository customerRepository,ValidationService validationService, ReviewRepository reviewRepository,
     PetRepository petRepository) {
     this.customerRepository = customerRepository;
     this.reviewRepository = reviewRepository;
     this.petRepository = petRepository;
+    this.validationService = validationService;
+
     }
 
 
@@ -36,12 +39,14 @@ public class CustomerService {
     return this.customerRepository.findAll();
   }
 
-
-  public Customer createCustomer(CustomerCreateDto dto){
-    Customer customer = new Customer(dto.getName(), dto.getEmail(), dto.getPhone());
-    return this.customerRepository.save(customer);
+  public List<Customer> getAllCustomersOfName(String name) {
+    return this.customerRepository.findByNameContainingIgnoreCase(name);
   }
 
+  public Customer createCustomer(CustomerCreateDto dto){
+    Customer customer = new Customer(dto.getName(), dto.getEmail(), dto.getPhone(), dto.getLocation(), dto.getImageUrl());
+    return this.customerRepository.save(customer);
+  }
 
   public Customer getCustomerById(Long customerId) {
     Optional<Customer> customer = customerRepository.findById(customerId);
@@ -61,9 +66,18 @@ public class CustomerService {
 
   public Customer updateCustomer(long customerId, CustomerUpdateDto dto) {
     Customer customer = getCustomerById(customerId);
+    String name = clean(dto.getName());
+    String email = clean(dto.getEmail()).toLowerCase();
+    String phone = clean(dto.getPhone());
+    String location = clean(dto.getLocation());
+
+    validateProfile(customerId, name, email, phone, location);
+
     customer.setName(dto.getName());
+    customer.setImageUrl(dto.getImageUrl());
     customer.setEmail(dto.getEmail());
     customer.setPhone(dto.getPhone());
+    customer.setLocation(location);
     return this.customerRepository.save(customer);
   }
 
@@ -73,4 +87,29 @@ public class CustomerService {
     this.customerRepository.delete(customer);
   }
 
+
+  private void validateProfile(Long customerId, String name, String email, String phone, String location) {
+        if (name.isEmpty() || !validationService.getIsValidString(name)) {
+            throw new IllegalArgumentException("Name is required.");
+        }
+        if (!validationService.getIsValidEmail(email)) {
+            throw new IllegalArgumentException("Enter a valid email address.");
+        }
+        if (!validationService.getIsValidPhoneNumber(phone)) {
+            throw new IllegalArgumentException("Use the phone format (123) 456-7890.");
+        }
+        if (location.isEmpty() || !validationService.getIsValidString(location)) {
+            throw new IllegalArgumentException("Location is required.");
+        }
+
+        Optional<Customer> customerWithEmail = customerRepository.findByEmailIgnoreCase(email);
+        if (customerWithEmail.isPresent() && !customerWithEmail.get().getId().equals(customerId)) {
+            throw new IllegalArgumentException("An account already uses that email address.");
+        }
+    }
+
+    private String clean(String value) {
+        return value == null ? "" : value.trim();
+    }
 }
+

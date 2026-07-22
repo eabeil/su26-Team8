@@ -52,7 +52,7 @@ public class Update {
         this.provider = provider;
     }
 
-    public String getFormatedCreatedAt() {
-        return this.createdAt.format(DateTimeFormatter.ofPattern("EEE, MMM d '•' h:mm a"));
+    public String getFormattedCreatedAt() {
+        return this.createdAt.format(DateTimeFormatter.ofPattern("EEE, MMM d, yyyy '•' h:mm a"));
     }
 }

@@ -2,6 +2,7 @@ package CS340.PetPal.Entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -30,11 +31,21 @@ public class Customer {
     @Column(nullable = false)
     private String name;
 
+    @Column(name = "image_url", nullable = true)
+    private String imageUrl;
+
     @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String phone;
+
+    @Column(nullable = true, length = 120)
+    private String location;
+
+    @JsonIgnore
+    @Column
+    private String password;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties({"customer"})
@@ -44,9 +55,11 @@ public class Customer {
     @JsonIgnoreProperties({"customer", "provider"})
     private List<Review> reviews;
  
-    public Customer(String name, String email, String phone) {
+    public Customer(String name, String email, String phone, String location, String imageUrl) {
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.location = location;
+        this.imageUrl = imageUrl;
     }
 }

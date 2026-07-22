@@ -17,14 +17,14 @@
             <div class="max-w-4xl mx-auto px-6 py-4 flex items-center">
                 <h1 class="text-2xl font-extrabold tracking-tight">PetPal</h1>
                 <nav class="ml-auto flex items-center gap-6">
-                    <a href="/provider/${providerId}/dashboard"
+                    <a href="/provider/${provider.id}/dashboard"
                         class="text-sm font-semibold text-black hover:text-black transition-colors">Dashboard</a>
-                    <a href="/provider/${providerId}/customer-list"
+                    <a href="/provider/${provider.id}/customer-list"
                         class="text-sm font-semibold text-black hover:text-black underline transition-colors">Customers</a>
-                    <a href="/"
-                        class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
+                    <a href="/" class="text-sm font-semibold text-black hover:text-black transition-colors">Logout</a>
                 </nav>
             </div>
+        </div>
     </header>
 
     <div class="max-w-6xl mx-auto px-8 md:px-12 py-10 flex-grow w-full flex flex-col md:flex-row gap-8">
@@ -35,12 +35,13 @@
             <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm sticky top-24">
                 <h2 class="text-lg font-bold mb-5">Filter Search</h2>
 
-                <form onsubmit="event.preventDefault();" class="space-y-5">
+                <form action="/provider/${provider.id}/customer-list" method="get" class="space-y-5">
                     <div>
                         <label
-                            class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Keyword</label>
+                            class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Name</label>
                         <div class="relative">
-                            <input type="text" placeholder="Search by name..."
+                            <input type="text" name="nameQuery" value="${nameQuery}"
+                                placeholder="Search by name..."
                                 class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-sm transition-shadow">
                             <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"
                                 fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -51,33 +52,11 @@
                         </div>
                     </div>
 
-                    <!--location-->
-                    <div>
-                        <label
-                            class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Location</label>
-                        <input type="text" value="Greensboro, NC"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-sm">
-                    </div>
-
-                    <!--service type-->
-                    <div>
-                        <label
-                            class="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Flags</label>
-                        <label>
-                            Owners
-                            <input type="checkbox" name="owners">
-                        </label>
-                        <label>
-                            Pets
-                            <input type="checkbox" name="pets">
-                        </label>
-                    </div>
-
-                    <!--filter-->
+                    <!--button-->
                     <div class="pt-4 border-t border-gray-100">
                         <button type="submit"
                             class="w-full bg-black text-white px-4py-2.5 rounded-lg font-semibold hover:bg-gray-800 transition-colors text-sm">
-                            Apply Filters
+                            Search
                         </button>
                     </div>
                 </form>
@@ -87,75 +66,33 @@
         <!--right side search-->
         <main class="w-full md:w-2/3 lg:w-3/4">
 
-            <div class="flex justify-between items-end mb-6">
-                <div>
-                    <h1 class="text-2xl font-bold">Top Customers</h1>
-                    <p class="text-sm text-gray-500 mt-1">Showing 2 highly rated matches</p>
-                </div>
-            </div>
-
             <!--cards-->
             <div class="space-y-6">
 
-                <!--card one-->
-                <div
-                    class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm flex flex-col sm:flex-row gap-6 hover:shadow-md transition-shadow">
-                    <!-- Photo -->
-                    <img src="/content/male.jpg" alt="Mike Torres"
-                        class="w-24 h-24 sm:w-32 sm:h-32 rounded-xl object-cover border border-gray-200 flex-shrink-0">
-
-                    <!-- Content -->
-                    <div class="flex-grow flex flex-col">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="text-xl font-bold">Mike Torres</h3>
-                                <p class="text-sm text-gray-600 mb-6">Pet Owner • Greensboro, NC</p>
+                <#list customers as customer>
+                    <div
+                        class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm flex flex-col sm:flex-row gap-6 hover:shadow-md transition-shadow">
+                        <img src="${customer.imageUrl}" alt="${customer.name}"
+                            class="w-24 h-24 sm:w-32 sm:h-32 rounded-xl object-cover border border-gray-200 flex-shrink-0">
+                        <div class="flex-grow flex flex-col">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-xl font-bold">${customer.name}</h3>
+                                    <p class="text-sm text-gray-600 mb-6">Pet Owner</p>
+                                </div>
                             </div>
                         </div>
-
-                        <!--bio-->
-                        <p class="text-sm text-gray-600 line-clamp-2 mb-4">
-                            Hi! I am a greensboro native who loves cats! My favorite cat is my own. 
-                        </p>
-
-                        <!--info-->
                         <div class="mt-auto flex justify-end">
-                            <a href="/provider/${providerId}/customer-profile"
-                                class="text-sm font-semibold border-2 border-black px-6 py-2 rounded-lg hover:bg-black hover:text-white transition-colors">Profile</a>
+                            <a href="/provider/${provider.id}/customer-profile/${customer.id}" class="text-sm
+                                font-semibold border-2 border-black px-6 -y-2 rounded-lg hover:bg-black hover:text-white
+                                transition-colors">
+                                Profile
+                            </a>
                         </div>
                     </div>
-                </div>
+                </#list>
+
             </div>
-
-            <!--card two-->
-            <div
-                class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm flex flex-col sm:flex-row gap-6 hover:shadow-md transition-shadow">
-                <!-- Photo -->
-                <img src="/content/cat.jpg" alt="Grumpy"
-                    class="w-24 h-24 sm:w-32 sm:h-32 rounded-xl object-cover border border-gray-200 flex-shrink-0">
-
-                <!-- Content -->
-                <div class="flex-grow flex flex-col">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="text-xl font-bold">Grumpy</h3>
-                            <p class="text-sm text-gray-600 mb-6">Cat • Greensboro, NC</p>
-                        </div>
-                    </div>
-
-                    <!--bio-->
-                    <p class="text-sm text-gray-600 line-clamp-2 mb-4">
-                        Hi! I am cat. I am the owner of Mike Torres.
-                    </p>
-
-                    <!--info-->
-                    <div class="mt-auto flex justify-end">
-                        <a href="/provider/${providerId}/pet-profile"
-                            class="text-sm font-semibold border-2 border-black px-6 py-2 rounded-lg hover:bg-black hover:text-white transition-colors">Profile</a>
-                    </div>
-                </div>
-            </div>
-    </div>
 
     </div>
     </main>

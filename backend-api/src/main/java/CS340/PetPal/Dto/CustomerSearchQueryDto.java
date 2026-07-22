@@ -9,10 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerCreateDto {
+public class CustomerSearchQueryDto {
     private String name;
-    private String email;
-    private String phone;
-    private String location;
-    private String imageUrl;
 }
