@@ -68,10 +68,10 @@ public class CustomerAuthController {
     @PostMapping({ "/logout", "/logout/" })
     public String logout(HttpServletRequest request) {
        
-        //HttpSession session = request.getSession(false);
-        //if (session != null) {
-            //session.invalidate();
-        //}
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
 
         return "redirect:/";
     }
