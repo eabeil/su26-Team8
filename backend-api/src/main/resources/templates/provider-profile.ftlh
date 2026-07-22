@@ -98,16 +98,8 @@
                                     </#if>
                                 </p>
                                 <p class="text-gray-600 text-sm leading-relaxed">${review.customerComment}</p>
-
-                                <#if review.hasResponse>
-                                    <div class="mt-4 ml-4 bg-gray-50 border-l-4 border-black rounded-r-lg p-4">
-                                        <p class="text-xs font-bold uppercase tracking-wider mb-2">
-                                            Response from ${provider.name}<#if review.wasResponseEdited> · Edited</#if>
-                                        </p>
-                                        <p class="text-gray-600 text-sm leading-relaxed">${review.providerResponse}</p>
-                                    </div>
-                                </#if>
                             </article>
+                            
                         <#else>
                             <div class="bg-white border-2 border-dashed border-gray-300 rounded-xl p-8 text-center">
                                 <p class="font-semibold">No reviews yet.</p>

@@ -41,16 +41,12 @@
             <div class="pt-4 space-y-3">
                 <p class="text-xs text-center text-gray-400 uppercase tracking-widest font-semibold mb-3">Select your dashboard</p>    
                 <!-- customer login option-->
-<<<<<<< HEAD
                 <a href="/customer/1/dashboard" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm">
-=======
-                <button type="submit" formaction="/customer/login" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg hover:bg-gray-800 transition-colors font-medium shadow-sm">
->>>>>>> 6bcdae297a905f143d3ab7f827ad4406a02c106d
                     Log in as Pet Owner
-                </button>       
-                <button type="submit" formaction="/provider/login" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
+                </a>       
+                <a href="/provider/login" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg hover:bg-gray-50 transition-colors font-medium">
                     Log in as Provider
-                </button>
+                </a>
             </div>
         </form>
 

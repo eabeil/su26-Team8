@@ -57,14 +57,13 @@ public class CustomerUiController {
     @PostMapping("/{customerId}/pets")
     public String createPet(@PathVariable Long customerId,
             @RequestParam String name,
-            @RequestParam String description,
             @RequestParam String speciesOrBreed,
             @RequestParam(required = false) Integer age,
             @RequestParam(required = false) String imageUrl,
             @RequestParam String specialCareInstructions,
             @RequestParam String traits,
             RedirectAttributes redirectAttributes) {
-        PetCreateDto dto = new PetCreateDto(name, description, speciesOrBreed, age, imageUrl,
+        PetCreateDto dto = new PetCreateDto(name, speciesOrBreed, age, imageUrl,
                 specialCareInstructions, traits, customerId);
 
         petService.createPet(dto);
@@ -89,14 +88,13 @@ public class CustomerUiController {
     public String updatePet(@PathVariable Long customerId,
             @PathVariable Long petId,
             @RequestParam String name,
-            @RequestParam String description,
             @RequestParam String speciesOrBreed,
             @RequestParam(required = false) Integer age,
             @RequestParam(required = false) String imageUrl,
             @RequestParam String specialCareInstructions,
             @RequestParam String traits,
             RedirectAttributes redirectAttributes) {
-        PetUpdateDto dto = new PetUpdateDto(name, description, speciesOrBreed, age, imageUrl,
+        PetUpdateDto dto = new PetUpdateDto(name, speciesOrBreed, age, imageUrl,
                 specialCareInstructions, traits);
 
         petService.updateCustomerPet(customerId, petId, dto);
@@ -107,11 +105,13 @@ public class CustomerUiController {
 
     @GetMapping("/{customerId}/dashboard")
     public String dashboard(@PathVariable Long customerId, Model model) {
-        model.addAttribute("customer", customerService.getCustomerById(customerId));
-        model.addAttribute("pets", customerService.getCustomerPets(customerId));
-        model.addAttribute("providers", providerService.getAllProviders());
-
-        return "customer-dashboard";
+    Customer customer = customerService.getCustomerById(customerId);
+    model.addAttribute("customer", customer);
+    model.addAttribute("customerId", customerId);
+    model.addAttribute("pets", customerService.getCustomerPets(customerId));
+    model.addAttribute("providers", providerService.getAllProviders());
+        
+    return "customer-dashboard";
     }
 
 

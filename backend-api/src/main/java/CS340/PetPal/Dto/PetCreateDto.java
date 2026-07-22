@@ -11,7 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PetCreateDto {
     private String name;
-    private String description;
     private String speciesOrBreed;
     private Integer age;
     private String imageUrl;
