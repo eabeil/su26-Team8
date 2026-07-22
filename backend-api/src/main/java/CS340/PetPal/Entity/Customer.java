@@ -54,7 +54,6 @@ public class Customer {
  
     public Customer(String name, String email, String phone, String imageUrl) {
         this.name = name;
-        this.imageUrl = imageUrl;
         this.email = email;
         this.phone = phone;
         this.imageUrl = imageUrl;

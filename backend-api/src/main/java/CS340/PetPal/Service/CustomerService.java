@@ -22,13 +22,16 @@ public class CustomerService {
   private final CustomerRepository customerRepository;
   private final ReviewRepository reviewRepository;
   private final PetRepository petRepository;
+  private final ValidationService validationService;
 
 
-  public CustomerService(CustomerRepository customerRepository, ReviewRepository reviewRepository,
+  public CustomerService(CustomerRepository customerRepository,ValidationService validationService, ReviewRepository reviewRepository,
     PetRepository petRepository) {
     this.customerRepository = customerRepository;
     this.reviewRepository = reviewRepository;
     this.petRepository = petRepository;
+    this.validationService = validationService;
+
     }
 
 
@@ -63,6 +66,12 @@ public class CustomerService {
 
   public Customer updateCustomer(long customerId, CustomerUpdateDto dto) {
     Customer customer = getCustomerById(customerId);
+    String name = clean(dto.getName());
+    String email = clean(dto.getEmail()).toLowerCase();
+    String phone = clean(dto.getPhone());
+
+    validateProfile(customerId, name, email, phone);
+
     customer.setName(dto.getName());
     customer.setImageUrl(dto.getImageUrl());
     customer.setEmail(dto.getEmail());
@@ -76,4 +85,26 @@ public class CustomerService {
     this.customerRepository.delete(customer);
   }
 
+  
+  private void validateProfile(Long customerId, String name, String email, String phone) {
+        if (name.isEmpty() || !validationService.getIsValidString(name)) {
+            throw new IllegalArgumentException("Name is required.");
+        }
+        if (!validationService.getIsValidEmail(email)) {
+            throw new IllegalArgumentException("Enter a valid email address.");
+        }
+        if (!validationService.getIsValidPhoneNumber(phone)) {
+            throw new IllegalArgumentException("Use the phone format (123) 456-7890.");
+        }
+
+        Optional<Customer> customerWithEmail = customerRepository.findByEmailIgnoreCase(email);
+        if (customerWithEmail.isPresent() && !customerWithEmail.get().getId().equals(customerId)) {
+            throw new IllegalArgumentException("An account already uses that email address.");
+        }
+    }
+
+    private String clean(String value) {
+        return value == null ? "" : value.trim();
+    }
 }
+

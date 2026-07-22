@@ -26,6 +26,9 @@ public class PetService {
     }
 
     public Pet createPet(PetCreateDto dto) {
+        validatePet(dto.getName(), dto.getSpeciesOrBreed(), dto.getAge(),
+            dto.getSpecialCareInstructions(), dto.getTraits());
+
         Optional<Customer> customer = customerRepository.findById(dto.getCustomerId());
         if (customer.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no customer with id " + dto.getCustomerId() + ".");
@@ -58,6 +61,9 @@ public class PetService {
     }
 
     public Pet savePetUpdates(Pet pet, PetUpdateDto dto) {
+        validatePet(dto.getName(), dto.getSpeciesOrBreed(), dto.getAge(),
+            dto.getSpecialCareInstructions(), dto.getTraits());
+
         pet.setName(dto.getName());
         pet.setSpeciesOrBreed(dto.getSpeciesOrBreed());
         pet.setAge(dto.getAge());
@@ -81,5 +87,28 @@ public class PetService {
     public void deletePet(Long petId) {
         Pet pet = getPetById(petId);
         this.petRepository.delete(pet);
+    }
+
+    public void deleteCustomerPet(Long customerId, Long petId) {
+        Pet pet = getCustomerPet(customerId, petId);
+        petRepository.delete(pet);
+    }
+
+    private void validatePet(String name, String speciesOrBreed, Integer age,
+            String specialCareInstructions, String traits) {
+        if (isBlank(name) || isBlank(speciesOrBreed) || isBlank(specialCareInstructions) || isBlank(traits)) {
+            throw new IllegalArgumentException("Complete all required pet fields.");
+        }
+        if (age != null && (age < 0 || age > 100)) {
+            throw new IllegalArgumentException("Pet age must be between 0 and 100.");
+        }
+    }
+
+    private boolean isBlank(String value) {
+        return value == null || value.trim().isEmpty();
+    }
+
+    private String clean(String value) {
+        return value == null ? "" : value.trim();
     }
 }
