@@ -11,12 +11,12 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping
 public class PetPalUiController {
-    ProviderService providerService; 
+    ProviderService providerService;
 
-    @GetMapping({"", "/"})
+    @GetMapping({ "", "/" })
     public String homePage(Model model, HttpSession session) {
         session.invalidate();
         return "login-page";
     }
-    
+
 }
