@@ -51,10 +51,6 @@ public class ValidationService {
         return ValidationService.PHONE_PATTERN.matcher(number).matches();
     }
 
-    public boolean getIsValidAddress(String name) {
-        return this.getIsValidString((name));
-    }
-
     public boolean getIsValidPrice(Double price) {
         if (price.isNaN()) {
             return false;
@@ -70,5 +66,9 @@ public class ValidationService {
             return false;
         }
         return ValidationService.URL_PATTERN.matcher(url).matches();
+    }
+
+    public boolean getIsValidPassword(String password) {
+        return password.length() > 8;
     }
 }

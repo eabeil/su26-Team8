@@ -108,7 +108,8 @@ public class ProviderUiController {
     }
 
     @GetMapping({ "{providerId}/customer-profile/{customerId}", "{providerId}/customer-profile/{customerId}/" })
-    public String customerProfile(@PathVariable Long providerId, @PathVariable Long customerId, Model model, HttpSession session) {
+    public String customerProfile(@PathVariable Long providerId, @PathVariable Long customerId, Model model,
+            HttpSession session) {
         if (!providerId.equals(session.getAttribute("providerId"))) {
             return "redirect:/";
         }
@@ -132,20 +133,23 @@ public class ProviderUiController {
         model.addAttribute("provider", provider);
         model.addAttribute("updates", updates);
         model.addAttribute("jobs", jobs);
-        UpdateUiCreateDto updateCreateDto = new UpdateUiCreateDto();
-        model.addAttribute("updateCreateDto", updateCreateDto);
         return ProviderUiController.getTemplate("dashboard");
     }
 
     @GetMapping({ "{providerId}/profile-edit", "{providerId}/profile-edit/" })
-    public String editProfile(@PathVariable Long providerId, Model model, HttpSession session) {
+    public String editProfile(@PathVariable Long providerId, Model model, RedirectAttributes redirectAttributes,
+            HttpSession session) {
         if (!providerId.equals(session.getAttribute("providerId"))) {
             return "redirect:/";
         }
         Provider provider = this.providerService.getProviderById(providerId);
         model.addAttribute("provider", provider);
-        ProviderUiUpdateDto providerUpdateDto = new ProviderUiUpdateDto();
-        model.addAttribute("jobCreateDto", providerUpdateDto);
+        redirectAttributes.addAttribute("imageUrl", provider.getImageUrl());
+        redirectAttributes.addAttribute("name", provider.getName());
+        redirectAttributes.addAttribute("email", provider.getEmail());
+        redirectAttributes.addAttribute("phone", provider.getPhone());
+        redirectAttributes.addAttribute("address", provider.getAddress());
+        redirectAttributes.addAttribute("description", provider.getDescription());
         return ProviderUiController.getTemplate("profile-edit");
     }
 
@@ -158,13 +162,12 @@ public class ProviderUiController {
         List<Job> jobs = this.providerService.getProviderJobs(providerId);
         model.addAttribute("provider", provider);
         model.addAttribute("jobs", jobs);
-        JobUiCreateDto jobCreateDto = new JobUiCreateDto();
-        model.addAttribute("jobCreateDto", jobCreateDto);
         return ProviderUiController.getTemplate("jobs-edit");
     }
 
     @GetMapping({ "{providerId}/pet-profile/{petId}", "{providerId}/pet-profile/{petId}" })
-    public String petProfile(@PathVariable Long providerId, @PathVariable Long petId, Model model, HttpSession session) {
+    public String petProfile(@PathVariable Long providerId, @PathVariable Long petId, Model model,
+            HttpSession session) {
         if (!providerId.equals(session.getAttribute("providerId"))) {
             return "redirect:/";
         }
@@ -184,8 +187,6 @@ public class ProviderUiController {
         List<Review> reviews = this.providerService.getProviderReviews(providerId);
         model.addAttribute("provider", provider);
         model.addAttribute("reviews", reviews);
-        ReviewRespondDto reviewRespondDto = new ReviewRespondDto();
-        model.addAttribute("reviewRespondDto", reviewRespondDto);
         return ProviderUiController.getTemplate("reviews");
     }
 
@@ -209,21 +210,19 @@ public class ProviderUiController {
             customers = this.customerService.getAllCustomersOfName(nameQuery);
         }
         model.addAttribute("customers", customers);
-        CustomerSearchQueryDto dto = new CustomerSearchQueryDto();
-        model.addAttribute("dto", dto);
         return ProviderUiController.getTemplate("customer-list");
     }
 
     @GetMapping({ "login", "login/" })
     public String login(@ModelAttribute LoginDto dto, RedirectAttributes redirectAttributes, HttpSession session) {
-        if (!this.providerService.getProviderEmailTaken(dto.getEmail())) {
-            redirectAttributes.addFlashAttribute("email", dto.getEmail());
+        if (!this.providerService.getProviderEmailTaken(dto.getEmail().trim())) {
+            redirectAttributes.addFlashAttribute("email", dto.getEmail().trim());
             redirectAttributes.addFlashAttribute("emailError", "no provider with email");
             return "redirect:/";
         }
-        Provider provider = this.providerService.getProviderByEmail(dto.getEmail());
+        Provider provider = this.providerService.getProviderByEmail(dto.getEmail().trim());
         if (!this.passwordEncoder.matches(dto.getPassword(), provider.getPassword())) {
-            redirectAttributes.addFlashAttribute("email", dto.getEmail());
+            redirectAttributes.addFlashAttribute("email", dto.getEmail().trim());
             redirectAttributes.addFlashAttribute("passwordError", "invalid password");
             return "redirect:/";
         }
@@ -233,13 +232,45 @@ public class ProviderUiController {
 
     @PostMapping({ "create", "create/" })
     public String create(@ModelAttribute ProviderSignupDto dto, RedirectAttributes redirectAttributes) {
-        String email = dto.getEmail();
-        if (this.providerService.getProviderEmailTaken(email)) {
-            redirectAttributes.addFlashAttribute("emailError", "email is already taken");
-            return ProviderUiController.getRedirect("sign-up");
+        boolean isOk = true;
+        if (!this.validationService.getIsValidString(dto.getName().trim())) {
+            redirectAttributes.addFlashAttribute("nameError", "invalid name");
+            isOk = false;
         }
-        ProviderCreateDto service_dto = new ProviderCreateDto(dto.getName(), dto.getDescription(), dto.getImageUrl(),
-                dto.getAddress(), dto.getPhone(), dto.getEmail(), dto.getPassword());
+        if (!this.validationService.getIsValidUrl(dto.getImageUrl().trim())) {
+            redirectAttributes.addFlashAttribute("imageUrlError", "invalid image url");
+            isOk = false;
+        }
+        if (this.providerService.getProviderEmailTaken(dto.getEmail().trim())) {
+            redirectAttributes.addFlashAttribute("emailError", "email is already taken");
+            isOk = false;
+        } else if (!this.validationService.getIsValidEmail(dto.getEmail().trim())) {
+            redirectAttributes.addFlashAttribute("emailError", "email must be in pattern email@provider.com");
+            isOk = false;
+        }
+        if (!this.validationService.getIsValidPhoneNumber(dto.getPhone().trim())) {
+            redirectAttributes.addFlashAttribute("phoneError", "phone must be in pattern (123) 456-7890");
+            isOk = false;
+        }
+        if (!this.validationService.getIsValidString(dto.getAddress().trim())) {
+            redirectAttributes.addFlashAttribute("addressError", "invalid address");
+            isOk = false;
+        }
+        if (!this.validationService.getIsValidPassword(dto.getPassword())) {
+            redirectAttributes.addFlashAttribute("passwordError", "invalid password");
+            isOk = false;
+        }
+        if (!isOk) {
+            redirectAttributes.addFlashAttribute("name", dto.getName());
+            redirectAttributes.addFlashAttribute("imageUrl", dto.getImageUrl());
+            redirectAttributes.addFlashAttribute("email", dto.getEmail());
+            redirectAttributes.addFlashAttribute("phone", dto.getPhone());
+            redirectAttributes.addFlashAttribute("address", dto.getAddress());
+            redirectAttributes.addFlashAttribute("description", dto.getDescription());
+            return ProviderUiController.getRedirect("sign-up") + "#scrolly";
+        }
+        ProviderCreateDto service_dto = new ProviderCreateDto(dto.getName().trim(), dto.getDescription().trim(), dto.getImageUrl().trim(),
+                dto.getAddress().trim(), dto.getPhone().trim(), dto.getEmail().trim(), dto.getPassword());
         Provider provider = this.providerService.createProvider(service_dto);
         return ProviderUiController.getRedirect(provider.getId(), "dashboard");
     }
@@ -250,16 +281,44 @@ public class ProviderUiController {
         if (!providerId.equals(session.getAttribute("providerId"))) {
             return "redirect:/";
         }
-        String email = dto.getEmail().trim();
         Provider provider = this.providerService.getProviderById(providerId);
-        if (!provider.getEmail().equals(email)) {
-            if (this.providerService.getProviderEmailTaken(email)) {
-                redirectAttributes.addFlashAttribute("emailError", "Email is already taken");
-                return ProviderUiController.getRedirect(providerId, "profile-edit");
+        boolean isOk = false;
+        if (!this.validationService.getIsValidString(dto.getName().trim())) {
+            redirectAttributes.addFlashAttribute("nameError", "invalid name");
+            isOk = false;
+        }
+        if (!provider.getEmail().equals(dto.getEmail().trim())) {
+            if (this.providerService.getProviderEmailTaken(dto.getEmail().trim())) {
+                redirectAttributes.addFlashAttribute("emailError", "email is already taken");
+                isOk = false;
+            } else if (!this.validationService.getIsValidEmail(dto.getEmail().trim())) {
+                redirectAttributes.addFlashAttribute("emailError", "invalid email");
+                isOk = false;
             }
         }
-        ProviderUpdateDto update_dto = new ProviderUpdateDto(dto.getName(), dto.getDescription(), dto.getImageUrl(),
-                dto.getAddress(), dto.getPhone(), dto.getEmail(), dto.getPassword());
+        if (!this.validationService.getIsValidPassword(dto.getPassword())) {
+            redirectAttributes.addFlashAttribute("passwordError", "invalid password");
+            isOk = false;
+        }
+        if (!this.validationService.getIsValidPhoneNumber(dto.getPhone().trim())) {
+            redirectAttributes.addFlashAttribute("phoneError", "invalid phone");
+            isOk = false;
+        }
+        if (!this.validationService.getIsValidString(dto.getAddress().trim())) {
+            redirectAttributes.addFlashAttribute("addressError", "invalid address");
+            isOk = false;
+        }
+        if (!isOk) {
+            redirectAttributes.addAttribute("imageUrl", dto.getImageUrl());
+            redirectAttributes.addAttribute("name", dto.getName());
+            redirectAttributes.addAttribute("email", dto.getEmail());
+            redirectAttributes.addAttribute("phone", dto.getPhone());
+            redirectAttributes.addAttribute("address", dto.getAddress());
+            redirectAttributes.addAttribute("description", dto.getDescription());
+            return ProviderUiController.getRedirect(providerId, "profile-edit") + "#scrolly";
+        }
+        ProviderUpdateDto update_dto = new ProviderUpdateDto(dto.getName().trim(), dto.getDescription().trim(), dto.getImageUrl().trim(),
+                dto.getAddress().trim(), dto.getPhone().trim(), dto.getEmail().trim(), dto.getPassword());
         this.providerService.updateProvider(providerId, update_dto);
         return ProviderUiController.getRedirect(providerId, "dashboard");
     }
@@ -274,11 +333,12 @@ public class ProviderUiController {
     }
 
     @PostMapping({ "{providerId}/update/create", "{providerId}/update/create/" })
-    public String createUpdate(@PathVariable Long providerId, @ModelAttribute UpdateUiCreateDto dto, HttpSession session) {
+    public String createUpdate(@PathVariable Long providerId, @ModelAttribute UpdateUiCreateDto dto,
+            HttpSession session) {
         if (!providerId.equals(session.getAttribute("providerId"))) {
             return "redirect:/";
         }
-        UpdateCreateDto service_dto = new UpdateCreateDto(dto.getTitle(), dto.getDescription(), dto.getImageUrl(),
+        UpdateCreateDto service_dto = new UpdateCreateDto(dto.getTitle().trim(), dto.getDescription().trim(), dto.getImageUrl().trim(),
                 providerId);
         this.updateService.createUpdate(service_dto);
         return ProviderUiController.getRedirect(providerId, "dashboard") + "#scrolly";
@@ -291,7 +351,7 @@ public class ProviderUiController {
         }
         Update update = this.updateService.getUpdateById(updateId);
         if (!providerId.equals(update.getProvider().getId())) {
-           throw new ResponseStatusException(HttpStatus.FORBIDDEN, "update not owned by provider");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "update not owned by provider");
         }
         this.updateService.deleteUpdate(updateId);
         return ProviderUiController.getRedirect(providerId, "dashboard") + "#scrolly";
@@ -302,7 +362,7 @@ public class ProviderUiController {
         if (!providerId.equals(session.getAttribute("providerId"))) {
             return "redirect:/";
         }
-        JobCreateDto service_dto = new JobCreateDto(dto.getName(), dto.getTime(), dto.getDuration(), dto.getPrice(),
+        JobCreateDto service_dto = new JobCreateDto(dto.getName().trim(), dto.getTime(), dto.getDuration().trim(), dto.getPrice(),
                 providerId);
         this.jobService.createJob(service_dto);
         return ProviderUiController.getRedirect(providerId, "jobs-edit") + "#scrolly";
@@ -365,12 +425,12 @@ public class ProviderUiController {
     }
 
     @GetMapping({ "{providerId}/customer-list/search", "{providerId}/customer-list/search/ " })
-    public String searchCustomers(@PathVariable Long providerId, @ModelAttribute CustomerSearchQueryDto dto, HttpSession session) {
+    public String searchCustomers(@PathVariable Long providerId, @ModelAttribute CustomerSearchQueryDto dto,
+            HttpSession session) {
         if (!providerId.equals(session.getAttribute("providerId"))) {
             return "redirect:/";
         }
-        String nameQuery = dto.getName().trim();
         return "redirect:" + UriComponentsBuilder.fromPath(ProviderUiController.getUrl(providerId, "customer-list"))
-                .queryParam("name_query", nameQuery).encode().toString();
+                .queryParam("name_query", dto.getName().trim()).encode().toString();
     }
 }

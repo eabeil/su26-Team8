@@ -23,21 +23,31 @@
             <!--name-->
             <div>
                 <label class="block text-sm font-semibold mb-2">Full Name</label>
-                <input type="text" name="name" placeholder="e.g. Jane Doe" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                <input type="text" name="name" placeholder="e.g. Jane Doe" value="${(name)!}" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                <#if nameError??>
+                    <div class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+                        ${nameError}
+                    </div>
+                </#if>
             </div>
 
-            <!--name-->
+            <!--image url-->
             <div>
                 <label class="block text-sm font-semibold mb-2">Profile Image Url</label>
-                <input type="text" name="imageUrl" placeholder="e.g. Jane Doe" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                <input type="text" name="imageUrl" placeholder="e.g. Jane Doe" value="${(imageUrl)!}" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                <#if imageUrlError??>
+                    <div class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+                        ${imageUrlError}
+                    </div>
+                </#if>
             </div>
 
             <!--email-->
             <div>
                 <label class="block text-sm font-semibold mb-2">Email Address</label>
-                <input type="text" name="email" placeholder="you@example.com" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                <input type="text" name="email" placeholder="you@example.com" value="${(email)!}" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
                 <#if emailError??>
-                    <div id="badEmail" class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+                    <div class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
                         ${emailError}
                     </div>
                 </#if>
@@ -49,15 +59,25 @@
                     class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 mt-8">
                     Phone Number
                 </label>
-                <input type="text" name="phone" placeholder="(123) 456-7890"
+                <input type="text" name="phone" value="${(phone)!}" placeholder="(123) 456-7890"
                     required
                     class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all">
+                <#if phoneError??>
+                    <div class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+                        ${phoneError}
+                    </div>
+                </#if>
             </div>
 
-            <!--location-->
+            <!--address-->
             <div>
-                <label class="block text-sm font-semibold mb-2">Location</label>
-                <input type="text" name="address" placeholder="City, ST" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                <label class="block text-sm font-semibold mb-2">Address</label>
+                <input type="text" name="address" placeholder="City, ST" value="${(address)!}" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                <#if addressError??>
+                    <div class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+                        ${addressError}
+                    </div>
+                </#if>
             </div>
 
             <div>
@@ -65,7 +85,7 @@
                     class="block text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 mt-8">
                     Description
                 </label>
-                <textarea rows="8" placeholder="Write about yourself..." required name="description"
+                <textarea rows="8" placeholder="Write about yourself..." name="description" value="${(description)!}"
                     class="w-full px-6 py-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"></textarea>
             </div>
 
@@ -74,6 +94,11 @@
                 <label class="block text-sm font-semibold mb-2">Password</label>
                 <input type="password" name="password" placeholder="••••••••" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
                 <p class="text-xs text-gray-400 mt-2">Must be at least 8 characters.</p>
+                <#if passwordError??>
+                    <div class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
+                        ${passwordError}
+                    </div>
+                </#if>
             </div>
 
             <!--submit-->
@@ -94,5 +119,21 @@
 
     </div>
 
+    <!-- save page position on reload -->
+    <script>
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', () => {
+                sessionStorage.setItem('scrollY', window.scrollY);
+            });
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const y = sessionStorage.getItem('scrollY');
+            if (y !== null && window.location.hash === '#scrolly') {
+                window.scrollTo(0, parseInt(y, 10));
+                sessionStorage.removeItem('scrollY');
+            }
+        })
+    </script>
 </body>
 </html>
