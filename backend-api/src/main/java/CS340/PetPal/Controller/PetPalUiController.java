@@ -20,5 +20,5 @@ public class PetPalUiController {
         session.invalidate();
         return "login-page";
     }
-    
+
 }
