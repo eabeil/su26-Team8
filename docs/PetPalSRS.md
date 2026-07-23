@@ -91,106 +91,53 @@
 
 
 ### 2.2 Provider Stories <!-- Daniel task -->
-- **US-20 — Provider Login**  
-  _Story:_ As a provider, I want to login to my account so that I can edit my profile.
-  _Acceptance:_ The provider can login using Google account.
+- **US-20 — Provider Account Creation**  
+  _Story:_ As a provider, I want create a profile so that I can use PetPal.
+  _Acceptance:_ The provider can create an account.
   ```gherkin
-  Scenario: The provider successfully logs in to her account.
-    Given The provider has a google account.
-    When The provider logs into PetPal app through login page.
-    Then  The provider is logged in and is able to edit her profile.
+  Scenario: The provider successfully creates an account.
+    Given Noone is logged in.
+    When The provider creates an account.
+    Then  A new provider account is added to the system and the provider can sign in.
 
-- **US-21 — Provider Logout**  
-  _Story:_ As a provider, I want to logout of my account so that noone else can access it on my computer.
-  _Acceptance:_ After the provider clicks logout button, account information is no longer accessible.
+  - **US-21 — Provider Pet Services**  
+  _Story:_ As a provider, I want to create a list of services so I can advertise what I offer.
+  _Acceptance:_ The provider can post a list of services to her profile.
   ```gherkin
-  Scenario: The provider logs out of her account.
-    Given The provider is already logged in.
-    When  The provider clicks the logout button (visible on every page once logged in).
-    Then  The provider is logged out of her account.
+  Scenario: The provider successfullyl lists services on her profile.
+    Given The provider is logged in.
+    When The provider creates services on the edt services page.
+    Then  The services are added to the provider's profile and are publically viewable.
 
-- **US-22 — Provider Profile Editing**  
-  _Story:_ As a provider, I want to edit my profile to advertise myself to potential customers.
-  _Acceptance:_ The provider can modify profile images, description, contact info, and other information.
+- **US-22 — Provider Updates**  
+  _Story:_ As a provider, I want to create updates so that customers can see what I am doing.
+  _Acceptance:_ The provider can create post updates to her profile.
   ```gherkin
-  Scenario: The provider successfuly edits every feature of her profile.
-    Given The provider is logged in to her account.
-    When  The provider goes to the profile edit page, modifies her profile, and saves changes.
-    Then  The provider's profile is changed based on her edits.
-  ```
+  Scenario: The provider successfully creates an account.
+    Given The provider is logged in.
+    When The provider posts an update to her dashboard.
+    Then  The update is viewable by customers who view the profile.
 
-- **US-23 — Provider Services List**  
-  _Story:_ As a provider, I want to edit a list of services so that customers can see what I offer.
-  _Acceptance:_ The provider can create and edit a list of services, which includes times avaliable and price information.
+- **US-23 — Provider Review Responses**  
+  _Story:_ As a provider, I want to respond to customer reviews so that I can address their concerns.
+  _Acceptance:_ The provider can respond to reviews on her profile.
   ```gherkin
-  Scenario: The provider changes services listed on her profile.
-    Given The provider is logged in to her account.
-    When  The provider goes to profile edit page and modifies services available.
-    Then  The provider's service list is updated based on her edits.
-
-- **US-24 — Provider Update Feed**  
-  _Story:_ As a provider, I want to post an update so customers can see what I am doing.
-  _Acceptance:_ The provider can post updates which appear in a feed on her profile. The updates include text and an image.
-  ```gherkin
-  Scenario: The provider posts an update to her profile.
-    Given The provider is logged in to her account.
-    When  The provider writes a post and clicks post button on her profile.
-    Then  The provider's post becomes viewable on her profile.
-  ```
-
-- **US-25 — Provider Delete Posts**  
-  _Story:_ As a provider, I want to delete a post from my profile because I made a mistake when writing it.
-  _Acceptance:_ The provider can delete posts from her update feed.
-  ```gherkin
-  Scenario: The provider deletes a post from her profile.
-    Given The provider is logged in to her account.
-    When  The provider clicks a button to delete a post from her profile, and clicks another button to confirm post deletion.
-    Then  The provider's post is deleted from her profile.
-  ```
-
-- **US-26 — Provider Review Response**  
-  _Story:_ As a provider, I want to reply to reviews so I can respond to customers.
-  _Acceptance:_
-  ```gherkin
-  Scenario: Provider can provide a response to customer reviews.
-    Given The provider is logged in to her account.
-    When  The provider writes a response to a customer review and clicks a button to post the response.
-    Then  The provider's response is posted to her profile under the review.
-
-- **US-27 — Provider Profile Deletion**  
-  _Story:_ As a provider, I want delete my profile so that customers stop contacting me for my services.
-  _Acceptance:_ The provider can delete account from the edit profile page.
-  ```gherkin
-  Scenario: The provider deletes her account.
-    Given The provider is logged in to her account.
-    When  The provider can delete her account by clicking a button on the edit profile page and then clicking confirm.
-    Then  The provider should be logged out and her account information and profile should be deleted from the database.
-
-- **US-28 — View Customers**  
-  _Story:_ As a provider, view customer profiles so that I can learn about their needs.
-  _Acceptance:_ The provider can view customer profiles.
-  ```gherkin
-  Scenario: The provider browses customer profiles.
-    Given The provider is logged in to her account.
-    When  The provider searches for customers.
-    Then  The provider can view information from each customer profile.
----
+  Scenario: The provider responds to a customer review.
+    Given The provider is logged in.
+    When The provider writes a response to a review on her profile.
+    Then  Her response is viewable by all customers.
 
 ## 3. Non‑Functional Requirements (make them measurable) 
-- **Performance:** Customers should expect <400ms when filtering through providers, and <300 ms when searching for providers,   <!-- Emmanuel task -->
-- **Security/Privacy:** Customers can use Gmail to log in to ensure secuirty <!-- Emmanuel task -->
+- **Performance:** 
+  * Searching provider directory as a customer should take less than 2 seconds.
+  * Logging in as a provider should take less than 1.5 seconds.
+- **Security/Privacy**
+  * Customer pages require a valid customer session
+  * Cannot access provider account dashboard without logging in.
 - **Availability/Reliability:** The website needs to be avaliable online and needs to remain online as much as possible. It should work well in browsers with different screen sizes.
 - **Usability:** The site should have an understandable user interface.
 
----
-
-## 4. Assumptions, Constraints, and Policies
-<!-- Daniel/Emmanuel add as you see fit after discussing  -->
-- list any rules, policies, assumptions, etc.
-
----
-
-## 5. Milestones (course‑aligned) <!-- we dont change these -->
+## 4. Milestones (course‑aligned) <!-- we dont change these -->
 - **M1 Requirements** — this file + stories opened as issues. 
 - **M2 High‑fidelity prototype** — core customer/provider flows fully interactive. 
 - **M3 Design** — architecture, schema, API outline. 
@@ -200,6 +147,6 @@
 
 ---
 
-## 6. Change Management <!-- we dont change these -->
+## 5. Change Management <!-- we dont change these -->
 - Stories are living artifacts; changes are tracked via repository issues and linked pull requests.  
 - Major changes should update this SRS.

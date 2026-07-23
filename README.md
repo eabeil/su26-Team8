@@ -21,7 +21,7 @@ PetPal is a social network designed to connect pet owners with pet service provi
 
 
 2. Provider:
-    1. Create publically viewable profile which includes contact info.
-    2. Create a list of pet services with included location, prices, and times available.
-    3. Post updates about pet services which can include photos and videos.
-    4. Respond to customer reviews.
+    **US-20 — Provider Account Creation:** As a provider, I want to create a profile so that I can use PetPal.
+    **US-21 — Provider Pet Services** As a provider, I want to create a list of services so I can advertise what I offer.
+    **US-22 — Provider Updates:** As a provider, I want to create updates so that customers can see what I am doing.
+    **US-23 — Provider Review Responses:** As a provider, I want to respond to customer reviews so that I can address their concerns.

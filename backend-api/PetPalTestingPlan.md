@@ -96,41 +96,14 @@
   - Customer account and pet information are not displayed.
   - Logging out invalidates the existing customer session.
 
-**Scenario S2: **  <!--eabiel -->
-- **Setup:  ** 
-- **Steps:**
-  1. 
-  2. 
-- **Expected Outcome: ** 
-
-**Scenario S3: **  <!--eabiel -->
-- **Setup:  ** 
-- **Steps:**
-  1. 
-  2. 
-- **Expected Outcome: ** 
-
-**Scenario S4: Tries to access Provider dashboard without logging in**
+**Scenario S2: Tries to access Provider dashboard without logging in**
 - **Setup:  Provider exists with id 1** 
 - **Steps:**
   1. Navigate to homepage while logged out
   2. Go to provider dashboard directly through GET request /provider/1/dashboard
 - **Expected Outcome: The user is redirected back to the homepage** 
-
-**Scenario S5: Tries to navigate to Customer dashboard while logged in as Provider**
-- **Setup:  Provider exists with id 1 and customer exists with id 1** 
-- **Steps:**
-  1. Login as provider with id 1
-  2. Go to customer dashboard directly through GET request /customer/1/dashboard
-- **Expected Outcome: The user is redirected back to the homepage and logged out** 
-
-**Scenario S6: Tries to delete Provider while logged out**
-- **Setup:  Provider exists with id 1** 
-- **Steps:**
-  1. Navigate to homepage while logged out
-  2. Attempt to delete provider with GET endpoint /provider/1/delete
-- **Expected Outcome: The user is redirected back to the homepage and the Provider is not deleted from the database** 
-
+ - User is redirected to login page
+ 
 ### Usability Requirements
 
 **Scenario U1: A customer leaves and deletes a review within 2 minutes**
