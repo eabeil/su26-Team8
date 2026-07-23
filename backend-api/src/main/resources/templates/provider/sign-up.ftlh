@@ -34,7 +34,7 @@
             <!--image url-->
             <div>
                 <label class="block text-sm font-semibold mb-2">Profile Image Url</label>
-                <input type="text" name="imageUrl" placeholder="e.g. Jane Doe" value="${(imageUrl)!}" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                <input type="text" name="imageUrl" placeholder="e.g. image.com" value="${(imageUrl)!}" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
                 <#if imageUrlError??>
                     <div class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
                         ${imageUrlError}
@@ -92,7 +92,7 @@
             <!--password-->
             <div>
                 <label class="block text-sm font-semibold mb-2">Password</label>
-                <input type="password" name="password" placeholder="••••••••" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
+                <input type="password" name="password" value="" placeholder="••••••••" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black">
                 <p class="text-xs text-gray-400 mt-2">Must be at least 8 characters.</p>
                 <#if passwordError??>
                     <div class="mb-4 px-4 py-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm font-medium">
