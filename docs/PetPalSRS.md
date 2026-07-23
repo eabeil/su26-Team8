@@ -76,7 +76,7 @@
     Then  the system displays a list of providers who offer that service within the price range, sorted by review ratings
   ```
 
-- **US‑4 — Write a review**  
+- **US‑4 — Access provider profile and Write reviews**  
   _Story:_ As a customer, I want to write a reviews, so that I can leave feedback for the provider.
   _Acceptance:_
   ```gherkin
@@ -86,14 +86,7 @@
     Then  the system saves the review and updates the provider's public profile with the new rating
   ```
 
-- **US‑5 — Acess provider details**  
-  _Story:_ As a customer, I want access a provider's contact details, so that I can reach out to them directly to schedule an appointment off-platform. 
-  _Acceptance:_
-  ```gherkin
-  Scenario: Accessing contact details to book service
-    Given the customer is viewing a specific provider's profile
-    When  they click the "Contact Provider" button
-    Then  the system displays the provider's business phone number, email, and external website link
+
   ```
 
 
