@@ -47,7 +47,7 @@
                 <button  method="get" action="/provider/login" type="submit" class="flex justify-center w-full px-4 py-2.5 text-white bg-black rounded-lg">
                     Log in as Pet Owner
                 </button>    
-                <button  method="get" action="/provider/login" type="submit" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg">
+                <button  formmethod="post" formaction="/provider/login" type="submit" class="flex justify-center w-full px-4 py-2.5 text-black bg-white border-2 border-black rounded-lg">
                     Log in as Provider
                 </button>
             </div>
