@@ -80,7 +80,7 @@
 
         <section>
             <div class="flex justify-between items-end mb-6">
-                <h2 class="text-xl font-bold">Saved PetPals</h2>
+                <h2 class="text-xl font-bold">Local PetPals</h2>
                 <a href="/customer/${customer.id?c}/providers" class="text-sm font-bold hover:underline">Find more PetPals &rarr;</a>
             </div>
 
