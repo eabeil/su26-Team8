@@ -34,7 +34,7 @@
             <h3 class="text-xs text-center text-gray-500 uppercase tracking-widest font-semibold mb-2">
                 My ratings
             </h3>
-            <p class="text-center text-2xl font-extrabold tracking-tight">75% like / 25% dislike (4 reviews)</p>
+            <p class="text-center text-2xl font-extrabold tracking-tight">Reviews</p>
         </section>
 
         <!-- REVIEWS -->

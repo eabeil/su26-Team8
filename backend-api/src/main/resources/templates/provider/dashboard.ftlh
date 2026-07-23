@@ -52,7 +52,7 @@
             <h3 class="text-xs text-center text-gray-500 uppercase tracking-widest font-semibold mb-2">
                 My ratings
             </h3>
-            <p class="text-center text-2xl font-extrabold tracking-tight mb-2">75% like / 25% dislike (4 reviews)</p>
+            <p class="text-center text-2xl font-extrabold tracking-tight mb-2">Reviews</p>
             <a href="/provider/${providerId}/reviews"
                 class="flex justify-center px-6 py-4 text-white bg-black rounded-lg hover:bg-gray-500 transition-colors font-medium shadow-sm">
                 View and Respond to Reviews
