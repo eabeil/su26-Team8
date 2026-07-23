@@ -48,7 +48,7 @@
                 <#list reviews as review>
                     <article class="border border-gray-200 rounded-lg p-8">
                         <div class="flex items-center justify-between">
-                            <img src="" alt="Profile picture"
+                            <img src="${review.customer.imageUrl}" alt="Profile picture"
                                 class="w-16 h-16 rounded-full object-cover border border-gray-200 flex-shrink-0">
                             <a href="/provider/${provider.id}/customer-profile/${review.customer.id}"
                                 class="text-sm font-semibold">${review.customer.name}</a>
