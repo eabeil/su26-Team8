@@ -36,8 +36,6 @@
                     class="w-24 h-24 rounded-full object-cover border border-gray-200 flex-shrink-0">
                 <div class="flex-1">
                     <h2 class="text-xl font-extrabold tracking-tight mb-2">${pet.name}</h2>
-                    <p class="text-sm text-gray-500 leading-relaxed">${pet.description}
-                    </p>
                 </div>
             </div>
         </section>
