@@ -213,17 +213,15 @@ public class ProviderUiController {
         return ProviderUiController.getTemplate("customer-list");
     }
 
-    @GetMapping({ "login", "login/" })
+    @PostMapping({ "login", "login/" })
     public String login(@ModelAttribute LoginDto dto, RedirectAttributes redirectAttributes, HttpSession session) {
         if (!this.providerService.getProviderEmailTaken(dto.getEmail().trim())) {
-            redirectAttributes.addFlashAttribute("email", dto.getEmail().trim());
-            redirectAttributes.addFlashAttribute("emailError", "no provider with email");
+            redirectAttributes.addFlashAttribute("loginError", "invalid username or password");
             return "redirect:/";
         }
         Provider provider = this.providerService.getProviderByEmail(dto.getEmail().trim());
         if (!this.passwordEncoder.matches(dto.getPassword(), provider.getPassword())) {
-            redirectAttributes.addFlashAttribute("email", dto.getEmail().trim());
-            redirectAttributes.addFlashAttribute("passwordError", "invalid password");
+            redirectAttributes.addFlashAttribute("loginError", "invalid username or password");
             return "redirect:/";
         }
         session.setAttribute("providerId", provider.getId());
@@ -269,9 +267,11 @@ public class ProviderUiController {
             redirectAttributes.addFlashAttribute("description", dto.getDescription());
             return ProviderUiController.getRedirect("sign-up") + "#scrolly";
         }
-        ProviderCreateDto service_dto = new ProviderCreateDto(dto.getName().trim(), dto.getDescription().trim(), dto.getImageUrl().trim(),
+        ProviderCreateDto service_dto = new ProviderCreateDto(dto.getName().trim(), dto.getDescription().trim(),
+                dto.getImageUrl().trim(),
                 dto.getAddress().trim(), dto.getPhone().trim(), dto.getEmail().trim(), dto.getPassword());
         Provider provider = this.providerService.createProvider(service_dto);
+        redirectAttributes.addFlashAttribute("successMessage", dto.getName().trim() + "'s 's profile was created.");
         return ProviderUiController.getRedirect(provider.getId(), "dashboard");
     }
 
@@ -317,7 +317,8 @@ public class ProviderUiController {
             redirectAttributes.addAttribute("description", dto.getDescription());
             return ProviderUiController.getRedirect(providerId, "profile-edit") + "#scrolly";
         }
-        ProviderUpdateDto update_dto = new ProviderUpdateDto(dto.getName().trim(), dto.getDescription().trim(), dto.getImageUrl().trim(),
+        ProviderUpdateDto update_dto = new ProviderUpdateDto(dto.getName().trim(), dto.getDescription().trim(),
+                dto.getImageUrl().trim(),
                 dto.getAddress().trim(), dto.getPhone().trim(), dto.getEmail().trim(), dto.getPassword());
         this.providerService.updateProvider(providerId, update_dto);
         return ProviderUiController.getRedirect(providerId, "dashboard");
@@ -338,7 +339,8 @@ public class ProviderUiController {
         if (!providerId.equals(session.getAttribute("providerId"))) {
             return "redirect:/";
         }
-        UpdateCreateDto service_dto = new UpdateCreateDto(dto.getTitle().trim(), dto.getDescription().trim(), dto.getImageUrl().trim(),
+        UpdateCreateDto service_dto = new UpdateCreateDto(dto.getTitle().trim(), dto.getDescription().trim(),
+                dto.getImageUrl().trim(),
                 providerId);
         this.updateService.createUpdate(service_dto);
         return ProviderUiController.getRedirect(providerId, "dashboard") + "#scrolly";
@@ -362,7 +364,8 @@ public class ProviderUiController {
         if (!providerId.equals(session.getAttribute("providerId"))) {
             return "redirect:/";
         }
-        JobCreateDto service_dto = new JobCreateDto(dto.getName().trim(), dto.getTime(), dto.getDuration().trim(), dto.getPrice(),
+        JobCreateDto service_dto = new JobCreateDto(dto.getName().trim(), dto.getTime(), dto.getDuration().trim(),
+                dto.getPrice(),
                 providerId);
         this.jobService.createJob(service_dto);
         return ProviderUiController.getRedirect(providerId, "jobs-edit") + "#scrolly";
