@@ -5,7 +5,7 @@
 
 ## Actors
 - Provider P:
-- Customer C: A registered pet owner with an active session.
+- Customer C: Pet owners lookiing for petcare services.
 - Service S: 
 
 ## Use Cases
@@ -33,14 +33,8 @@
 4. C1 sorts the results by review count, recommendation rate, or starting price.
 5. C1 clears the filters and views the complete provider directory again.
 
-#### 4. Customer: US-4 — View and Contact a Provider
 
-1. Customer C1 selects provider P1 from the directory.
-2. C1 views P1's description, services, rates, reviews, phone number, and email address.
-3. C1 selects Call Provider or Email Provider to open an external contact method.
-4. No appointment or booking is created inside PetPal.
-
-#### 5. Customer: US-5 — Leave and Manage a Review
+#### 4. Customer: US-4 — View providers profile and leave review
 
 1. Customer C1 logs in and opens provider P1's profile.
 2. C1 chooses Recommend or Don't Recommend, writes review R1, and submits it.
